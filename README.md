@@ -38,3 +38,5 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 1. React-Scripts
 1. Semantic-UI
 1. Semantic-UI-React
+1. Moment.js
+1. React-Moment

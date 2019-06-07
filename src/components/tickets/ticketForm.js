@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Header, Form, Grid, Button } from 'semantic-ui-react';
+import Moment from 'react-moment';
+import moment from 'moment';
 import Tickets from '../../modules/ticketManager';
 
 export default class TicketForm extends Component {
@@ -22,7 +24,7 @@ export default class TicketForm extends Component {
       ticketComplete: this.state.ticketComplete,
       ticketTitle: this.state.ticketTitle,
       ticketBody: this.state.ticketBody,
-      submitTime: Date.now(),
+      submitTime: moment(new Date()).format('llll'),
       linked: this.state.linked,
       solutionNotes: this.state.solutionNotes
     })
