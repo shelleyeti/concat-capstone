@@ -3,7 +3,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## To Get Started
-1. Open your terminal, nagivgate to the directory you would like to save this project, and run the command ```git clone {address}```
+1. Open your terminal, nagivgate to the directory you would like to save this project, and run the command ```git clone git@github.com:shelleyeti/concat-capstone.git```
 1. Run ```npm install``` to git all the node dependencies
 1. Navigate to the API folder to start the JSON server on port 8088
   - ```json-server -w database.json -p 8088```

@@ -1,21 +1,26 @@
-import React from 'react';
-import { Header, Form, Grid, Button } from 'semantic-ui-react'
-//2 imports
-import * as firebase from 'firebase/app'
-import 'firebase/storage'
-import { saveProfile } from '../APIManager/profiles'
+import React, { Component } from 'react';
+import { Header, Form, Grid, Button } from 'semantic-ui-react';
+import * as firebase from 'firebase/app';
+import 'firebase/storage';
+import Tickets from '../../modules/ticketManager';
 
-class ProfileForm extends React.Component {
+export default class TicketForm extends Component {
   //reference to dicterory in bucket
-  storageRef = firebase.storage().ref("profiles");
+  storageRef = firebase.storage().ref("ticketsImages");
 
   state = {
-    username: '',
-    about: '',
+    userId: '',
+    classId: '',
+    ticketComplete: '',
+    ticketTitle: '',
+    ticketBody: '',
+    submitTime: '',
+    linked: '',
+    solutionNotes: '',
     photo: null
   };
 
-  saveProfile = () => {
+  saveTicket = () => {
     //refence to an image in bucket about to be saved 
     const ref = this.storageRef.child(`${Date.now()}`)
     //uploads to firebase
@@ -24,10 +29,16 @@ class ProfileForm extends React.Component {
       .then(data => data.ref.getDownloadURL())
       .then(console.log(`success`))
       .then(url => {
-        saveProfile({
-          username: this.state.username,
-          about: this.state.about,
-          photoURL: url
+        Tickets.saveTicket({
+          userId: this.state.userId,
+          classId: this.state.classId,
+          ticketComplete: this.state.ticketComplete,
+          ticketTitle: this.state.ticketTitle,
+          ticketBody: this.state.ticketBody,
+          submitTime: this.state.submitTime,
+          linked: this.state.linked,
+          solutionNotes: this.state.solutionNotes,
+          photo: url
         })
       })
   }
@@ -36,31 +47,31 @@ class ProfileForm extends React.Component {
     return (
       <div className="image-form--container">
         <Header>
-          Add a Profile
+          Submit a New Ticket
         </Header>
         <Grid>
           <Grid.Row centered>
             <Grid.Column largeScreen={ 4 } computer={ 6 } tablet={ 8 } mobile={ 12 }>
-              <Form onSubmit={ this.saveProfile }>
+              <Form onSubmit={ this.saveTicket }>
                 <Form.Field
                   control="input"
                   type="text"
-                  label="Username"
-                  onChange={ (e) => this.setState({ username: e.target.value }) }
-                  placeholder="Username" />
+                  label="Ticket Title"
+                  onChange={ (e) => this.setState({ ticketTitle: e.target.value }) }
+                  placeholder="Ticket Title" />
                 <Form.Field
                   control="textarea"
                   type="text"
-                  label="About"
+                  label="Ticket Body"
                   onChange={ (e) => this.setState({ about: e.target.value }) }
-                  placeholder="About me" />
-                <Form.Field
+                  placeholder="Ticket Body" />
+                {/* <Form.Field
                   control="input"
                   type="file"
                   label="photo"
                   //files don't use .value and come through as an array
                   onChange={ (e) => this.setState({ photo: e.target.files[0] }) }
-                  placeholder="Photo" />
+                  placeholder="Photo" /> */}
                 <Button type="submit" content="Save" color="purple" />
               </Form>
             </Grid.Column>
@@ -70,5 +81,3 @@ class ProfileForm extends React.Component {
     )
   }
 }
-
-export default ProfileForm;
