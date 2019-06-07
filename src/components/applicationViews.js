@@ -110,7 +110,19 @@ class ApplicationViews extends Component {
               // }
             } }
             />
-            <Route exact path="/tickets/new" component={ TicketForm }></Route>
+            <Route exact path="/tickets/new" render={ (props) => {
+              // if (this.isAuthenticated()) {
+              return <TicketForm
+                { ...props }
+                // activeUser={ this.props.activeUser }
+                ticket={ this.state.tickets }
+                editTicket={ this.editTicket }
+              />
+              // } else {
+              //   return <Redirect to="/" />
+              // }
+            } }
+            />
           </Router>
         </div>
       </>

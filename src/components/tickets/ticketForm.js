@@ -1,32 +1,21 @@
 import React, { Component } from 'react';
 import { Header, Form, Grid, Button } from 'semantic-ui-react';
-import Moment from 'react-moment';
 import moment from 'moment';
 import Tickets from '../../modules/ticketManager';
 
 export default class TicketForm extends Component {
 
-  // state = {
-  //   userId: '',
-  //   classId: '',
-  //   ticketComplete: '',
-  //   ticketTitle: '',
-  //   ticketBody: '',
-  //   submitTime: '',
-  //   linked: '',
-  //   solutionNotes: ''
-  // };
-
-  saveTicket = () => {
+  newTicket = () => {
     Tickets.saveTicket({
-      userId: this.state.userId,
-      classId: this.state.classId,
-      ticketComplete: this.state.ticketComplete,
+      userId: this.props.userId,
+      classId: this.props.classId,
+      ticketComplete: false,
       ticketTitle: this.state.ticketTitle,
       ticketBody: this.state.ticketBody,
       submitTime: moment(new Date()).format('llll'),
-      linked: this.state.linked,
-      solutionNotes: this.state.solutionNotes
+      open: true,
+      linked: false,
+      solutionNotes: null
     })
   }
 
@@ -39,7 +28,7 @@ export default class TicketForm extends Component {
         <Grid>
           <Grid.Row centered>
             <Grid.Column largeScreen={ 4 } computer={ 6 } tablet={ 8 } mobile={ 12 }>
-              <Form onSubmit={ this.saveTicket }>
+              <Form onSubmit={ this.newTicket }>
                 <Form.Field
                   control="input"
                   type="text"

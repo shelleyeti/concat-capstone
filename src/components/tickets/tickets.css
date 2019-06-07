@@ -6,7 +6,7 @@
   margin-right: 30px;
 }
 
-.current-ticket {
+.current-ticket-container {
   border: 5px solid red;
   display: inline-block;
   width: 40%;

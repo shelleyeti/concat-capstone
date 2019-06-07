@@ -10,16 +10,19 @@ class OpenTicketHeader extends Component {
 
 export default class TicketList extends Component {
   render() {
-    let classTickets = this.props.ticket.map((item, index) => {
+    let openTicket = this.props.ticket.filter((ticket) => {
+      if (ticket.ticketComplete === false)
+        return ticket;
+    });
+
+    let classTickets = openTicket.map((item, index) => {
 
       return (
         <TicketListItem
           key={ index }
           item={ item }
           index={ index }
-          editTask={ this.props.editTask }
-          removeItem={ this.props.removeItem }
-          markTodoDone={ this.props.markTodoDone } />
+          editTicket={ this.props.editTicket } />
       );
     });
     return (
