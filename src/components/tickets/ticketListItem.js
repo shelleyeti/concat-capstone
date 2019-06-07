@@ -11,8 +11,8 @@ export default class TicketList extends Component {
         <Card.Content>
           <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
           <Card.Description>{ this.props.item.ticketBody }</Card.Description>
-          <Button>Complete</Button>
           <Card.Meta>{ this.props.item.submitTime }</Card.Meta>
+          <Button>Assign</Button>
         </Card.Content>
       </Card>
     )

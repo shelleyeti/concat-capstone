@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import { Header, Form, Grid, Button } from 'semantic-ui-react';
-import * as firebase from 'firebase/app';
-import 'firebase/storage';
 import Tickets from '../../modules/ticketManager';
 
 export default class TicketForm extends Component {
-  //reference to dicterory in bucket
-  storageRef = firebase.storage().ref("ticketImage");
 
   // state = {
   //   userId: '',
@@ -16,31 +12,20 @@ export default class TicketForm extends Component {
   //   ticketBody: '',
   //   submitTime: '',
   //   linked: '',
-  //   solutionNotes: '',
-  //   photo: null
+  //   solutionNotes: ''
   // };
 
   saveTicket = () => {
-    //refence to an image in bucket about to be saved 
-    const ref = this.storageRef.child(`${Date.now()}`)
-    //uploads to firebase
-    ref.put(this.state.photo)
-      //gets image name that was uploaded
-      .then(data => data.ref.getDownloadURL())
-      .then(console.log(`success`))
-      .then(url => {
-        Tickets.saveTicket({
-          userId: this.state.userId,
-          classId: this.state.classId,
-          ticketComplete: this.state.ticketComplete,
-          ticketTitle: this.state.ticketTitle,
-          ticketBody: this.state.ticketBody,
-          submitTime: this.state.submitTime,
-          linked: this.state.linked,
-          solutionNotes: this.state.solutionNotes,
-          photo: url
-        })
-      })
+    Tickets.saveTicket({
+      userId: this.state.userId,
+      classId: this.state.classId,
+      ticketComplete: this.state.ticketComplete,
+      ticketTitle: this.state.ticketTitle,
+      ticketBody: this.state.ticketBody,
+      submitTime: Date.now(),
+      linked: this.state.linked,
+      solutionNotes: this.state.solutionNotes
+    })
   }
 
   render() {
@@ -63,16 +48,9 @@ export default class TicketForm extends Component {
                   control="textarea"
                   type="text"
                   label="Ticket Body"
-                  onChange={ (e) => this.setState({ about: e.target.value }) }
+                  onChange={ (e) => this.setState({ ticketBody: e.target.value }) }
                   placeholder="Ticket Body" />
-                <Form.Field
-                  control="input"
-                  type="file"
-                  label="Photo"
-                  //files don't use .value and come through as an array
-                  onChange={ (e) => this.setState({ photo: e.target.files[0] }) }
-                  placeholder="Photo" />
-                <Button type="submit" content="Save" color="purple" />
+                <Button type="submit" content="Save" basic color="black" floated="right" />
               </Form>
             </Grid.Column>
           </Grid.Row>
