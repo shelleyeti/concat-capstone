@@ -6,19 +6,19 @@ import Tickets from '../../modules/ticketManager';
 
 export default class TicketForm extends Component {
   //reference to dicterory in bucket
-  storageRef = firebase.storage().ref("ticketsImages");
+  storageRef = firebase.storage().ref("ticketImage");
 
-  state = {
-    userId: '',
-    classId: '',
-    ticketComplete: '',
-    ticketTitle: '',
-    ticketBody: '',
-    submitTime: '',
-    linked: '',
-    solutionNotes: '',
-    photo: null
-  };
+  // state = {
+  //   userId: '',
+  //   classId: '',
+  //   ticketComplete: '',
+  //   ticketTitle: '',
+  //   ticketBody: '',
+  //   submitTime: '',
+  //   linked: '',
+  //   solutionNotes: '',
+  //   photo: null
+  // };
 
   saveTicket = () => {
     //refence to an image in bucket about to be saved 
@@ -45,7 +45,7 @@ export default class TicketForm extends Component {
 
   render() {
     return (
-      <div className="image-form--container">
+      <div className="new-ticket-list">
         <Header>
           Submit a New Ticket
         </Header>
@@ -65,13 +65,13 @@ export default class TicketForm extends Component {
                   label="Ticket Body"
                   onChange={ (e) => this.setState({ about: e.target.value }) }
                   placeholder="Ticket Body" />
-                {/* <Form.Field
+                <Form.Field
                   control="input"
                   type="file"
-                  label="photo"
+                  label="Photo"
                   //files don't use .value and come through as an array
                   onChange={ (e) => this.setState({ photo: e.target.files[0] }) }
-                  placeholder="Photo" /> */}
+                  placeholder="Photo" />
                 <Button type="submit" content="Save" color="purple" />
               </Form>
             </Grid.Column>

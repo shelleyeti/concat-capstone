@@ -6,7 +6,7 @@ export default {
   },
 
   getAllTickets() {
-    return fetch(`${remoteURL}/tickets`).then(e => e.json())
+    return fetch(`${remoteURL}/tickets?_sort=submitTime&_order=asc`).then(e => e.json())
   },
 
   saveTicket(obj) {
