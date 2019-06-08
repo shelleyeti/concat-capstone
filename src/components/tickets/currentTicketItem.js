@@ -56,7 +56,7 @@ export default class CurrentTicketItem extends Component {
               <TextArea
                 label='Solution Notes'
                 placeholder='Solution Notes'
-                value={ this.props.item.solutionNotes }
+                defaultValue={ this.props.item.solutionNotes }
                 onChange={ (e) => this.setState({ solutionNotes: e.target.value }) }
               />
             </Form>
