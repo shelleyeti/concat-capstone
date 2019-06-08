@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import logo from "./concatSmall.png"
+import logo from "./concatLogo.png"
 
 class Logo extends Component {
 

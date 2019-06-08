@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import CurrentTicketItem from './currentTicketItem'
-import { nullLiteral } from '@babel/types';
 
 class CurrentTicketHeader extends Component {
   render() {
@@ -29,6 +28,7 @@ export default class TicketForm extends Component {
 
 
     return (
+
       <div className="current-ticket-container">
         <CurrentTicketHeader />
         <span> { currentTickets } </span>

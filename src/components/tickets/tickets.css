@@ -4,6 +4,7 @@
   width: 40%;
   vertical-align: top;
   margin-right: 30px;
+  
 }
 
 .current-ticket-container {
@@ -12,4 +13,11 @@
   width: 40%;
   vertical-align: top;
   margin-left: 30px;
+}
+
+.ticketFormSuccess {
+  margin-top: 10px;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
 }

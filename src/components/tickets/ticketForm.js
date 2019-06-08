@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
-import { Header, Form, Grid, Button } from 'semantic-ui-react';
+import { withRouter } from 'react-router';
+import { Header, Form, Grid, Button, Message } from 'semantic-ui-react';
 import moment from 'moment';
 import Tickets from '../../modules/ticketManager';
 
-export default class TicketForm extends Component {
+const displayStyle = {
+  display: "none"
+}
+
+const FormSuccess = () => (
+  <Form style={ displayStyle } className="ticketFormSuccess" success >
+    <Message success header='Form Completed' content="Your ticket is now in queue" />
+  </Form >
+)
+
+class TicketForm extends Component {
 
   newTicket = () => {
     Tickets.saveTicket({
@@ -16,6 +27,13 @@ export default class TicketForm extends Component {
       open: true,
       linked: false,
       solutionNotes: null
+    }).then(() => {
+      setTimeout(() => {
+        document.querySelector(".ticketFormSuccess").style.display = "block";
+        document.querySelector(".form-fields").reset()
+      }, 150)
+    }).then(() => {
+      setTimeout(() => { this.props.history.push("/tickets") }, 2000)
     })
   }
 
@@ -23,12 +41,12 @@ export default class TicketForm extends Component {
     return (
       <div className="new-ticket-list">
         <Header>
-          Submit a New Ticket
+          <h1>Submit a New Ticket</h1>
         </Header>
         <Grid>
           <Grid.Row centered>
-            <Grid.Column largeScreen={ 4 } computer={ 6 } tablet={ 8 } mobile={ 12 }>
-              <Form onSubmit={ this.newTicket }>
+            <Grid.Column computer={ 5 }>
+              <Form className="form-fields" onSubmit={ this.newTicket }>
                 <Form.Field
                   control="input"
                   type="text"
@@ -46,7 +64,10 @@ export default class TicketForm extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+        <FormSuccess />
       </div>
     )
   }
 }
+
+export default withRouter(TicketForm)
