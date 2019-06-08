@@ -59,7 +59,7 @@ class TicketForm extends Component {
                   label="Ticket Body"
                   onChange={ (e) => this.setState({ ticketBody: e.target.value }) }
                   placeholder="Ticket Body" />
-                <Button type="submit" content="Save" basic color="black" floated="right" />
+                <Button className="btn-margin" type="submit" content="Save" basic color="black" floated="right" />
               </Form>
             </Grid.Column>
           </Grid.Row>

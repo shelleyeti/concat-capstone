@@ -22,7 +22,7 @@ export default {
 
   editTicket(editedTicket) {
     return fetch(`${remoteURL}/tickets/${editedTicket.id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json"
       },
