@@ -81,3 +81,9 @@
 .auth--message {
   text-align: center;
 }
+
+.logo-header {
+    border-style: none;
+    margin-top: 15px;
+    margin-left: 15px;
+}

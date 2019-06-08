@@ -1,0 +1,9 @@
+.ui.menu {
+  display: flex !important;
+  margin: 1rem 0 !important;
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif !important;
+  background: #fff !important;
+  font-weight: 400 !important;
+  min-height: 4.857143em !important;
+  margin-top: 0rem !important;
+}

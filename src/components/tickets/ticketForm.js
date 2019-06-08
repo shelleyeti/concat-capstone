@@ -1,58 +1,52 @@
 import React, { Component } from 'react';
-import { Header, Form, Grid, Button } from 'semantic-ui-react';
-import * as firebase from 'firebase/app';
-import 'firebase/storage';
+import { withRouter } from 'react-router';
+import { Header, Form, Grid, Button, Message } from 'semantic-ui-react';
+import moment from 'moment';
 import Tickets from '../../modules/ticketManager';
 
-export default class TicketForm extends Component {
-  //reference to dicterory in bucket
-  storageRef = firebase.storage().ref("ticketsImages");
+const displayStyle = {
+  display: "none"
+}
 
-  state = {
-    userId: '',
-    classId: '',
-    ticketComplete: '',
-    ticketTitle: '',
-    ticketBody: '',
-    submitTime: '',
-    linked: '',
-    solutionNotes: '',
-    photo: null
-  };
+const FormSuccess = () => (
+  <Form style={ displayStyle } className="ticketFormSuccess" success >
+    <Message success header='Form Completed' content="Your ticket is now in queue" />
+  </Form >
+)
 
-  saveTicket = () => {
-    //refence to an image in bucket about to be saved 
-    const ref = this.storageRef.child(`${Date.now()}`)
-    //uploads to firebase
-    ref.put(this.state.photo)
-      //gets image name that was uploaded
-      .then(data => data.ref.getDownloadURL())
-      .then(console.log(`success`))
-      .then(url => {
-        Tickets.saveTicket({
-          userId: this.state.userId,
-          classId: this.state.classId,
-          ticketComplete: this.state.ticketComplete,
-          ticketTitle: this.state.ticketTitle,
-          ticketBody: this.state.ticketBody,
-          submitTime: this.state.submitTime,
-          linked: this.state.linked,
-          solutionNotes: this.state.solutionNotes,
-          photo: url
-        })
-      })
+class TicketForm extends Component {
+
+  newTicket = () => {
+    Tickets.saveTicket({
+      userId: this.props.userId,
+      classId: this.props.classId,
+      ticketComplete: false,
+      ticketTitle: this.state.ticketTitle,
+      ticketBody: this.state.ticketBody,
+      submitTime: moment(new Date()).format('llll'),
+      open: true,
+      linked: false,
+      solutionNotes: null
+    }).then(() => {
+      setTimeout(() => {
+        document.querySelector(".ticketFormSuccess").style.display = "block";
+        document.querySelector(".form-fields").reset()
+      }, 150)
+    }).then(() => {
+      setTimeout(() => { this.props.history.push("/tickets") }, 2000)
+    })
   }
 
   render() {
     return (
-      <div className="image-form--container">
+      <div className="new-ticket-list">
         <Header>
-          Submit a New Ticket
+          <h1>Submit a New Ticket</h1>
         </Header>
         <Grid>
           <Grid.Row centered>
-            <Grid.Column largeScreen={ 4 } computer={ 6 } tablet={ 8 } mobile={ 12 }>
-              <Form onSubmit={ this.saveTicket }>
+            <Grid.Column computer={ 5 }>
+              <Form className="form-fields" onSubmit={ this.newTicket }>
                 <Form.Field
                   control="input"
                   type="text"
@@ -63,21 +57,17 @@ export default class TicketForm extends Component {
                   control="textarea"
                   type="text"
                   label="Ticket Body"
-                  onChange={ (e) => this.setState({ about: e.target.value }) }
+                  onChange={ (e) => this.setState({ ticketBody: e.target.value }) }
                   placeholder="Ticket Body" />
-                {/* <Form.Field
-                  control="input"
-                  type="file"
-                  label="photo"
-                  //files don't use .value and come through as an array
-                  onChange={ (e) => this.setState({ photo: e.target.files[0] }) }
-                  placeholder="Photo" /> */}
-                <Button type="submit" content="Save" color="purple" />
+                <Button className="btn-margin" type="submit" content="Save" basic color="black" floated="right" />
               </Form>
             </Grid.Column>
           </Grid.Row>
         </Grid>
+        <FormSuccess />
       </div>
     )
   }
 }
+
+export default withRouter(TicketForm)

@@ -6,7 +6,7 @@ export default {
   },
 
   getAllTickets() {
-    return fetch(`${remoteURL}/tickets`).then(e => e.json())
+    return fetch(`${remoteURL}/tickets?_sort=submitTime&_order=asc`).then(e => e.json())
   },
 
   saveTicket(obj) {
@@ -22,7 +22,7 @@ export default {
 
   editTicket(editedTicket) {
     return fetch(`${remoteURL}/tickets/${editedTicket.id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json"
       },
