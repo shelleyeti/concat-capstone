@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { Input, Menu, Sticky, Dropdown } from 'semantic-ui-react';
+import { withRouter } from 'react-router';
 import './navbar.css';
 
-export default class MenuExampleSecondary extends Component {
+class MenuNav extends Component {
   state = {}
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  logout = () => {
+    this.props.onLogout();
+    this.props.history.push('/login');
+  }
 
   render() {
     const { activeItem } = this.state
@@ -40,7 +46,7 @@ export default class MenuExampleSecondary extends Component {
               <Menu.Item
                 name='logout'
                 active={ activeItem === 'logout' }
-                onClick={ this.handleItemClick }
+                onClick={ () => this.logout() }
               />
             </Menu.Menu>
           </Menu>
@@ -49,3 +55,5 @@ export default class MenuExampleSecondary extends Component {
     )
   }
 }
+
+export default withRouter(MenuNav)

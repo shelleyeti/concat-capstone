@@ -43,7 +43,7 @@ export default class Login extends Component {
                     onChange={ (e) => this.setState({ password: e.target.value }) }
                   />
                   <Form.Field control="input" type="hidden" />
-                  <Button fluid content="Log in" color="purple" />
+                  <Button fluid content="Log in" />
                 </Form>
                 <Message className="auth--message">
                   Not registered yet? <Link to="/register">Sign Up</Link>

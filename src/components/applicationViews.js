@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom"
-import { withRouter } from 'react-router'
-import TicketForm from './tickets/ticketForm'
-import TicketContainer from './tickets/ticketContainer'
-import TicketsManager from '../modules/ticketManager'
-import Login from './dashboard/Login'
-import Register from './dashboard/Register'
-import Home from './dashboard/Home'
-import { logout } from './auth/userManager'
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import TicketForm from './tickets/ticketForm';
+import TicketContainer from './tickets/ticketContainer';
+import TicketsManager from '../modules/ticketManager';
+import Login from './dashboard/Login';
+import Register from './dashboard/Register';
+import Home from './dashboard/Home';
+import { logout } from './auth/userManager';
 
 class ApplicationViews extends Component {
   state = {
