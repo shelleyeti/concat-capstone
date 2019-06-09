@@ -1,4 +1,4 @@
-![Concat](/concatLogo.svg?raw=true "Title")
+![Concat](concatLogo.png?raw=true "Title")
 
 # Concat - Queue App
 
