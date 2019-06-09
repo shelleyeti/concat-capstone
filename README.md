@@ -1,4 +1,4 @@
-![Concat](src/components/logo/concatLogo.svg?raw=true "Title")
+![Concat](/concatLogo.svg?raw=true "Title")
 
 # Concat - Queue App
 
