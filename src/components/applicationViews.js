@@ -7,6 +7,8 @@ import TicketsManager from '../modules/ticketManager';
 import Login from './dashboard/Login';
 import Register from './dashboard/Register';
 import Home from './dashboard/Home';
+import TeacherDash from './dashboard/teacherDashContainer'
+import UsersManager from '../modules/userManager';
 import { logout } from './auth/userManager';
 
 class ApplicationViews extends Component {
@@ -18,16 +20,6 @@ class ApplicationViews extends Component {
     classes: []
   };
   //calls
-  // deleteTicket = id => {
-  //   const newState = {};
-  //   TicketsManager.deleteTicket(id)
-  //     .then(TicketsManager.getAllTickets)
-  //     .then(ticket => (newState.tickets = ticket))
-  //     .then(() => {
-  //       this.props.history.push("/tickets");
-  //       this.setState(newState);
-  //     });
-  // };
 
   addTicket = ticket => {
     const newState = {};
@@ -54,12 +46,51 @@ class ApplicationViews extends Component {
   };
 
 
+
+
+  deleteUser = id => {
+    const newState = {};
+    UsersManager.deleteUser(id)
+      .then(UsersManager.getAllUsers)
+      .then(user => (newState.users = user))
+      .then(() => {
+        this.props.history.push("/dashboard/teacher");
+        this.setState(newState);
+      });
+  };
+
+  addUser = user => {
+    const newState = {};
+    return UsersManager.saveUser(user)
+      .then(() => UsersManager.getAllUsers())
+      .then(user => newState.users = user)
+      .then((users) => {
+        this.props.history.push("/dashboard/teacher")
+        this.setState(newState)
+        //return users so it can be used in the form
+        return users;
+      });
+  };
+
+  editUser = editedUser => {
+    const newState = {};
+    UsersManager.editUser(editedUser)
+      .then(() => UsersManager.getAllUsers())
+      .then(user => (newState.users = user))
+      .then(() => {
+        this.props.history.push("/dashboard/teacher");
+        this.setState(newState);
+      });
+  };
+
+
+
   componentDidMount() {
     const newState = {};
     TicketsManager.getAllTickets()
       .then(tickets => { newState.tickets = tickets })
-      // .then(Friends.getAllFriends)
-      // .then(friends => { newState.friends = friends })
+      .then(UsersManager.getAllUsers)
+      .then(users => { newState.users = users })
       // .then(News.getAllNews)
       // .then(news => { newState.news = news })
       // .then(Tasks.getAllTasks)
@@ -78,14 +109,6 @@ class ApplicationViews extends Component {
       <>
         <div className="App">
           <Router>
-            <Route path="/login" render={ (props) =>
-              <Login { ...props }
-                onLogin={ (user) => this.setState({ user: user }) } /> }
-            />
-            <Route path="/register" render={ (props) =>
-              <Register { ...props }
-                onRegister={ (user) => this.setState({ user: user }) } /> }
-            />
             <Route exact path="/" render={ (props) => {
               return this.state.user ? (
                 <Home { ...props }
@@ -96,6 +119,14 @@ class ApplicationViews extends Component {
                   <Redirect to="/login" />
                 )
             } } />
+            <Route path="/login" render={ (props) =>
+              <Login { ...props }
+                onLogin={ (user) => this.setState({ user: user }) } /> }
+            />
+            <Route path="/register" render={ (props) =>
+              <Register { ...props }
+                onRegister={ (user) => this.setState({ user: user }) } /> }
+            />
             <Route exact path="/tickets" render={ (props) => {
               // if (this.isAuthenticated()) {
               return <TicketContainer
@@ -117,6 +148,20 @@ class ApplicationViews extends Component {
                 // activeUser={ this.props.activeUser }
                 ticket={ this.state.tickets }
                 editTicket={ this.editTicket }
+              />
+              // } else {
+              //   return <Redirect to="/" />
+              // }
+            } }
+            />
+            <Route exact path="/dashboard/teacher" render={ (props) => {
+              // if (this.isAuthenticated()) {
+              return <TeacherDash
+                { ...props }
+                { ...this.props }
+                // activeUser={ this.props.activeUser }
+                user={ this.state.users }
+                editUser={ this.editUser }
               />
               // } else {
               //   return <Redirect to="/" />
