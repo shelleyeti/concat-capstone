@@ -18,16 +18,16 @@ class ApplicationViews extends Component {
     classes: []
   };
   //calls
-  deleteTicket = id => {
-    const newState = {};
-    TicketsManager.deleteTicket(id)
-      .then(TicketsManager.getAllTickets)
-      .then(ticket => (newState.tickets = ticket))
-      .then(() => {
-        this.props.history.push("/tickets");
-        this.setState(newState);
-      });
-  };
+  // deleteTicket = id => {
+  //   const newState = {};
+  //   TicketsManager.deleteTicket(id)
+  //     .then(TicketsManager.getAllTickets)
+  //     .then(ticket => (newState.tickets = ticket))
+  //     .then(() => {
+  //       this.props.history.push("/tickets");
+  //       this.setState(newState);
+  //     });
+  // };
 
   addTicket = ticket => {
     const newState = {};
@@ -37,7 +37,7 @@ class ApplicationViews extends Component {
       .then((tickets) => {
         this.props.history.push("/tickets")
         this.setState(newState)
-        //return tasks so it can be used in the form
+        //return tickets so it can be used in the form
         return tickets;
       });
   };
@@ -78,7 +78,7 @@ class ApplicationViews extends Component {
       <>
         <div className="App">
           <Router>
-            {/* <Route path="/login" render={ (props) =>
+            <Route path="/login" render={ (props) =>
               <Login { ...props }
                 onLogin={ (user) => this.setState({ user: user }) } /> }
             />
@@ -95,7 +95,7 @@ class ApplicationViews extends Component {
               ) : (
                   <Redirect to="/login" />
                 )
-            } } /> */}
+            } } />
             <Route exact path="/tickets" render={ (props) => {
               // if (this.isAuthenticated()) {
               return <TicketContainer
