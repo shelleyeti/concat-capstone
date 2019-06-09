@@ -1,3 +1,5 @@
+![Concat](src/components/logo/concatLogo.svg?raw=true "Title")
+
 # Concat - Queue App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

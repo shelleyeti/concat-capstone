@@ -11,10 +11,6 @@ export default class Home extends Component {
     return (
       <Container className="home--container">
         <Grid>
-          <Button
-            onClick={ () => this.logout() }
-            content="Log Out"
-            color="purple" />
           <Grid.Row centered>
             <Grid.Column largeScreen={ 8 } computer={ 10 } tablet={ 12 } mobile={ 16 }>
               <Header textAlign="center">Welcome { this.props.user.username }</Header>

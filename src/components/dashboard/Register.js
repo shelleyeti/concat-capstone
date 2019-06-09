@@ -2,25 +2,59 @@ import React, { Component } from 'react';
 import { Form, Button, Container, Grid, Message, Segment, Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { register } from '../auth/userManager';
+import * as firebase from 'firebase/app';
+import 'firebase/storage';
+import './dashboard.css';
 
 export default class Register extends Component {
+  storageRef = firebase.storage().ref('userImage');
+
   state = {
-    email: '',
-    username: '',
-    password: ''
+    name: "",
+    username: "",
+    email: "",
+    password: "",
+    image: null,
+    blurb: "",
+    available: "",
+    classId: "",
+    student: false
   }
 
   submit = () => {
-    register(this.state)
-      .then(newUser => {
-        this.props.onRegister(newUser);
-        this.props.history.push('/');
-      });
+    const ref = this.storageRef.child(`${Date.now()}`);
+
+    ref.put(this.state.image)
+      .then(data => data.ref.getDownloadURL())
+      .then(url => {
+        register({
+          name: this.state.name,
+          username: this.state.username,
+          email: this.state.email,
+          password: this.state.password,
+          image: url,
+          blurb: this.state.blurb,
+          available: "",
+          classId: "",
+          student: false
+        }).then(newUser => {
+          this.props.onRegister(newUser);
+          this.props.history.push('/');
+        });
+      })
   }
 
+  //   register(this.state)
+  //       .then(newUser => {
+  //     this.props.onRegister(newUser);
+  // this.props.history.push('/');
+  //       });
+  //   }
+
   render() {
+
     return (
-      <Container className="auth--container">
+      <Container className="auth-container">
         <Grid>
           <Grid.Row centered>
             <Grid.Column largeScreen={ 6 } computer={ 6 } tablet={ 10 } mobile={ 16 }>
@@ -28,7 +62,14 @@ export default class Register extends Component {
                 <Header as="h1" textAlign="center">
                   Register
                 </Header>
-                <Form className="register--form" onSubmit={ this.submit }>
+                <Form className="register-form" onSubmit={ this.submit }>
+                  <Form.Field
+                    control="input"
+                    type="text"
+                    label="Full Name"
+                    placeholder="Enter your first and last name"
+                    onChange={ (e) => this.setState({ name: e.target.value }) }
+                  />
                   <Form.Field
                     control="input"
                     type="text"
@@ -50,8 +91,37 @@ export default class Register extends Component {
                     placeholder="Password"
                     onChange={ (e) => this.setState({ password: e.target.value }) }
                   />
+                  <Form.Field
+                    control="input"
+                    type="text"
+                    label="Blurb"
+                    placeholder="Enter a short blurb about yourself"
+                    onChange={ (e) => this.setState({ blurb: e.target.value }) }
+                  />
+                  <Form.Radio
+                    label='Student'
+                    checked={ this.state.student === true }
+                    onChange={ (e, { value }) => {
+                      this.setState({ student: true })
+                    } }
+                  />
+                  <Form.Radio
+                    label='Teacher'
+                    checked={ this.state.student === false }
+                    onChange={ (e, { value }) => {
+                      this.setState({ student: false })
+                    } }
+                  />
+                  <Form.Field
+                    className="choose-upload-button"
+                    control="input"
+                    type="file"
+                    label="Photo"
+                    //files don't use .value and come through as an array
+                    onChange={ (e) => this.setState({ image: e.target.files[0] }) }
+                    placeholder="Photo" />
                   <Form.Field control="input" type="hidden" />
-                  <Button fluid content="Register" color="purple" />
+                  <Button fluid content="Register" />
                 </Form>
                 <Message className="auth--message">
                   Already registered? <Link to="/login">Log In</Link>

@@ -1,12 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { BrowserRouter as Router } from "react-router-dom"
-import App from './App'
-import 'semantic-ui-css/semantic.min.css'
-import * as serviceWorker from './serviceWorker'
-import * as firebase from 'firebase/app'
-import { FBapiKey, FBauthDomain, FBdatabaseURL, FBprojectId, FBstorageBucket, FBmessagingSenderId, FBappId } from './config'
-import './index.css'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import App from './App';
+import 'semantic-ui-css/semantic.min.css';
+import * as serviceWorker from './serviceWorker';
+import * as firebase from 'firebase/app';
+import { FBapiKey, FBauthDomain, FBdatabaseURL, FBprojectId, FBstorageBucket, FBmessagingSenderId, FBappId } from './config';
+import './index.css';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
