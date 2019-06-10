@@ -1,0 +1,23 @@
+.image-section{
+  display: inline-block;
+  width: 35%;
+  text-align: center;
+}
+
+.user-image {
+  vertical-align: middle;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  border-radius: 50%;
+}
+
+.input-fields-section {
+  display: inline-block;
+  width: 35%;
+  margin-left: 20px
+}
+
+.card-dash {
+  height: 350px;
+}

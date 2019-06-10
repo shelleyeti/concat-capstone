@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Message, Container, Header, Button } from 'semantic-ui-react';
+import { Grid, Message, Container, Header } from 'semantic-ui-react';
 
 export default class Home extends Component {
   logout = () => {

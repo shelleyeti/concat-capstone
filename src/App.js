@@ -8,7 +8,7 @@ import './App.css';
 
 export default class App extends Component {
   state = {
-    user: getUserFromLocalStorage()
+    activeUser: getUserFromLocalStorage()
   }
 
   render() {
@@ -16,7 +16,7 @@ export default class App extends Component {
       <React.Fragment>
         <Logo />
         <Navbar onLogout={ logout } />
-        <ApplicationViews />
+        <ApplicationViews activeUser={ this.state.activeUser } />
       </React.Fragment>
     );
   }

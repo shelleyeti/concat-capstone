@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Card, Image, Form, TextArea } from 'semantic-ui-react';
-import Tickets from '../../modules/ticketManager'
 
 export default class CurrentTicketItem extends Component {
 
