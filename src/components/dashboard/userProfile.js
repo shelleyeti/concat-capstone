@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Card, Input, Label } from 'semantic-ui-react';
+import { Card, Input } from 'semantic-ui-react';
+import { updatePasswordOnProfile as newPassword } from '../auth/userManager'
 import './dashboard.css';
 
 export default class UserProfile extends Component {
@@ -8,8 +9,14 @@ export default class UserProfile extends Component {
     username: "",
     name: "",
     email: "",
-    password: ""
+    password: "",
+    blurb: ""
   }
+
+  //update password for users
+  // updatePassword = (password) => {
+  //   newPassword(password)
+  // }
 
   displayConditions = () => {
     if (this.props.editMode) {
@@ -25,12 +32,16 @@ export default class UserProfile extends Component {
             <Input type="text" id="username" defaultValue={ this.props.activeUser.username } />
           </span>
           <span>
+            <label>Blurb: </label>
+            <Input type="text" id="blurb" defaultValue={ this.props.activeUser.blurb } />
+          </span>
+          <span>
             <label>Email: </label>
             <Input type="text" id="email" defaultValue={ this.props.activeUser.email } />
           </span>
           <span>
             <label>Password: </label>
-            <Input type="password" id="password" defaultValue={ this.props.activeUser.password } />
+            <Input type="password" id="password" />
           </span>
         </Card>
       </div >
@@ -45,6 +56,10 @@ export default class UserProfile extends Component {
           <span>
             <label>Userame: </label>
             { this.props.activeUser.username }
+          </span>
+          <span>
+            <label>Blurb: </label>
+            { this.props.activeUser.blurb }
           </span>
           <span>
             <label>Email: </label>

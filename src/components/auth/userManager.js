@@ -141,3 +141,12 @@ export const loginWithFirebase = (email, password) => {
       return data.user.uid
     })
 }
+
+export const updatePasswordOnProfile = (newPassword) => {
+  const user = firebase.auth().currentUser;
+  user.updatePassword(newPassword).then(function () {
+    // Update successful.
+  }).catch(function (error) {
+    // An error happened.
+  });
+}

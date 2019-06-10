@@ -26,9 +26,9 @@ export default class TeacherContainer extends Component {
     const image = document.querySelector("#user-image").value
     this.props.editUser({
       id: this.props.activeUser.id,
-      firstName: this.props.activeUser.firstName,
-      lastName: this.props.activeUser.lastName,
-      userName: this.props.activeUser.userName,
+      name: this.props.activeUser.name,
+      username: this.props.activeUser.username,
+      blurb: this.props.activeUser.blurb,
       email: this.props.activeUser.email,
       password: this.props.activeUser.password,
       image: image
@@ -38,15 +38,21 @@ export default class TeacherContainer extends Component {
     )
   }
 
+  handleKeepCurrentImage = () => {
+    // <Button outline onClick={ this.handleKeepCurrentImage }>Keep Current Image</Button>
+  }
+
   handleSaveState = () => {
     const name = document.querySelector("#name").value
     const username = document.querySelector("#username").value
+    const blurb = document.querySelector("#blurb").value
     const email = document.querySelector("#email").value
     const password = document.querySelector("#password").value
     this.props.editUser({
       id: this.props.activeUser.id,
       name: name,
       username: username,
+      blurb: blurb,
       email: email,
       password: password,
       image: this.props.activeUser.image

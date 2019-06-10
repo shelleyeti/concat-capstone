@@ -31,7 +31,7 @@ export default {
 
   editClassTicket(editedClassTicket) {
     return fetch(`${remoteURL}/classTickets/${editedClassTicket.id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json"
       },

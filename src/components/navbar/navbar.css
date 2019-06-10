@@ -7,3 +7,18 @@
   min-height: 4.857143em !important;
   margin-top: 0rem !important;
 }
+
+a:link {
+  text-decoration: none;
+  color: black;
+}
+
+a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+  color: black;
+}

@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import TicketForm from './tickets/ticketForm';
 import TicketContainer from './tickets/ticketContainer';
 import TicketsManager from '../modules/ticketManager';
+import TeacherDash from './dashboard/teacherDashContainer'
+import UsersManager from '../modules/userManager';
+import CurrentTicketManager from '../modules/currentTicketUsers';
+import SolvedTicketsContainer from './tickets/solvedTickets'
 import Login from './dashboard/Login';
 import Register from './dashboard/Register';
 import Home from './dashboard/Home';
-import TeacherDash from './dashboard/teacherDashContainer'
-import UsersManager from '../modules/userManager';
 import { logout } from './auth/userManager';
 
 class ApplicationViews extends Component {
   state = {
     users: [],
     tickets: [],
+    reverseTickets: [],
     joinedTickets: [],
     classTickets: [],
+    currentTicketUsers: [],
     classes: []
   };
   //calls
@@ -27,7 +31,7 @@ class ApplicationViews extends Component {
       .then(() => TicketsManager.getAllTickets())
       .then(ticket => newState.tickets = ticket)
       .then((tickets) => {
-        this.props.history.push("/tickets")
+        this.props.history.push("/tickets/my-tickets")
         this.setState(newState)
         //return tickets so it can be used in the form
         return tickets;
@@ -40,10 +44,20 @@ class ApplicationViews extends Component {
       .then(() => TicketsManager.getAllTickets())
       .then(ticket => (newState.tickets = ticket))
       .then(() => {
-        this.props.history.push("/tickets");
+        this.props.history.push("/tickets/my-tickets");
         this.setState(newState);
       });
   };
+
+  // getAllTicketsReverseOrder = () => {
+  //   const newState = {};
+  //   TicketsManager.getAllTicketsReverse()
+  //     .then(reverseOrder => (newState.reverseTickets = reverseOrder))
+  //     .then(() => {
+  //       this.props.history.push("/tickets/solved-tickets");
+  //       this.setState(newState);
+  //     });
+  // }
 
   deleteUser = id => {
     const newState = {};
@@ -75,10 +89,56 @@ class ApplicationViews extends Component {
       .then(() => UsersManager.getAllUsers())
       .then(user => (newState.users = user))
       .then(() => {
+        this.props.setUser(editedUser);
         this.props.history.push("/dashboard/teacher");
         this.setState(newState);
       });
   };
+
+  deleteCurrentTicketUser = id => {
+    const newState = {};
+    CurrentTicketManager.deleteCurrentTicketUser(id)
+      .then(CurrentTicketManager.getAllCurrentTicketUsers)
+      .then(teacherTicket => (newState.currentTicketUsers = teacherTicket))
+      .then(() => {
+        this.props.history.push("/tickets/my-tickets");
+        this.setState(newState);
+      });
+  };
+
+  addCurrentTicketUser = teacherTicket => {
+    const newState = {};
+    return CurrentTicketManager.saveCurrentTicketUser(teacherTicket)
+      .then(() => CurrentTicketManager.getAllCurrentTicketUsers())
+      .then(teacherTicket => newState.currentTicketUsers = teacherTicket)
+      .then((ticket) => {
+        this.props.history.push("/tickets/my-tickets")
+        this.setState(newState)
+        //return ticket so it can be used in the form
+        return ticket;
+      });
+  };
+
+  editCurrentTicketUser = editedTicket => {
+    const newState = {};
+    CurrentTicketManager.editCurrentTicketUser(editedTicket)
+      .then(() => CurrentTicketManager.getAllCurrentTicketUsers())
+      .then(teacherTicket => (newState.currentTicketUser = teacherTicket))
+      .then(() => {
+        this.props.history.push("/tickets/my-tickets");
+        this.setState(newState);
+      });
+  };
+
+  // getAllJoinedTicketUser = () => {
+  //   const newState = {};
+  //   CurrentTicketManager.getAllCurrentTicketUsers()
+  //     .then(joinedTeacher => (newState.currentTicketUsers = joinedTeacher))
+  //     .then(() => {
+  //       this.props.history.push("/tickets/my-tickets");
+  //       this.setState(newState);
+  //     });
+  // }
 
   componentDidMount() {
     const newState = {};
@@ -86,10 +146,10 @@ class ApplicationViews extends Component {
       .then(tickets => { newState.tickets = tickets })
       .then(UsersManager.getAllUsers)
       .then(users => { newState.users = users })
-      // .then(News.getAllNews)
-      // .then(news => { newState.news = news })
-      // .then(Tasks.getAllTasks)
-      // .then(tasks => { newState.tasks = tasks })
+      .then(CurrentTicketManager.getAllCurrentTicketUsers)
+      .then(ticket => { newState.currentTicketUsers = ticket })
+      .then(TicketsManager.getAllTicketsReverse)
+      .then(reverseTicket => { newState.reverseTickets = reverseTicket })
       // .then(Users.getAllUsers)
       // .then(users => { newState.users = users })
       // .then(Messages.getAllMessages)
@@ -103,10 +163,12 @@ class ApplicationViews extends Component {
     return (
       <>
         <div className="App">
-          <Router>
+          <div>
             <Route exact path="/" render={ (props) => {
               return this.state.user ? (
-                <Home { ...props }
+                <Home
+                  { ...props }
+                  { ...this.props }
                   user={ this.state.user }
                   onLogout={ logout }
                 />
@@ -122,13 +184,39 @@ class ApplicationViews extends Component {
               <Register { ...props }
                 onRegister={ (user) => this.setState({ user: user }) } /> }
             />
-            <Route exact path="/tickets" render={ (props) => {
+            <Route exact path="/tickets/my-tickets" render={ (props) => {
               // if (this.isAuthenticated()) {
               return <TicketContainer
                 { ...props }
-                ticket={ this.state.tickets }
+                { ...this.props }
+                allUsers={ this.state.users }
+                allTickets={ this.state.tickets }
                 addTicket={ this.addTicket }
                 editTicket={ this.editTicket }
+                allTeacherTickets={ this.state.currentTicketUsers }
+                removeTeacherTicket={ this.deleteCurrentTicketUser }
+                addTeacherTicket={ this.addCurrentTicketUser }
+                editTeacherTicket={ this.editCurrentTicketUser }
+              />
+              // } else {
+              //   return <Redirect to="/" />
+              // }
+            } }
+            />
+            <Route exact path="/tickets/solved-tickets" render={ (props) => {
+              // if (this.isAuthenticated()) {
+              return <SolvedTicketsContainer
+                { ...props }
+                { ...this.props }
+                allUsers={ this.state.users }
+                // allTickets={ this.state.tickets }
+                reverseTickets={ this.state.reverseTickets }
+                addTicket={ this.addTicket }
+                editTicket={ this.editTicket }
+                allTeacherTickets={ this.state.currentTicketUsers }
+                removeTeacherTicket={ this.deleteCurrentTicketUser }
+                addTeacherTicket={ this.addCurrentTicketUser }
+                editTeacherTicket={ this.editCurrentTicketUser }
               />
               // } else {
               //   return <Redirect to="/" />
@@ -139,6 +227,7 @@ class ApplicationViews extends Component {
               // if (this.isAuthenticated()) {
               return <TicketForm
                 { ...props }
+                { ...this.props }
                 ticket={ this.state.tickets }
                 editTicket={ this.editTicket }
               />
@@ -160,7 +249,7 @@ class ApplicationViews extends Component {
               // }
             } }
             />
-          </Router>
+          </div>
         </div>
       </>
     );

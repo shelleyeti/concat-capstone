@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
-import { Card, Image, Button } from 'semantic-ui-react';
+import { Card, Image } from 'semantic-ui-react';
 import './tickets.css';
 
-export default class TicketList extends Component {
-
-  handleAssign = () => {
-    this.props.addTeacherTicket({
-      ticketId: this.props.item.id,
-      userId: this.props.activeUser.id,
-    })
-  };
+export default class SolvedTicketList extends Component {
 
   render() {
     return (
@@ -18,8 +11,8 @@ export default class TicketList extends Component {
         <Card.Content>
           <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
           <Card.Description>{ this.props.item.ticketBody }</Card.Description>
+          <Card.Description>Solution Notes: { this.props.item.solutionNotes }</Card.Description>
           <Card.Meta>{ this.props.item.submitTime }</Card.Meta>
-          <Button className="btn-margin" onClick={ this.handleAssign }>Assign</Button>
         </Card.Content>
       </Card>
     )

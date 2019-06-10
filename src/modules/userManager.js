@@ -31,7 +31,7 @@ export default {
 
   editUser(editedUser) {
     return fetch(`${remoteURL}/users/${editedUser.id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json"
       },

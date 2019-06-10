@@ -31,7 +31,7 @@ export default {
 
   editCurrentTicketUser(editedCurrentTicketUser) {
     return fetch(`${remoteURL}/currentTicketUsers/${editedCurrentTicketUser.id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json"
       },

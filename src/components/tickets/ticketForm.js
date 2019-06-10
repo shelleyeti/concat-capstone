@@ -33,7 +33,7 @@ class TicketForm extends Component {
         document.querySelector(".form-fields").reset()
       }, 150)
     }).then(() => {
-      setTimeout(() => { this.props.history.push("/tickets") }, 2000)
+      setTimeout(() => { this.props.history.push("/tickets/my-tickets") }, 2000)
     })
   }
 

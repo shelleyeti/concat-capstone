@@ -1,34 +1,34 @@
 import React, { Component } from 'react';
-import TicketListItem from './ticketListItem';
+import SolvedTicketListItem from './solvedTicketListItem';
 import './tickets.css';
 
-class OpenTicketHeader extends Component {
+class SolvedTicketHeader extends Component {
   render() {
-    return <h1>Open Tickets</h1>;
+    return <h1>My Solved Tickets</h1>;
   }
 }
 
-export default class TicketList extends Component {
+export default class SolvedTicketList extends Component {
   render() {
-    let openTicket = this.props.allTickets.filter((ticket) => {
+    let solvedTicket = this.props.reverseTickets.filter((ticket) => {
       //the logged in user is assigned to a ticket
       let currentUserIsTeacherWithTicket = false;
       let isTicketAssignedToSomeone = false;
       //iterate over joined table
       this.props.allTeacherTickets.forEach((join) => {
         //both keys in joined table equal
-        if (join.ticketId === ticket.id && join.userId === this.props.activeUser.id)
+        if (join.ticketId === ticket.id && join.userId != this.props.activeUser.id)
           currentUserIsTeacherWithTicket = true;
         else if (join.ticketId === ticket.id) {
           isTicketAssignedToSomeone = true;
         }
       })
 
-      if (ticket.ticketComplete === false && (!currentUserIsTeacherWithTicket && isTicketAssignedToSomeone === false))
+      if (ticket.ticketComplete === true && (!currentUserIsTeacherWithTicket && isTicketAssignedToSomeone === true))
         return ticket;
     });
 
-    let classTickets = openTicket.map((item, index) => {
+    let classTickets = solvedTicket.map((item, index) => {
       let image = ""
       this.props.allUsers.forEach((user) => {
         if (item.userId === user.id) {
@@ -36,7 +36,7 @@ export default class TicketList extends Component {
         }
       })
       return (
-        <TicketListItem
+        <SolvedTicketListItem
           { ...this.props }
           key={ index }
           item={ item }
@@ -48,7 +48,7 @@ export default class TicketList extends Component {
     });
     return (
       <div className="new-ticket-container">
-        <OpenTicketHeader />
+        <SolvedTicketHeader />
         <span> { classTickets } </span>
       </div>
     );

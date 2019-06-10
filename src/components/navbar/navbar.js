@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Input, Menu, Sticky, Dropdown } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import './navbar.css';
 
 class MenuNav extends Component {
@@ -20,23 +21,31 @@ class MenuNav extends Component {
       <div className="navigation-bar" ref={ this.contextRef }>
         <Sticky context={ this.contextRef }>
           <Menu secondary>
-            <Menu.Item
-              name='profile'
-              active={ activeItem === 'profile' }
-              onClick={ this.handleItemClick }
-              href='/register'
-            />
+            <Menu.Item>
+              <Link to='/dashboard/teacher'>Profile</Link>
+            </Menu.Item>
             <Dropdown item simple text='Open Tickets'>
               <Dropdown.Menu>
-                <Dropdown.Item href='/tickets'>My Tickets</Dropdown.Item>
-                <Dropdown.Item>All Tickets</Dropdown.Item>
+                <Dropdown.Item >
+                  <Link to='/tickets/my-tickets'>
+                    My Tickets
+                  </Link>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Link to='/tickets/open'>
+                    All Open Tickets
+                </Link>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Link to='/tickets/solved-tickets'>
+                    Solved Tickets
+                </Link>
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-            <Menu.Item
-              name='office-hours'
-              active={ activeItem === 'office-hours' }
-              onClick={ this.handleItemClick }
-            />
+            <Menu.Item>
+              <Link to='/teacher/office-hours'>Office Hours</Link>
+            </Menu.Item>
             <Menu.Menu position='right'>
               <Menu.Item>
                 <Input
@@ -51,7 +60,7 @@ class MenuNav extends Component {
             </Menu.Menu>
           </Menu>
         </Sticky>
-      </div>
+      </div >
     )
   }
 }
