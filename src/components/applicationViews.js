@@ -49,15 +49,15 @@ class ApplicationViews extends Component {
       });
   };
 
-  getAllTicketsReverseOrder = () => {
-    const newState = {};
-    TicketsManager.getAllTicketsReverse()
-      .then(reverseOrder => (newState.reverseTickets = reverseOrder))
-      .then(() => {
-        this.props.history.push("/tickets/solved-tickets");
-        this.setState(newState);
-      });
-  }
+  // getAllTicketsReverseOrder = () => {
+  //   const newState = {};
+  //   TicketsManager.getAllTicketsReverse()
+  //     .then(reverseOrder => (newState.reverseTickets = reverseOrder))
+  //     .then(() => {
+  //       this.props.history.push("/tickets/solved-tickets");
+  //       this.setState(newState);
+  //     });
+  // }
 
   deleteUser = id => {
     const newState = {};
@@ -89,6 +89,7 @@ class ApplicationViews extends Component {
       .then(() => UsersManager.getAllUsers())
       .then(user => (newState.users = user))
       .then(() => {
+        this.props.setUser(editedUser);
         this.props.history.push("/dashboard/teacher");
         this.setState(newState);
       });
@@ -129,15 +130,15 @@ class ApplicationViews extends Component {
       });
   };
 
-  getAllJoinedTicketUser = () => {
-    const newState = {};
-    CurrentTicketManager.getAllCurrentTicketUsers()
-      .then(joinedTeacher => (newState.currentTicketUsers = joinedTeacher))
-      .then(() => {
-        this.props.history.push("/tickets/my-tickets");
-        this.setState(newState);
-      });
-  }
+  // getAllJoinedTicketUser = () => {
+  //   const newState = {};
+  //   CurrentTicketManager.getAllCurrentTicketUsers()
+  //     .then(joinedTeacher => (newState.currentTicketUsers = joinedTeacher))
+  //     .then(() => {
+  //       this.props.history.push("/tickets/my-tickets");
+  //       this.setState(newState);
+  //     });
+  // }
 
   componentDidMount() {
     const newState = {};
@@ -208,9 +209,8 @@ class ApplicationViews extends Component {
                 { ...props }
                 { ...this.props }
                 allUsers={ this.state.users }
-                allTickets={ this.state.tickets }
+                // allTickets={ this.state.tickets }
                 reverseTickets={ this.state.reverseTickets }
-
                 addTicket={ this.addTicket }
                 editTicket={ this.editTicket }
                 allTeacherTickets={ this.state.currentTicketUsers }

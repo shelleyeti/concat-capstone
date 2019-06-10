@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Image, Input } from 'semantic-ui-react';
+import { Card, Image, Form } from 'semantic-ui-react';
 import './dashboard.css';
 
 export default class UserImage extends Component {
@@ -14,7 +14,15 @@ export default class UserImage extends Component {
         <Card centered fluid className="card-dash">
           <Card.Content>
             <Card.Description>
-              <Input type="text" id="user-image" defaultValue={ this.props.activeUser.image } />
+              <Form.Field
+                className="choose-upload-button"
+                control="input"
+                type="file"
+                label="Photo"
+                //files don't use .value and come through as an array
+                onChange={ (e) => this.setState({ image: e.target.files[0] }) }
+                placeholder="Photo" />
+              <Form.Field control="input" type="hidden" />
             </Card.Description>
           </Card.Content>
         </Card>

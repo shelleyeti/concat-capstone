@@ -9,7 +9,8 @@ export default class UserProfile extends Component {
     username: "",
     name: "",
     email: "",
-    password: ""
+    password: "",
+    blurb: ""
   }
 
   //update password for users
@@ -29,6 +30,10 @@ export default class UserProfile extends Component {
           <span>
             <label>Userame: </label>
             <Input type="text" id="username" defaultValue={ this.props.activeUser.username } />
+          </span>
+          <span>
+            <label>Blurb: </label>
+            <Input type="text" id="blurb" defaultValue={ this.props.activeUser.blurb } />
           </span>
           <span>
             <label>Email: </label>
@@ -51,6 +56,10 @@ export default class UserProfile extends Component {
           <span>
             <label>Userame: </label>
             { this.props.activeUser.username }
+          </span>
+          <span>
+            <label>Blurb: </label>
+            { this.props.activeUser.blurb }
           </span>
           <span>
             <label>Email: </label>

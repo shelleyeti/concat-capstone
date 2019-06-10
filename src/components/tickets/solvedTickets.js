@@ -17,7 +17,7 @@ export default class SolvedTicketList extends Component {
       //iterate over joined table
       this.props.allTeacherTickets.forEach((join) => {
         //both keys in joined table equal
-        if (join.ticketId === ticket.id && join.userId === this.props.activeUser.id)
+        if (join.ticketId === ticket.id && join.userId != this.props.activeUser.id)
           currentUserIsTeacherWithTicket = true;
         else if (join.ticketId === ticket.id) {
           isTicketAssignedToSomeone = true;
