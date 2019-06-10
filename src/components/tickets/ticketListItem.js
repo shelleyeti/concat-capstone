@@ -19,7 +19,7 @@ export default class TicketList extends Component {
           <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
           <Card.Description>{ this.props.item.ticketBody }</Card.Description>
           <Card.Meta>{ this.props.item.submitTime }</Card.Meta>
-          <Button className="btn-margin" onClick={ this.handleAssign } >Assign</Button>
+          <Button className="btn-margin" onClick={ this.handleAssign }>Assign</Button>
         </Card.Content>
       </Card>
     )

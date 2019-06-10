@@ -17,6 +17,7 @@ class ApplicationViews extends Component {
   state = {
     users: [],
     tickets: [],
+    reverseTickets: [],
     joinedTickets: [],
     classTickets: [],
     currentTicketUsers: [],
@@ -30,7 +31,7 @@ class ApplicationViews extends Component {
       .then(() => TicketsManager.getAllTickets())
       .then(ticket => newState.tickets = ticket)
       .then((tickets) => {
-        this.props.history.push("/tickets")
+        this.props.history.push("/tickets/my-tickets")
         this.setState(newState)
         //return tickets so it can be used in the form
         return tickets;
@@ -43,10 +44,20 @@ class ApplicationViews extends Component {
       .then(() => TicketsManager.getAllTickets())
       .then(ticket => (newState.tickets = ticket))
       .then(() => {
-        this.props.history.push("/tickets");
+        this.props.history.push("/tickets/my-tickets");
         this.setState(newState);
       });
   };
+
+  getAllTicketsReverseOrder = () => {
+    const newState = {};
+    TicketsManager.getAllTicketsReverse()
+      .then(reverseOrder => (newState.reverseTickets = reverseOrder))
+      .then(() => {
+        this.props.history.push("/tickets/solved-tickets");
+        this.setState(newState);
+      });
+  }
 
   deleteUser = id => {
     const newState = {};
@@ -136,8 +147,8 @@ class ApplicationViews extends Component {
       .then(users => { newState.users = users })
       .then(CurrentTicketManager.getAllCurrentTicketUsers)
       .then(ticket => { newState.currentTicketUsers = ticket })
-      // .then(Tasks.getAllTasks)
-      // .then(tasks => { newState.tasks = tasks })
+      .then(TicketsManager.getAllTicketsReverse)
+      .then(reverseTicket => { newState.reverseTickets = reverseTicket })
       // .then(Users.getAllUsers)
       // .then(users => { newState.users = users })
       // .then(Messages.getAllMessages)
@@ -198,6 +209,8 @@ class ApplicationViews extends Component {
                 { ...this.props }
                 allUsers={ this.state.users }
                 allTickets={ this.state.tickets }
+                reverseTickets={ this.state.reverseTickets }
+
                 addTicket={ this.addTicket }
                 editTicket={ this.editTicket }
                 allTeacherTickets={ this.state.currentTicketUsers }

@@ -9,6 +9,10 @@ export default {
     return fetch(`${remoteURL}/tickets?_sort=submitTime&_order=asc`).then(e => e.json())
   },
 
+  getAllTicketsReverse() {
+    return fetch(`${remoteURL}/tickets?_sort=submitTime&_order=desc,asc`).then(e => e.json())
+  },
+
   saveTicket(obj) {
     return fetch(`${remoteURL}/tickets`, {
       method: "POST",

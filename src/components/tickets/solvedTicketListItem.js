@@ -4,13 +4,6 @@ import './tickets.css';
 
 export default class SolvedTicketList extends Component {
 
-  // handleAssign = () => {
-  //   this.props.addTeacherTicket({
-  //     ticketId: this.props.item.id,
-  //     userId: this.props.activeUser.id,
-  //   })
-  // };
-
   render() {
     return (
       <Card centered fluid key={ this.props.item.id } >
@@ -18,8 +11,8 @@ export default class SolvedTicketList extends Component {
         <Card.Content>
           <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
           <Card.Description>{ this.props.item.ticketBody }</Card.Description>
+          <Card.Description>Solution Notes: { this.props.item.solutionNotes }</Card.Description>
           <Card.Meta>{ this.props.item.submitTime }</Card.Meta>
-          {/* <Button className="btn-margin" onClick={ this.handleAssign } >Assign</Button> */ }
         </Card.Content>
       </Card>
     )

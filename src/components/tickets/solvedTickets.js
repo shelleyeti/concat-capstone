@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import SolvedTicketListItem from './ticketListItem';
+import SolvedTicketListItem from './solvedTicketListItem';
 import './tickets.css';
 
 class SolvedTicketHeader extends Component {
   render() {
-    return <h1>Solved Tickets</h1>;
+    return <h1>My Solved Tickets</h1>;
   }
 }
 
 export default class SolvedTicketList extends Component {
   render() {
-    let openTicket = this.props.allTickets.filter((ticket) => {
+    let solvedTicket = this.props.reverseTickets.filter((ticket) => {
       //the logged in user is assigned to a ticket
       let currentUserIsTeacherWithTicket = false;
       let isTicketAssignedToSomeone = false;
@@ -28,7 +28,7 @@ export default class SolvedTicketList extends Component {
         return ticket;
     });
 
-    let classTickets = openTicket.map((item, index) => {
+    let classTickets = solvedTicket.map((item, index) => {
       let image = ""
       this.props.allUsers.forEach((user) => {
         if (item.userId === user.id) {

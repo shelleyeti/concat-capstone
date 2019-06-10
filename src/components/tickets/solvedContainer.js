@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import SolvedTicketList from './ticketList';
-import CurrentTicket from './currentTicket';
+import AllSolvedTicketList from './solvedTickets';
+// import MySolvedTicketList from './solvedTicketsClass';
 import './tickets.css';
 
-export default class SolvedTicketContainer extends Component {
+export default class SolvedTicketsContainer extends Component {
   render() {
     return (
       <div className='ticket-list'>
-        <SolvedTicketList { ...this.props } />
-        {/* <CurrentTicket { ...this.props } /> */ }
+        <AllSolvedTicketList { ...this.props } />
+        {/* <MySolvedTicketList { ...this.props } /> */ }
       </div>
     );
   }
