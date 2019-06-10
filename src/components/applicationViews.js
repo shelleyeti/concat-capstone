@@ -150,7 +150,7 @@ class ApplicationViews extends Component {
     return (
       <>
         <div className="App">
-          <Router>
+          <div>
             <Route exact path="/" render={ (props) => {
               return this.state.user ? (
                 <Home
@@ -216,7 +216,7 @@ class ApplicationViews extends Component {
               // }
             } }
             />
-          </Router>
+          </div>
         </div>
       </>
     );
