@@ -13,7 +13,7 @@ export default class Home extends Component {
         <Grid>
           <Grid.Row centered>
             <Grid.Column largeScreen={ 8 } computer={ 10 } tablet={ 12 } mobile={ 16 }>
-              <Header textAlign="center">Welcome { this.props.user.username }</Header>
+              <Header textAlign="center">Welcome { this.props.activeUser.username }</Header>
               <Message
                 icon="lock"
                 header="Protected Content"
