@@ -15,7 +15,7 @@ export default class UserProfile extends Component {
     if (this.props.editMode) {
       //edit mode true
       return <div>
-        <Card centered fluid className="card">
+        <Card centered fluid className="card-dash">
           <span>
             <label>Name: </label>
             <Input type="text" id="name" defaultValue={ this.props.activeUser.name } />
@@ -37,7 +37,7 @@ export default class UserProfile extends Component {
     } else {
       //edit mode false
       return <div>
-        <Card centered fluid className="card">
+        <Card centered fluid className="card-dash">
           <span>
             <label>Name: </label>
             { this.props.activeUser.name }

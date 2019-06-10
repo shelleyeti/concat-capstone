@@ -11,7 +11,7 @@ export default class UserImage extends Component {
     if (this.props.editMode) {
       //edit mode true
       return (
-        <Card centered fluid className="card">
+        <Card centered fluid className="card-dash">
           <Card.Content>
             <Card.Description>
               <Input type="text" id="user-image" defaultValue={ this.props.activeUser.image } />
@@ -22,7 +22,7 @@ export default class UserImage extends Component {
     } else {
       //edit mode false
       return (
-        <Card centered fluid className="card">
+        <Card centered fluid className="card-dash">
           <Image centered floated='left' size='medium' src={ this.props.activeUser.image } alt="user profile" className="user-image" />
         </Card>
       )

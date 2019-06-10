@@ -45,9 +45,6 @@ class ApplicationViews extends Component {
       });
   };
 
-
-
-
   deleteUser = id => {
     const newState = {};
     UsersManager.deleteUser(id)
@@ -82,8 +79,6 @@ class ApplicationViews extends Component {
         this.setState(newState);
       });
   };
-
-
 
   componentDidMount() {
     const newState = {};
@@ -131,7 +126,6 @@ class ApplicationViews extends Component {
               // if (this.isAuthenticated()) {
               return <TicketContainer
                 { ...props }
-                // activeUser={ this.props.activeUser }
                 ticket={ this.state.tickets }
                 addTicket={ this.addTicket }
                 editTicket={ this.editTicket }
@@ -145,7 +139,6 @@ class ApplicationViews extends Component {
               // if (this.isAuthenticated()) {
               return <TicketForm
                 { ...props }
-                // activeUser={ this.props.activeUser }
                 ticket={ this.state.tickets }
                 editTicket={ this.editTicket }
               />
@@ -159,7 +152,6 @@ class ApplicationViews extends Component {
               return <TeacherDash
                 { ...props }
                 { ...this.props }
-                // activeUser={ this.props.activeUser }
                 user={ this.state.users }
                 editUser={ this.editUser }
               />
