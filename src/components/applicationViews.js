@@ -117,6 +117,16 @@ class ApplicationViews extends Component {
       });
   };
 
+  getAllJoinedTicketUser = () => {
+    const newState = {};
+    CurrentTicketManager.getAllCurrentTicketUsers()
+      .then(joinedTeacher => (newState.currentTicketUsers = joinedTeacher))
+      .then(() => {
+        this.props.history.push("/tickets");
+        this.setState(newState);
+      });
+  }
+
   componentDidMount() {
     const newState = {};
     TicketsManager.getAllTickets()
@@ -143,7 +153,9 @@ class ApplicationViews extends Component {
           <Router>
             <Route exact path="/" render={ (props) => {
               return this.state.user ? (
-                <Home { ...props }
+                <Home
+                  { ...props }
+                  { ...this.props }
                   user={ this.state.user }
                   onLogout={ logout }
                 />
@@ -163,9 +175,12 @@ class ApplicationViews extends Component {
               // if (this.isAuthenticated()) {
               return <TicketContainer
                 { ...props }
-                ticket={ this.state.tickets }
+                { ...this.props }
+                allUsers={ this.state.users }
+                allTickets={ this.state.tickets }
                 addTicket={ this.addTicket }
                 editTicket={ this.editTicket }
+                allTeacherTickets={ this.state.currentTicketUsers }
                 removeTeacherTicket={ this.deleteCurrentTicketUser }
                 addTeacherTicket={ this.addCurrentTicketUser }
                 editTeacherTicket={ this.editCurrentTicketUser }
@@ -179,6 +194,7 @@ class ApplicationViews extends Component {
               // if (this.isAuthenticated()) {
               return <TicketForm
                 { ...props }
+                { ...this.props }
                 ticket={ this.state.tickets }
                 editTicket={ this.editTicket }
               />

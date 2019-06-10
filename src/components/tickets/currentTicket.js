@@ -10,18 +10,33 @@ class CurrentTicketHeader extends Component {
 export default class TicketForm extends Component {
 
   render() {
-    let openTicket = this.props.ticket.filter((ticket) => {
-      if (ticket.ticketComplete === false && ticket.userId === 10)
+    let openTicket = this.props.allTickets.filter((ticket) => {
+      let currentUserIsTeacherWithTicket = false;
+      this.props.allTeacherTickets.forEach((join) => {
+        if (join.ticketId === ticket.id && join.userId === this.props.activeUser.id)
+          currentUserIsTeacherWithTicket = true;
+      })
+
+      if (ticket.ticketComplete === false && (ticket.userId === this.props.activeUser.id || currentUserIsTeacherWithTicket))
         return ticket;
     });
 
     let currentTickets = openTicket.map((item, index) => {
+      let image = ""
+      this.props.allUsers.forEach((user) => {
+        if (item.userId === user.id) {
+          image = user.image
+        }
+      })
       return (
         <CurrentTicketItem
+          { ...this.props }
           key={ index }
           item={ item }
           index={ index }
-          editTicket={ this.props.editTicket } />
+          image={ image }
+        // editTicket={ this.props.editTicket } 
+        />
       );
 
     });
