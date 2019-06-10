@@ -31,7 +31,7 @@ export default {
 
   editClass(editedClass) {
     return fetch(`${remoteURL}/classes/${editedClass.id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json"
       },

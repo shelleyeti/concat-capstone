@@ -31,7 +31,7 @@ export default {
 
   editJoinedTicket(editedJoinedTicket) {
     return fetch(`${remoteURL}/joinedTickets/${editedJoinedTicket.id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json"
       },
