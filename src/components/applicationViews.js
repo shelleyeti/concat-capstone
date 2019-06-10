@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import TicketForm from './tickets/ticketForm';
 import TicketContainer from './tickets/ticketContainer';
@@ -7,6 +7,7 @@ import TicketsManager from '../modules/ticketManager';
 import TeacherDash from './dashboard/teacherDashContainer'
 import UsersManager from '../modules/userManager';
 import CurrentTicketManager from '../modules/currentTicketUsers';
+import SolvedTicketsContainer from './tickets/solvedTickets'
 import Login from './dashboard/Login';
 import Register from './dashboard/Register';
 import Home from './dashboard/Home';
@@ -88,7 +89,7 @@ class ApplicationViews extends Component {
       .then(CurrentTicketManager.getAllCurrentTicketUsers)
       .then(teacherTicket => (newState.currentTicketUsers = teacherTicket))
       .then(() => {
-        this.props.history.push("/tickets");
+        this.props.history.push("/tickets/my-tickets");
         this.setState(newState);
       });
   };
@@ -99,7 +100,7 @@ class ApplicationViews extends Component {
       .then(() => CurrentTicketManager.getAllCurrentTicketUsers())
       .then(teacherTicket => newState.currentTicketUsers = teacherTicket)
       .then((ticket) => {
-        this.props.history.push("/tickets")
+        this.props.history.push("/tickets/my-tickets")
         this.setState(newState)
         //return ticket so it can be used in the form
         return ticket;
@@ -112,7 +113,7 @@ class ApplicationViews extends Component {
       .then(() => CurrentTicketManager.getAllCurrentTicketUsers())
       .then(teacherTicket => (newState.currentTicketUser = teacherTicket))
       .then(() => {
-        this.props.history.push("/tickets");
+        this.props.history.push("/tickets/my-tickets");
         this.setState(newState);
       });
   };
@@ -122,7 +123,7 @@ class ApplicationViews extends Component {
     CurrentTicketManager.getAllCurrentTicketUsers()
       .then(joinedTeacher => (newState.currentTicketUsers = joinedTeacher))
       .then(() => {
-        this.props.history.push("/tickets");
+        this.props.history.push("/tickets/my-tickets");
         this.setState(newState);
       });
   }
@@ -171,9 +172,28 @@ class ApplicationViews extends Component {
               <Register { ...props }
                 onRegister={ (user) => this.setState({ user: user }) } /> }
             />
-            <Route exact path="/tickets" render={ (props) => {
+            <Route exact path="/tickets/my-tickets" render={ (props) => {
               // if (this.isAuthenticated()) {
               return <TicketContainer
+                { ...props }
+                { ...this.props }
+                allUsers={ this.state.users }
+                allTickets={ this.state.tickets }
+                addTicket={ this.addTicket }
+                editTicket={ this.editTicket }
+                allTeacherTickets={ this.state.currentTicketUsers }
+                removeTeacherTicket={ this.deleteCurrentTicketUser }
+                addTeacherTicket={ this.addCurrentTicketUser }
+                editTeacherTicket={ this.editCurrentTicketUser }
+              />
+              // } else {
+              //   return <Redirect to="/" />
+              // }
+            } }
+            />
+            <Route exact path="/tickets/solved-tickets" render={ (props) => {
+              // if (this.isAuthenticated()) {
+              return <SolvedTicketsContainer
                 { ...props }
                 { ...this.props }
                 allUsers={ this.state.users }

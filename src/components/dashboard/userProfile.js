@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Card, Input, Label } from 'semantic-ui-react';
+import { Card, Input } from 'semantic-ui-react';
+import { updatePasswordOnProfile as newPassword } from '../auth/userManager'
 import './dashboard.css';
 
 export default class UserProfile extends Component {
@@ -10,6 +11,11 @@ export default class UserProfile extends Component {
     email: "",
     password: ""
   }
+
+  //update password for users
+  // updatePassword = (password) => {
+  //   newPassword(password)
+  // }
 
   displayConditions = () => {
     if (this.props.editMode) {
@@ -30,7 +36,7 @@ export default class UserProfile extends Component {
           </span>
           <span>
             <label>Password: </label>
-            <Input type="password" id="password" defaultValue={ this.props.activeUser.password } />
+            <Input type="password" id="password" />
           </span>
         </Card>
       </div >
