@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Container, Grid, Message, Segment, Header } from 'semantic-ui-react';
+import { Form, Button, Container, Grid, Message, Segment, Header, Dropdown } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { register } from '../auth/userManager';
 import * as firebase from 'firebase/app';
@@ -13,8 +13,8 @@ export default class Register extends Component {
     name: "",
     username: "",
     email: "",
-    password: "",
-    image: null,
+    password: null,
+    image: "",
     blurb: "",
     available: "",
     classId: "",
@@ -105,6 +105,21 @@ export default class Register extends Component {
                       this.setState({ student: false })
                     } }
                   />
+                  <Form.Field>
+                    <Dropdown item simple text='Select a Class'>
+                      <Dropdown.Menu>
+                        <Dropdown.Item >
+                          Cohort 32
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                          Cohort 33
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                          Night Class
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Form.Field>
                   <Form.Field
                     className="choose-upload-button"
                     control="input"

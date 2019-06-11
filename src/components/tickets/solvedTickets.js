@@ -13,18 +13,14 @@ export default class SolvedTicketList extends Component {
     let solvedTicket = this.props.reverseTickets.filter((ticket) => {
       //the logged in user is assigned to a ticket
       let currentUserIsTeacherWithTicket = false;
-      let isTicketAssignedToSomeone = false;
       //iterate over joined table
       this.props.allTeacherTickets.forEach((join) => {
         //both keys in joined table equal
-        if (join.ticketId === ticket.id && join.userId != this.props.activeUser.id)
+        if (join.ticketId === ticket.id && join.userId === this.props.activeUser.id)
           currentUserIsTeacherWithTicket = true;
-        else if (join.ticketId === ticket.id) {
-          isTicketAssignedToSomeone = true;
-        }
       })
 
-      if (ticket.ticketComplete === true && (!currentUserIsTeacherWithTicket && isTicketAssignedToSomeone === true))
+      if (ticket.ticketComplete && currentUserIsTeacherWithTicket)
         return ticket;
     });
 

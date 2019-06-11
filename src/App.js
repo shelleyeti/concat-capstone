@@ -13,13 +13,14 @@ export default class App extends Component {
 
   setUser = (user) => {
     //puts the active user in local storage, necessary for editing user profile
-    localStorage.setItem("credentials", JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(user));
     this.setState({
       activeUser: user
     })
   }
 
   render() {
+    console.log(this.state)
     return (
       <React.Fragment>
         <Logo />
