@@ -8,6 +8,7 @@ import DashContainer from './dashboard/dashContainer'
 import UsersManager from '../modules/userManager';
 import CurrentTicketManager from '../modules/currentTicketUsers';
 import SolvedTicketsContainer from './tickets/solvedTickets'
+import StepRegisterContainer from './registration/stepRegisterContainer';
 import Login from './dashboard/Login';
 import Register from './dashboard/Register';
 import Home from './dashboard/Home';
@@ -196,11 +197,11 @@ class ApplicationViews extends Component {
                   <Redirect to="/login" />
                 )
             } } />
-            <Route path="/login" render={ (props) =>
+            <Route exact path="/login" render={ (props) =>
               <Login { ...props }
                 onLogin={ (user) => this.props.setUser(user) } /> }
             />
-            <Route path="/register" render={ (props) =>
+            <Route exact path="/register" render={ (props) =>
               <Register { ...props }
                 onRegister={ (user) => this.props.setUser(user) } /> }
             />
@@ -263,6 +264,19 @@ class ApplicationViews extends Component {
                 { ...this.props }
                 user={ this.state.users }
                 editUser={ this.editUser }
+              />
+              // } else {
+              //   return <Redirect to="/" />
+              // }
+            } }
+            />
+
+            <Route exact path="/register/step" render={ (props) => {
+              // if (this.isAuthenticated()) {
+              return <StepRegisterContainer
+                { ...props }
+                { ...this.props }
+                onRegister={ (user) => this.props.setUser(user) }
               />
               // } else {
               //   return <Redirect to="/" />
