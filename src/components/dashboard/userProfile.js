@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Input } from 'semantic-ui-react';
-import { updatePasswordOnProfile as newPassword } from '../auth/userManager'
+import 'firebase/auth';
 import './dashboard.css';
 
 export default class UserProfile extends Component {
@@ -10,13 +10,9 @@ export default class UserProfile extends Component {
     name: "",
     email: "",
     password: "",
+    newPassword: "",
     blurb: ""
   }
-
-  //update password for users
-  // updatePassword = (password) => {
-  //   newPassword(password)
-  // }
 
   displayConditions = () => {
     if (this.props.editMode) {
@@ -40,8 +36,12 @@ export default class UserProfile extends Component {
             <Input type="text" id="email" defaultValue={ this.props.activeUser.email } />
           </span>
           <span>
-            <label>Password: </label>
+            <label>Current Password: </label>
             <Input type="password" id="password" />
+          </span>
+          <span>
+            <label>New Password: </label>
+            <Input type="password" id="newPassword" />
           </span>
         </Card>
       </div >

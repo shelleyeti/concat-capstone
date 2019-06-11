@@ -18,7 +18,7 @@ class TicketForm extends Component {
 
   newTicket = () => {
     Tickets.saveTicket({
-      userId: this.props.userId,
+      userId: this.props.activeUser.id,
       classId: this.props.classId,
       ticketComplete: false,
       ticketTitle: this.state.ticketTitle,
@@ -27,14 +27,14 @@ class TicketForm extends Component {
       open: true,
       linked: false,
       solutionNotes: null
-    }).then(() => {
-      setTimeout(() => {
-        document.querySelector(".ticketFormSuccess").style.display = "block";
-        document.querySelector(".form-fields").reset()
-      }, 150)
-    }).then(() => {
-      setTimeout(() => { this.props.history.push("/tickets/my-tickets") }, 2000)
     })
+      .then(() => {
+        setTimeout(() => {
+          document.querySelector(".ticketFormSuccess").style.display = "block";
+          document.querySelector(".form-fields").reset()
+        }, 150)
+      })
+      .then(() => { setTimeout(() => { this.props.history.push("/tickets/my-tickets") }, 2000) })
   }
 
   render() {

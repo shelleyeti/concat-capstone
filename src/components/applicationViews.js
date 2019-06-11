@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import TicketForm from './tickets/ticketForm';
 import TicketContainer from './tickets/ticketContainer';
 import TicketsManager from '../modules/ticketManager';
-import TeacherDash from './dashboard/teacherDashContainer'
+import DashContainer from './dashboard/dashContainer'
 import UsersManager from '../modules/userManager';
 import CurrentTicketManager from '../modules/currentTicketUsers';
 import SolvedTicketsContainer from './tickets/solvedTickets'
@@ -158,6 +158,25 @@ class ApplicationViews extends Component {
       .then(() => this.setState(newState));
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      const newState = {};
+      TicketsManager.getAllTickets()
+        .then(tickets => { newState.tickets = tickets })
+        .then(UsersManager.getAllUsers)
+        .then(users => { newState.users = users })
+        .then(CurrentTicketManager.getAllCurrentTicketUsers)
+        .then(ticket => { newState.currentTicketUsers = ticket })
+        .then(TicketsManager.getAllTicketsReverse)
+        .then(reverseTicket => { newState.reverseTickets = reverseTicket })
+        // .then(Users.getAllUsers)
+        // .then(users => { newState.users = users })
+        // .then(Messages.getAllMessages)
+        // .then(messages => { newState.messages = messages })
+        .then(() => this.setState(newState));
+    }
+  }
+
   // isAuthenticated = () => sessionStorage.getItem("user") !== null;
 
   render() {
@@ -179,7 +198,7 @@ class ApplicationViews extends Component {
             } } />
             <Route path="/login" render={ (props) =>
               <Login { ...props }
-                onLogin={ (user) => this.setState({ user: user }) } /> }
+                onLogin={ (user) => this.props.setUser(user) } /> }
             />
             <Route path="/register" render={ (props) =>
               <Register { ...props }
@@ -210,7 +229,6 @@ class ApplicationViews extends Component {
                 { ...props }
                 { ...this.props }
                 allUsers={ this.state.users }
-                // allTickets={ this.state.tickets }
                 reverseTickets={ this.state.reverseTickets }
                 addTicket={ this.addTicket }
                 editTicket={ this.editTicket }
@@ -229,6 +247,7 @@ class ApplicationViews extends Component {
               return <TicketForm
                 { ...props }
                 { ...this.props }
+                allUsers={ this.state.users }
                 ticket={ this.state.tickets }
                 editTicket={ this.editTicket }
               />
@@ -239,7 +258,7 @@ class ApplicationViews extends Component {
             />
             <Route exact path="/dashboard/teacher" render={ (props) => {
               // if (this.isAuthenticated()) {
-              return <TeacherDash
+              return <DashContainer
                 { ...props }
                 { ...this.props }
                 user={ this.state.users }

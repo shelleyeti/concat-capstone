@@ -17,7 +17,7 @@ export default class TicketForm extends Component {
           currentUserIsTeacherWithTicket = true;
       })
 
-      if (ticket.ticketComplete === false && (ticket.userId === this.props.activeUser.id || currentUserIsTeacherWithTicket))
+      if (ticket.ticketComplete === false && (currentUserIsTeacherWithTicket))
         return ticket;
     });
 
