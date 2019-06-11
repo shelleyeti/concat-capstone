@@ -51,10 +51,6 @@ export default class TeacherContainer extends Component {
     )
   }
 
-  handleKeepCurrentImage = () => {
-    // <Button outline onClick={ this.handleKeepCurrentImage }>Keep Current Image</Button>
-  }
-
   reauthenticate = (currentPassword) => {
     const user = firebase.auth().currentUser;
     const cred = firebase.auth.EmailAuthProvider.credential(
