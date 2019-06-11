@@ -3,9 +3,11 @@ import { Button } from 'semantic-ui-react';
 import UserProfile from './userProfile';
 import UserImage from './userImage';
 import * as firebase from 'firebase/app';
+import 'firebase/storage';
 import './dashboard.css';
 
 export default class TeacherContainer extends Component {
+  storageRef = firebase.storage().ref('userImage');
   state = {
     editMode: false,
     editModeImage: false
@@ -24,16 +26,26 @@ export default class TeacherContainer extends Component {
   }
 
   handleSaveImage = () => {
-    const image = document.querySelector("#user-image").value
-    this.props.editUser({
-      id: this.props.activeUser.id,
-      name: this.props.activeUser.name,
-      username: this.props.activeUser.username,
-      blurb: this.props.activeUser.blurb,
-      email: this.props.activeUser.email,
-      password: null,
-      image: image
-    })
+    const imageUploadFiles = document.querySelector(".choose-upload-button input[type='file']").files
+    if (imageUploadFiles.length > 0) {
+      const ref = this.storageRef.child(`${Date.now()}`);
+
+      ref.put(imageUploadFiles[0])
+        .then(data => data.ref.getDownloadURL())
+        .then(url => {
+          this.props.editUser({
+            id: this.props.activeUser.id,
+            name: this.props.activeUser.name,
+            username: this.props.activeUser.username,
+            blurb: this.props.activeUser.blurb,
+            email: this.props.activeUser.email,
+            password: null,
+            image: url
+          })
+        })
+    }
+
+
     this.setState(
       { editModeImage: false }
     )
