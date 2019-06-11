@@ -7,6 +7,11 @@ export default class StepOneUserDetails extends Component {
     this.props.nextStep()
   }
 
+  back = (e) => {
+    e.preventDefault();
+    this.props.prevStep();
+  }
+
   render() {
     const { values } = this.props;
 
@@ -28,19 +33,20 @@ export default class StepOneUserDetails extends Component {
                   //files don't use .value and come through as an array
                   onChange={ (e) => this.setState({ image: e.target.files[0] }) }
                   placeholder="Photo" />
+                <Button className="ui left floated" onClick={ this.back }>Back</Button>
                 <Button className="ui right floated" onClick={ this.saveAndContinue }>Save And Continue </Button>
               </Form>
-              <div class="ui four steps">
-                <div class="ui disabled step">
+              <div className="ui four steps">
+                <div className="ui disabled step">
                   User Details
                 </div>
-                <div class="ui disabled step">
+                <div className="ui disabled step">
                   Class Details
                 </div>
-                <div class="ui active step">
+                <div className="ui active step">
                   Image
                 </div>
-                <div class="ui disabled step">
+                <div className="ui disabled step">
                   Confirm
                 </div>
               </div>

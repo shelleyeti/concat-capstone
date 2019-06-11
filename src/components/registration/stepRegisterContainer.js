@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import StepOneUserDetails from './stepOne-UserDetails';
 import StepTwoClassDetails from './stepTwo-ClassDetails';
-import StepThreeImage from './stepThree-Image'
+import StepThreeImage from './stepThree-Image';
 import StepConfirmation from './stepConfirmation';
-import StepSuccess from './stepSuccess';
-// import './dashboard.css';
 
 export default class StepRegisterContainer extends Component {
   state = {
@@ -73,8 +71,6 @@ export default class StepRegisterContainer extends Component {
           prevStep={ this.prevStep }
           values={ values }
         />
-      case 5:
-        return <StepSuccess />
     }
   }
 }

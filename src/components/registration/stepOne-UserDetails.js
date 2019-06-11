@@ -25,16 +25,8 @@ export default class StepOneUserDetails extends Component {
                   type="text"
                   label="Full Name"
                   placeholder="Enter your first and last name"
-                  onChange={ this.props.handleChange('firstName') }
+                  onChange={ this.props.handleChange('name') }
                   defaultValue={ values.firstName }
-                />
-                <Form.Field
-                  control="input"
-                  type="text"
-                  label="Username"
-                  placeholder="Enter a username"
-                  onChange={ this.props.handleChange('lastName') }
-                  defaultValue={ values.lastName }
                 />
                 <Form.Field
                   control="input"
@@ -44,19 +36,26 @@ export default class StepOneUserDetails extends Component {
                   onChange={ this.props.handleChange('email') }
                   defaultValue={ values.email }
                 />
+                <Form.Field
+                  control="input"
+                  type="password"
+                  label="Password"
+                  placeholder="Password"
+                  onChange={ this.props.handleChange('password') }
+                />
                 <Button className="ui right floated" onClick={ this.saveAndContinue }>Save And Continue </Button>
               </Form>
-              <div class="ui four steps">
-                <div class="ui active step">
+              <div className="ui four steps">
+                <div className="ui active step">
                   User Details
                 </div>
-                <div class="ui disabled step">
+                <div className="ui disabled step">
                   Class Details
                 </div>
-                <div class="ui disabled step">
+                <div className="ui disabled step">
                   Image
                 </div>
-                <div class="ui disabled step">
+                <div className="ui disabled step">
                   Confirm
                 </div>
               </div>
