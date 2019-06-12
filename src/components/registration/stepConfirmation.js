@@ -69,13 +69,15 @@ export default class StepConfirmation extends Component {
 
               <Card fluid>
                 <Card.Content>
-                  <Card.Description>Full Name: { name }</Card.Description>
-                  <Card.Description>Username: { username }</Card.Description>
-                  <Card.Description>Email: { email }</Card.Description>
-                  <Card.Description>Blurb: { blurb }</Card.Description>
-                  <Card.Description>Class: { cohortName }</Card.Description>
-                  <Card.Description>Status: { student }</Card.Description>
-                  <Card.Description>Image: { (image != "" && image != null ? image.name : "") }</Card.Description>
+                  <Card.Description>
+                    <p>Full Name: { name }</p>
+                    <p>Username: { username }</p>
+                    <p>Email: { email }</p>
+                    <p>Blurb: { blurb }</p>
+                    <p>Class: { cohortName }</p>
+                    <p>Status: { student }</p>
+                    <p>Image: { (image != "" && image != null ? image.name : "") }</p>
+                  </Card.Description>
                 </Card.Content>
               </Card>
 
