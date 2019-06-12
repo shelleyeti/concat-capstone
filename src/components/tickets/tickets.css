@@ -1,5 +1,5 @@
 .new-ticket-container {
-  border: 5px solid red;
+  /* border: 5px solid red; */
   display: inline-block;
   width: 40%;
   vertical-align: top;
@@ -7,7 +7,7 @@
 }
 
 .current-ticket-container {
-  border: 5px solid red;
+  /* border: 5px solid red; */
   display: inline-block;
   width: 40%;
   vertical-align: top;
@@ -23,4 +23,8 @@
 
 .btn-margin {
   margin-top: 10px !important;
+}
+
+.ticket-height {
+  height: 250px !important;
 }

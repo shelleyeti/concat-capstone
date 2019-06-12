@@ -19,7 +19,7 @@ class TicketForm extends Component {
   newTicket = () => {
     Tickets.saveTicket({
       userId: this.props.activeUser.id,
-      classId: this.props.classId,
+      classId: this.props.activeUser.classId,
       ticketComplete: false,
       ticketTitle: this.state.ticketTitle,
       ticketBody: this.state.ticketBody,

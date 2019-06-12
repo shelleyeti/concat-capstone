@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TicketListItem from './ticketListItem';
+import TicketItem from './ticketItem';
 import '../../tickets/tickets.css';
 
 class OpenTicketHeader extends Component {
@@ -36,7 +36,7 @@ export default class TicketList extends Component {
         }
       })
       return (
-        <TicketListItem
+        <TicketItem
           { ...this.props }
           key={ index }
           item={ item }

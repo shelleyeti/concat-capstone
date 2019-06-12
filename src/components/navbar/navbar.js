@@ -32,11 +32,6 @@ class MenuNav extends Component {
                   </Link>
                 </Dropdown.Item>
                 <Dropdown.Item>
-                  <Link to='/tickets/open'>
-                    All Open Tickets
-                </Link>
-                </Dropdown.Item>
-                <Dropdown.Item>
                   <Link to='/tickets/solved-tickets'>
                     Solved Tickets
                 </Link>
