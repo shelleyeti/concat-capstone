@@ -43,7 +43,8 @@ class MenuNav extends Component {
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-            <Dropdown item simple text='Classes'>
+            {/* Closed until all primary isses are addressed */ }
+            {/* <Dropdown item simple text='Classes'>
               <Dropdown.Menu>
                 <Dropdown.Item >
                   <Link to='/classes/my-classes'>
@@ -56,7 +57,7 @@ class MenuNav extends Component {
                 </Link>
                 </Dropdown.Item>
               </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown> */}
             <Menu.Item>
               <Link to='/teacher/office-hours'>Office Hours</Link>
             </Menu.Item>

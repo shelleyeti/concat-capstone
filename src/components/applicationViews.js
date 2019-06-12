@@ -9,7 +9,7 @@ import UsersManager from '../modules/userManager';
 import CurrentTicketManager from '../modules/currentTicketUsers';
 import SolvedTicketsContainer from './tickets/solvedTickets';
 import ClassManager from '../modules/classes';
-import AllClasses from './classes/allClassesList';
+// import AllClasses from './classes/allClassesList';
 import StepRegisterContainer from './registration/stepRegisterContainer';
 import Login from './dashboard/Login';
 import Register from './dashboard/Register';
