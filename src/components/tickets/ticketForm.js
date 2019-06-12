@@ -23,7 +23,7 @@ class TicketForm extends Component {
       ticketComplete: false,
       ticketTitle: this.state.ticketTitle,
       ticketBody: this.state.ticketBody,
-      submitTime: moment(new Date()).format('llll'),
+      submitTime: moment(new Date()).format('MMMM Do YYYY, h:mm:ss a'),
       open: true,
       linked: false,
       solutionNotes: null

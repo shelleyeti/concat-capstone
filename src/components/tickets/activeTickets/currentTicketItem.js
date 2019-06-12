@@ -48,6 +48,7 @@ export default class CurrentTicketItem extends Component {
   // };
 
   render() {
+    console.log(this.props.item.id)
     return (
       <div>
         <Card centered fluid key={ this.props.item.id } >
