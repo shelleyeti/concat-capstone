@@ -75,7 +75,7 @@ export default class StepConfirmation extends Component {
                     <p>Email: { email }</p>
                     <p>Blurb: { blurb }</p>
                     <p>Class: { cohortName }</p>
-                    <p>Status: { student }</p>
+                    <p>Status: { student ? "Student" : "Teacher" }</p>
                     <p>Image: { (image != "" && image != null ? image.name : "") }</p>
                   </Card.Description>
                 </Card.Content>
