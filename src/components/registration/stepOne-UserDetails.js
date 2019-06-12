@@ -26,7 +26,7 @@ export default class StepOneUserDetails extends Component {
                   label="Full Name"
                   placeholder="Enter your first and last name"
                   onChange={ this.props.handleChange('name') }
-                  defaultValue={ values.firstName }
+                  defaultValue={ values.name }
                 />
                 <Form.Field
                   control="input"
@@ -43,7 +43,7 @@ export default class StepOneUserDetails extends Component {
                   placeholder="Password"
                   onChange={ this.props.handleChange('password') }
                 />
-                <Button className="ui right floated" onClick={ this.saveAndContinue }>Save And Continue </Button>
+                <Button className="ui right floated" onClick={ this.saveAndContinue }>Save and Continue </Button>
               </Form>
               <div className="ui four steps">
                 <div className="ui active step">

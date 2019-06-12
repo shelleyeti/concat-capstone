@@ -15,6 +15,7 @@ export default class StepRegisterContainer extends Component {
     blurb: "",
     available: "",
     classId: "",
+    cohortName: "",
     student: false
   }
 
@@ -36,14 +37,25 @@ export default class StepRegisterContainer extends Component {
     this.setState({ [input]: event.target.value })
   }
 
-  handleChangeImage = input => event => {
-    this.setState({ [input]: event.target.file[0] })
+  handleChangeStudent = isStudent => {
+    this.setState({ student: isStudent })
+  }
+
+  handleChangeImage = file => {
+    this.setState({ image: file })
+  }
+
+  handleChangeClasses = (cohortName, classId) => {
+    this.setState({
+      classId: classId,
+      cohortName: cohortName,
+    })
   }
 
   render() {
     const { step } = this.state;
-    const { name, username, email, password, image, blurb, available, classId, student } = this.state;
-    const values = { name, username, email, password, image, blurb, available, classId, student };
+    const { name, username, email, password, image, blurb, available, classId, student, cohortName } = this.state;
+    const values = { name, username, email, password, image, blurb, available, classId, student, cohortName };
     switch (step) {
       case 1:
         return <StepOneUserDetails
@@ -53,13 +65,19 @@ export default class StepRegisterContainer extends Component {
         />
       case 2:
         return <StepTwoClassDetails
+          { ...this.props }
+          state={ this.state }
           nextStep={ this.nextStep }
           prevStep={ this.prevStep }
           handleChange={ this.handleChange }
+          handleChangeStudent={ this.handleChangeStudent }
+          handleChangeClasses={ this.handleChangeClasses }
           values={ values }
         />
       case 3:
         return <StepThreeImage
+          { ...this.props }
+          state={ this.state }
           nextStep={ this.nextStep }
           prevStep={ this.prevStep }
           handleChange={ this.handleChangeImage }
@@ -67,10 +85,14 @@ export default class StepRegisterContainer extends Component {
         />
       case 4:
         return <StepConfirmation
+          { ...this.props }
+          state={ this.state }
           nextStep={ this.nextStep }
           prevStep={ this.prevStep }
           values={ values }
         />
+      default:
+        break;
     }
   }
 }

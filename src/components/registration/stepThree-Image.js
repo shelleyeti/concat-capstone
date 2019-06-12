@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Form, Button, Container, Grid, Segment, Header } from 'semantic-ui-react';
 
 export default class StepOneUserDetails extends Component {
+  state = {
+    image: this.props.state.image
+  }
+
   saveAndContinue = (e) => {
     e.preventDefault()
     this.props.nextStep()
@@ -11,9 +15,7 @@ export default class StepOneUserDetails extends Component {
     e.preventDefault();
     this.props.prevStep();
   }
-
   render() {
-    const { values } = this.props;
 
     return (
       <Container className="auth-container ui grid container">
@@ -30,11 +32,14 @@ export default class StepOneUserDetails extends Component {
                   control="input"
                   type="file"
                   label="Photo"
-                  //files don't use .value and come through as an array
-                  onChange={ (e) => this.setState({ image: e.target.files[0] }) }
+
+                  onChange={ (e) => {
+                    this.setState({ image: e.target.files[0] });
+                    this.props.handleChange(e.target.files[0]);
+                  } }
                   placeholder="Photo" />
                 <Button className="ui left floated" onClick={ this.back }>Back</Button>
-                <Button className="ui right floated" onClick={ this.saveAndContinue }>Save And Continue </Button>
+                <Button className="ui right floated" onClick={ this.saveAndContinue }>Save and Continue </Button>
               </Form>
               <div className="ui four steps">
                 <div className="ui disabled step">

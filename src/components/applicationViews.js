@@ -7,7 +7,9 @@ import TicketsManager from '../modules/ticketManager';
 import DashContainer from './dashboard/dashContainer'
 import UsersManager from '../modules/userManager';
 import CurrentTicketManager from '../modules/currentTicketUsers';
-import SolvedTicketsContainer from './tickets/solvedTickets'
+import SolvedTicketsContainer from './tickets/solvedTickets';
+import ClassManager from '../modules/classes';
+import AllClasses from './classes/allClassesList';
 import StepRegisterContainer from './registration/stepRegisterContainer';
 import Login from './dashboard/Login';
 import Register from './dashboard/Register';
@@ -49,16 +51,6 @@ class ApplicationViews extends Component {
         this.setState(newState);
       });
   };
-
-  // getAllTicketsReverseOrder = () => {
-  //   const newState = {};
-  //   TicketsManager.getAllTicketsReverse()
-  //     .then(reverseOrder => (newState.reverseTickets = reverseOrder))
-  //     .then(() => {
-  //       this.props.history.push("/tickets/solved-tickets");
-  //       this.setState(newState);
-  //     });
-  // }
 
   deleteUser = id => {
     const newState = {};
@@ -132,15 +124,41 @@ class ApplicationViews extends Component {
       });
   };
 
-  // getAllJoinedTicketUser = () => {
-  //   const newState = {};
-  //   CurrentTicketManager.getAllCurrentTicketUsers()
-  //     .then(joinedTeacher => (newState.currentTicketUsers = joinedTeacher))
-  //     .then(() => {
-  //       this.props.history.push("/tickets/my-tickets");
-  //       this.setState(newState);
-  //     });
-  // }
+  deleteClass = id => {
+    const newState = {};
+    ClassManager.deleteClass(id)
+      .then(ClassManager.getAllClasses)
+      .then(cohort => (newState.classes = cohort))
+      .then(() => {
+        this.props.history.push("/classes/all-classes");
+        this.setState(newState);
+      });
+  };
+
+  addClass = newCohort => {
+    const newState = {};
+    return ClassManager.saveClass(newCohort)
+      .then(() => ClassManager.getAllClasses())
+      .then(cohort => newState.classes = cohort)
+      .then((cohort) => {
+        this.props.history.push("/classes/all-classes")
+        this.setState(newState)
+        //return ticket so it can be used in the form
+        return cohort;
+      });
+  };
+
+  editClass = editCohort => {
+    const newState = {};
+    ClassManager.editClass(editCohort)
+      .then(() => ClassManager.getAllClasses())
+      .then(cohort => (newState.classes = cohort))
+      .then(() => {
+        this.props.history.push("/classes/all-classes");
+        this.setState(newState);
+      });
+  };
+
 
   componentDidMount() {
     const newState = {};
@@ -152,8 +170,8 @@ class ApplicationViews extends Component {
       .then(ticket => { newState.currentTicketUsers = ticket })
       .then(TicketsManager.getAllTicketsReverse)
       .then(reverseTicket => { newState.reverseTickets = reverseTicket })
-      // .then(Users.getAllUsers)
-      // .then(users => { newState.users = users })
+      .then(ClassManager.getAllClasses)
+      .then(classes => { newState.classes = classes })
       // .then(Messages.getAllMessages)
       // .then(messages => { newState.messages = messages })
       .then(() => this.setState(newState));
@@ -170,8 +188,8 @@ class ApplicationViews extends Component {
         .then(ticket => { newState.currentTicketUsers = ticket })
         .then(TicketsManager.getAllTicketsReverse)
         .then(reverseTicket => { newState.reverseTickets = reverseTicket })
-        // .then(Users.getAllUsers)
-        // .then(users => { newState.users = users })
+        .then(ClassManager.getAllClasses)
+        .then(classes => { newState.classes = classes })
         // .then(Messages.getAllMessages)
         // .then(messages => { newState.messages = messages })
         .then(() => this.setState(newState));
@@ -257,6 +275,23 @@ class ApplicationViews extends Component {
               // }
             } }
             />
+
+            {/* <Route exact path="/classes/all-classes" render={ (props) => {
+              // if (this.isAuthenticated()) {
+              return <AllClasses
+                { ...props }
+                { ...this.props }
+                allUsers={ this.state.users }
+                allClasses={ this.state.classes }
+                addClass={ this.addClass }
+                editClass={ this.editClass }
+              />
+              // } else {
+              //   return <Redirect to="/" />
+              // }
+            } }
+            /> */}
+
             <Route exact path="/dashboard/teacher" render={ (props) => {
               // if (this.isAuthenticated()) {
               return <DashContainer
@@ -276,6 +311,10 @@ class ApplicationViews extends Component {
               return <StepRegisterContainer
                 { ...props }
                 { ...this.props }
+                allUsers={ this.state.users }
+                allClasses={ this.state.classes }
+                addClass={ this.addClass }
+                editClass={ this.editClass }
                 onRegister={ (user) => this.props.setUser(user) }
               />
               // } else {

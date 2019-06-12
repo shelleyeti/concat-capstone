@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
-import { Form, Button, Container, Grid, Segment, Header, Dropdown } from 'semantic-ui-react';
+import { Form, Button, Container, Grid, Segment, Header, Dropdown, Card } from 'semantic-ui-react';
 import './register.css'
 
 export default class StepTwoClassDetails extends Component {
+  state = {
+    student: this.props.state.student,
+    classId: this.props.state.classId,
+    cohortName: this.props.state.cohortName
+  }
+
   saveAndContinue = (e) => {
     e.preventDefault();
     this.props.nextStep();
@@ -15,6 +21,10 @@ export default class StepTwoClassDetails extends Component {
 
   render() {
     const { values } = this.props
+    const classes = this.props.allClasses.map((cohort, index) => {
+      return { key: index, text: cohort.cohortName, value: cohort.id };
+
+    })
     return (
       <Container className="auth-container ui grid container">
         <Grid.Row centered>
@@ -39,48 +49,46 @@ export default class StepTwoClassDetails extends Component {
                   label="Blurb"
                   placeholder="Enter a short blurb about yourself"
                   onChange={ this.props.handleChange('blurb') }
+                  defaultValue={ values.blurb }
                 />
-                <Segment className="horizontal segments">
+                <Card className="horizontal segments">
                   <div className="ui segment">
                     <Form.Radio
                       className="radioOne"
                       label='Student'
-                      // checked={ this.state.student === true }
-                      // onChange={ this.props.handleChange('student') }
+                      checked={ this.state.student === true }
                       onChange={ (e, { value }) => {
                         this.setState({ student: true })
+                        this.props.handleChangeStudent(true)
                       } }
                     />
                     <Form.Radio
                       className="radioTwo"
                       label='Teacher'
-                      // checked={ this.state.student === false }
-                      // onChange={ this.props.handleChange('student') }
+                      checked={ this.state.student === false }
                       onChange={ (e, { value }) => {
                         this.setState({ student: false })
+                        this.props.handleChangeStudent(false)
                       } }
                     />
                   </div>
-                  <div className="ui segment">
-                    <Form.Field className="dropdownOne ui segment">
-                      <Dropdown item simple text='Select a Class'>
-                        <Dropdown.Menu>
-                          <Dropdown.Item value="32">
-                            Cohort 32
-                        </Dropdown.Item>
-                          <Dropdown.Item>
-                            Cohort 33
-                        </Dropdown.Item>
-                          <Dropdown.Item>
-                            Night Class
-                        </Dropdown.Item>
-                        </Dropdown.Menu>
+                  <div className="ui segment dropdownOne">
+                    <Form.Field>
+                      <Dropdown onChange={ (event, data) => {
+                        this.setState({
+                          classId: data.value,
+                          cohortName: event.currentTarget.textContent
+                        })
+                        this.props.handleChangeClasses(event.currentTarget.textContent, data.value)
+                      } }
+                        value={ this.state.classId }
+                        options={ classes } closeOnChange fluid search item selection upward={ false } placeholder='Select a Class'>
                       </Dropdown>
                     </Form.Field>
                   </div>
-                </Segment>
+                </Card>
                 <Button className="ui left floated" onClick={ this.back }>Back</Button>
-                <Button className="ui right floated" onClick={ this.saveAndContinue }>Save And Continue </Button>
+                <Button className="ui right floated" onClick={ this.saveAndContinue }>Save and Continue </Button>
               </Form>
               <div className="ui four steps">
                 <div className="ui disabled step">
