@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TicketListItem from './ticketListItem';
-import './tickets.css';
+import '../../tickets/tickets.css';
 
 class OpenTicketHeader extends Component {
   render() {

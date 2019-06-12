@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import SolvedTicketListItem from './solvedTicketListItem';
-import './tickets.css';
+import MySolvedTicketListItem from './mySolvedTicketListItem';
+import '../../tickets/tickets.css';
 
-class SolvedTicketHeader extends Component {
+class MySolvedTicketHeader extends Component {
   render() {
     return <h1>My Solved Tickets</h1>;
   }
 }
 
-export default class SolvedTicketList extends Component {
+export default class MySolvedTicketList extends Component {
   render() {
     let solvedTicket = this.props.reverseTickets.filter((ticket) => {
       //the logged in user is assigned to a ticket
@@ -32,7 +32,7 @@ export default class SolvedTicketList extends Component {
         }
       })
       return (
-        <SolvedTicketListItem
+        <MySolvedTicketListItem
           { ...this.props }
           key={ index }
           item={ item }
@@ -44,7 +44,7 @@ export default class SolvedTicketList extends Component {
     });
     return (
       <div className="new-ticket-container">
-        <SolvedTicketHeader />
+        <MySolvedTicketHeader />
         <span> { classTickets } </span>
       </div>
     );

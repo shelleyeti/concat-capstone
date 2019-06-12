@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TicketList from './ticketList';
 import CurrentTicket from './currentTicket';
-import './tickets.css';
+import '../../tickets/tickets.css';
 
 export default class TicketContainer extends Component {
   render() {
