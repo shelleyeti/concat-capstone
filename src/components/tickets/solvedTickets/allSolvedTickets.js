@@ -4,7 +4,7 @@ import '../../tickets/tickets.css';
 
 class MySolvedTicketHeader extends Component {
   render() {
-    return <h1>My Solved Tickets</h1>;
+    return <h1>All Solved Tickets</h1>;
   }
 }
 
@@ -16,7 +16,7 @@ export default class MySolvedTicketList extends Component {
       //iterate over joined table
       this.props.allTeacherTickets.forEach((join) => {
         //both keys in joined table equal
-        if (join.ticketId === ticket.id && join.userId === this.props.activeUser.id)
+        if (join.ticketId === ticket.id && join.userId !== this.props.activeUser.id)
           currentUserIsTeacherWithTicket = true;
       })
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MySolvedTicketList from './mySolvedTickets';
-// import MySolvedTicketList from './solvedTicketsClass';
+import AllSolvedTicketList from './allSolvedTickets';
 import '../../tickets/tickets.css';
 
 export default class SolvedTicketsContainer extends Component {
@@ -8,7 +8,7 @@ export default class SolvedTicketsContainer extends Component {
     return (
       <div className='ticket-list'>
         <MySolvedTicketList { ...this.props } />
-        {/* <MySolvedTicketList { ...this.props } /> */ }
+        <AllSolvedTicketList { ...this.props } />
       </div>
     );
   }
