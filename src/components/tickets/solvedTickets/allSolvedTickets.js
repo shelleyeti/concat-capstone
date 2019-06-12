@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import SolvedTicketListItem from './solvedTicketListItem';
-import './tickets.css';
+import MySolvedTicketItem from './mySolvedTicketItem';
+import '../../tickets/tickets.css';
 
-class SolvedTicketHeader extends Component {
+class MySolvedTicketHeader extends Component {
   render() {
-    return <h1>My Solved Tickets</h1>;
+    return <h1>All Solved Tickets</h1>;
   }
 }
 
-export default class SolvedTicketList extends Component {
+export default class MySolvedTicketList extends Component {
   render() {
     let solvedTicket = this.props.reverseTickets.filter((ticket) => {
       //the logged in user is assigned to a ticket
@@ -16,7 +16,7 @@ export default class SolvedTicketList extends Component {
       //iterate over joined table
       this.props.allTeacherTickets.forEach((join) => {
         //both keys in joined table equal
-        if (join.ticketId === ticket.id && join.userId === this.props.activeUser.id)
+        if (join.ticketId === ticket.id && join.userId !== this.props.activeUser.id)
           currentUserIsTeacherWithTicket = true;
       })
 
@@ -32,7 +32,7 @@ export default class SolvedTicketList extends Component {
         }
       })
       return (
-        <SolvedTicketListItem
+        <MySolvedTicketItem
           { ...this.props }
           key={ index }
           item={ item }
@@ -44,7 +44,7 @@ export default class SolvedTicketList extends Component {
     });
     return (
       <div className="new-ticket-container">
-        <SolvedTicketHeader />
+        <MySolvedTicketHeader />
         <span> { classTickets } </span>
       </div>
     );

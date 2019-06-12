@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import TicketForm from './tickets/ticketForm';
-import TicketContainer from './tickets/ticketContainer';
+import TicketContainer from './tickets/activeTickets/ticketContainer';
 import TicketsManager from '../modules/ticketManager';
 import DashContainer from './dashboard/dashContainer'
 import UsersManager from '../modules/userManager';
 import CurrentTicketManager from '../modules/currentTicketUsers';
-import SolvedTicketsContainer from './tickets/solvedTickets';
+import SolvedTicketsContainer from './tickets/solvedTickets/solvedContainer';
 import ClassManager from '../modules/classes';
 // import AllClasses from './classes/allClassesList';
 import StepRegisterContainer from './registration/stepRegisterContainer';

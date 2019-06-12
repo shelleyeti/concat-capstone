@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Image, Button } from 'semantic-ui-react';
-import './tickets.css';
+import '../../tickets/tickets.css';
 
 export default class TicketList extends Component {
 

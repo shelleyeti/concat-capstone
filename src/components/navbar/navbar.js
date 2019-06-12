@@ -24,17 +24,12 @@ class MenuNav extends Component {
             <Menu.Item>
               <Link to='/dashboard/teacher'>Profile</Link>
             </Menu.Item>
-            <Dropdown item simple text='Open Tickets'>
+            <Dropdown closeOnChange item text='Open Tickets'>
               <Dropdown.Menu>
                 <Dropdown.Item >
                   <Link to='/tickets/my-tickets'>
                     My Tickets
                   </Link>
-                </Dropdown.Item>
-                <Dropdown.Item>
-                  <Link to='/tickets/open'>
-                    All Open Tickets
-                </Link>
                 </Dropdown.Item>
                 <Dropdown.Item>
                   <Link to='/tickets/solved-tickets'>

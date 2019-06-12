@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import TicketListItem from './ticketListItem';
-import './tickets.css';
+import TicketItem from './ticketItem';
+import '../../tickets/tickets.css';
 
 class OpenTicketHeader extends Component {
   render() {
@@ -17,7 +17,7 @@ export default class TicketList extends Component {
       //iterate over joined table
       this.props.allTeacherTickets.forEach((join) => {
         //both keys in joined table equal
-        if (join.ticketId === ticket.id && join.userId === this.props.activeUser.id)
+        if (join.ticketId === ticket.id && join.userId === this.props.activeUser.id && ticket.classId === this.props.activeUser.classId)
           currentUserIsTeacherWithTicket = true;
         else if (join.ticketId === ticket.id) {
           isTicketAssignedToSomeone = true;
@@ -36,7 +36,7 @@ export default class TicketList extends Component {
         }
       })
       return (
-        <TicketListItem
+        <TicketItem
           { ...this.props }
           key={ index }
           item={ item }
