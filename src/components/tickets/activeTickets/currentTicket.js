@@ -35,7 +35,7 @@ export default class TicketForm extends Component {
           item={ item }
           index={ index }
           image={ image }
-        // editTicket={ this.props.editTicket } 
+        // editTicket={ this.props.editTicket }
         />
       );
 

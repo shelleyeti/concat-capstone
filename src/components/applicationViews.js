@@ -249,12 +249,7 @@ class ApplicationViews extends Component {
                 { ...this.props }
                 allUsers={ this.state.users }
                 reverseTickets={ this.state.reverseTickets }
-                addTicket={ this.addTicket }
-                editTicket={ this.editTicket }
                 allTeacherTickets={ this.state.currentTicketUsers }
-                removeTeacherTicket={ this.deleteCurrentTicketUser }
-                addTeacherTicket={ this.addCurrentTicketUser }
-                editTeacherTicket={ this.editCurrentTicketUser }
               />
               // } else {
               //   return <Redirect to="/" />

@@ -29,18 +29,23 @@ export default class CurrentTicketItem extends Component {
   };
 
   handleReassign = () => {
-    this.props.editTicket({
-      userId: this.props.item.userId,
-      classId: this.props.item.classId,
-      ticketComplete: false,
-      ticketTitle: this.props.item.ticketTitle,
-      ticketBody: this.props.item.ticketBody,
-      submitTime: this.props.item.submitTime,
-      linked: this.props.item.linked,
-      solutionNotes: this.state.solutionNotes,
-      id: this.props.item.id
-    })
+    //should be grabing the id of the joined table, not the ticketId
+    this.props.removeTeacherTicket(this.props.index.id)
   };
+
+  // handleReassign = () => {
+  //   this.props.editTicket({
+  //     userId: this.props.item.userId,
+  //     classId: this.props.item.classId,
+  //     ticketComplete: false,
+  //     ticketTitle: this.props.item.ticketTitle,
+  //     ticketBody: this.props.item.ticketBody,
+  //     submitTime: this.props.item.submitTime,
+  //     linked: this.props.item.linked,
+  //     solutionNotes: this.state.solutionNotes,
+  //     id: this.props.item.id
+  //   })
+  // };
 
   render() {
     return (
