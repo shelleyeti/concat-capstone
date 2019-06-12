@@ -108,7 +108,7 @@ export default class Register extends Component {
                   <Form.Field>
                     <Dropdown item simple text='Select a Class'>
                       <Dropdown.Menu>
-                        <Dropdown.Item >
+                        <Dropdown.Item value="32">
                           Cohort 32
                         </Dropdown.Item>
                         <Dropdown.Item>

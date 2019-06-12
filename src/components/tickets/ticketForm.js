@@ -32,7 +32,7 @@ class TicketForm extends Component {
         setTimeout(() => {
           document.querySelector(".ticketFormSuccess").style.display = "block";
           document.querySelector(".form-fields").reset()
-        }, 150)
+        }, 200)
       })
       .then(() => { setTimeout(() => { this.props.history.push("/tickets/my-tickets") }, 2000) })
   }
