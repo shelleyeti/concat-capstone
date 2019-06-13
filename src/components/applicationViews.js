@@ -12,8 +12,7 @@ import ClassManager from '../modules/classes';
 import StepRegisterContainer from './registration/stepRegisterContainer';
 import Login from './dashboard/Login';
 import Register from './dashboard/Register';
-import Home from './dashboard/Home';
-import { logout } from './auth/userManager';
+import Home from './dashboard/home';
 
 class ApplicationViews extends Component {
   state = {
@@ -35,7 +34,6 @@ class ApplicationViews extends Component {
       .then((tickets) => {
         this.props.history.push("/tickets/my-tickets")
         this.setState(newState)
-        //return tickets so it can be used in the form
         return tickets;
       });
   };
@@ -195,24 +193,23 @@ class ApplicationViews extends Component {
     }
   }
 
-  isAuthenticated = () => localStorage.getItem("user") !== null;
-
   render() {
     return (
       <>
         <div className="App">
           <div>
             <Route exact path="/" render={ (props) => {
-              return this.props.activeUser ? (
-                <Home
+              if (this.props.activeUser) {
+                return <Home
                   { ...props }
                   { ...this.props }
                   activeUser={ this.props.activeUser }
-                  onLogout={ logout }
+                  allUsers={ this.state.users }
+                  ticket={ this.state.tickets }
                 />
-              ) : (
-                  <Redirect to="/login" />
-                )
+              } else {
+                return <Redirect to="/" />
+              }
             } } />
 
             <Route exact path="/login" render={ (props) =>
@@ -226,7 +223,7 @@ class ApplicationViews extends Component {
             />
 
             <Route exact path="/tickets/my-tickets" render={ (props) => {
-              if (this.isAuthenticated()) {
+              if (this.props.activeUser) {
                 return <TicketContainer
                   { ...props }
                   { ...this.props }
@@ -246,7 +243,7 @@ class ApplicationViews extends Component {
             />
 
             <Route exact path="/tickets/solved-tickets" render={ (props) => {
-              if (this.isAuthenticated()) {
+              if (this.props.activeUser) {
                 return <SolvedTicketsContainer
                   { ...props }
                   { ...this.props }
@@ -262,7 +259,7 @@ class ApplicationViews extends Component {
             />
 
             <Route exact path="/tickets/new" render={ (props) => {
-              if (this.isAuthenticated()) {
+              if (this.props.activeUser) {
                 return <TicketForm
                   { ...props }
                   { ...this.props }
@@ -277,7 +274,7 @@ class ApplicationViews extends Component {
             />
 
             <Route exact path="/dashboard/teacher" render={ (props) => {
-              if (this.isAuthenticated()) {
+              if (this.props.activeUser) {
                 return <DashContainer
                   { ...props }
                   { ...this.props }
@@ -291,7 +288,7 @@ class ApplicationViews extends Component {
             />
 
             <Route exact path="/register/step" render={ (props) => {
-              if (this.isAuthenticated()) {
+              if (this.props.activeUser) {
                 return <StepRegisterContainer
                   { ...props }
                   { ...this.props }
