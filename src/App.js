@@ -12,8 +12,14 @@ export default class App extends Component {
   }
 
   setUser = (user) => {
-    //puts the active user in local storage, necessary for editing user profile
+    //puts the active user in local storage, necessary for editing user profiles
     localStorage.setItem("user", JSON.stringify(user));
+    this.setState({
+      activeUser: user
+    })
+  }
+
+  clearActiveUser = (user) => {
     this.setState({
       activeUser: user
     })
@@ -24,8 +30,14 @@ export default class App extends Component {
     return (
       <React.Fragment>
         <Logo />
-        <Navbar setUser={ this.setUser } activeUser={ this.state.activeUser } onLogout={ logout } />
-        <ApplicationViews setUser={ this.setUser } activeUser={ this.state.activeUser } />
+        <Navbar
+          setUser={ this.setUser }
+          clearActiveUser={ this.clearActiveUser }
+          activeUser={ this.state.activeUser }
+          onLogout={ logout } />
+        <ApplicationViews
+          setUser={ this.setUser }
+          activeUser={ this.state.activeUser } />
       </React.Fragment>
     );
   }

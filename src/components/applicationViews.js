@@ -11,7 +11,6 @@ import SolvedTicketsContainer from './tickets/solvedTickets/solvedContainer';
 import ClassManager from '../modules/classes';
 import StepRegisterContainer from './registration/stepRegisterContainer';
 import Login from './dashboard/Login';
-import Register from './dashboard/Register';
 import Home from './dashboard/Home';
 
 class ApplicationViews extends Component {
@@ -55,7 +54,7 @@ class ApplicationViews extends Component {
       .then(UsersManager.getAllUsers)
       .then(user => (newState.users = user))
       .then(() => {
-        this.props.history.push("/dashboard/teacher");
+        this.props.history.push("/dashboard");
         this.setState(newState);
       });
   };
@@ -67,7 +66,7 @@ class ApplicationViews extends Component {
       .then(user => newState.users = user)
       .then((users) => {
         this.props.setUser(user);
-        this.props.history.push("/dashboard/teacher")
+        this.props.history.push("/dashboard")
         this.setState(newState)
         //return users so it can be used in the form
         return users;
@@ -81,7 +80,7 @@ class ApplicationViews extends Component {
       .then(user => (newState.users = user))
       .then(() => {
         this.props.setUser(editedUser);
-        this.props.history.push("/dashboard/teacher");
+        this.props.history.push("/dashboard");
         this.setState(newState);
       });
   };
@@ -106,7 +105,6 @@ class ApplicationViews extends Component {
       .then((ticket) => {
         this.props.history.push("/tickets/my-tickets")
         this.setState(newState)
-        //return ticket so it can be used in the form
         return ticket;
       });
   };
@@ -281,7 +279,7 @@ class ApplicationViews extends Component {
             } }
             />
 
-            <Route exact path="/dashboard/teacher" render={ (props) => {
+            <Route exact path="/dashboard" render={ (props) => {
               if (this.props.activeUser) {
                 return <DashContainer
                   { ...props }
