@@ -11,11 +11,12 @@ class MenuNav extends Component {
 
   logout = () => {
     this.props.onLogout();
+    this.props.clearActiveUser(null);
     this.props.history.push('/login');
   }
 
   handleAuth = () => {
-    if (this.isAuthenticated()) {
+    if (this.props.activeUser) {
       const { activeItem } = this.state
       return (
         <Menu secondary>

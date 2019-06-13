@@ -19,13 +19,25 @@ export default class App extends Component {
     })
   }
 
+  clearActiveUser = (user) => {
+    this.setState({
+      activeUser: user
+    })
+  }
+
   render() {
 
     return (
       <React.Fragment>
         <Logo />
-        <Navbar setUser={ this.setUser } activeUser={ this.state.activeUser } onLogout={ logout } />
-        <ApplicationViews setUser={ this.setUser } activeUser={ this.state.activeUser } />
+        <Navbar
+          setUser={ this.setUser }
+          clearActiveUser={ this.clearActiveUser }
+          activeUser={ this.state.activeUser }
+          onLogout={ logout } />
+        <ApplicationViews
+          setUser={ this.setUser }
+          activeUser={ this.state.activeUser } />
       </React.Fragment>
     );
   }

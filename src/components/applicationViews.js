@@ -11,7 +11,6 @@ import SolvedTicketsContainer from './tickets/solvedTickets/solvedContainer';
 import ClassManager from '../modules/classes';
 import StepRegisterContainer from './registration/stepRegisterContainer';
 import Login from './dashboard/Login';
-import Register from './dashboard/Register';
 import Home from './dashboard/Home';
 
 class ApplicationViews extends Component {
