@@ -9,7 +9,6 @@ import UsersManager from '../modules/userManager';
 import CurrentTicketManager from '../modules/currentTicketUsers';
 import SolvedTicketsContainer from './tickets/solvedTickets/solvedContainer';
 import ClassManager from '../modules/classes';
-// import AllClasses from './classes/allClassesList';
 import StepRegisterContainer from './registration/stepRegisterContainer';
 import Login from './dashboard/Login';
 import Register from './dashboard/Register';
@@ -97,6 +96,7 @@ class ApplicationViews extends Component {
       .then(() => {
         this.props.history.push("/tickets/my-tickets");
         this.setState(newState);
+        return id
       });
   };
 
@@ -143,7 +143,6 @@ class ApplicationViews extends Component {
       .then((cohort) => {
         this.props.history.push("/classes/all-classes")
         this.setState(newState)
-        //return ticket so it can be used in the form
         return cohort;
       });
   };
