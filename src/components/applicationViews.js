@@ -222,7 +222,7 @@ class ApplicationViews extends Component {
             <Route exact path="/register" render={ (props) =>
               <Register { ...props }
                 onRegister={ (user) => this.props.setUser(user) } /> }
-            />
+            />`
             <Route exact path="/tickets/my-tickets" render={ (props) => {
               // if (this.isAuthenticated()) {
               return <TicketContainer
@@ -247,14 +247,10 @@ class ApplicationViews extends Component {
               return <SolvedTicketsContainer
                 { ...props }
                 { ...this.props }
+                class={ this.state.classes }
                 allUsers={ this.state.users }
                 reverseTickets={ this.state.reverseTickets }
-                addTicket={ this.addTicket }
-                editTicket={ this.editTicket }
                 allTeacherTickets={ this.state.currentTicketUsers }
-                removeTeacherTicket={ this.deleteCurrentTicketUser }
-                addTeacherTicket={ this.addCurrentTicketUser }
-                editTeacherTicket={ this.editCurrentTicketUser }
               />
               // } else {
               //   return <Redirect to="/" />
