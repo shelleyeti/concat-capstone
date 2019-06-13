@@ -195,7 +195,7 @@ class ApplicationViews extends Component {
     }
   }
 
-  // isAuthenticated = () => sessionStorage.getItem("user") !== null;
+  isAuthenticated = () => localStorage.getItem("user") !== null;
 
   render() {
     return (
@@ -214,107 +214,96 @@ class ApplicationViews extends Component {
                   <Redirect to="/login" />
                 )
             } } />
+
             <Route exact path="/login" render={ (props) =>
               <Login { ...props }
                 onLogin={ (user) => this.props.setUser(user) } /> }
             />
+
             <Route exact path="/register" render={ (props) =>
               <Register { ...props }
                 onRegister={ (user) => this.props.setUser(user) } /> }
-            />`
+            />
+
             <Route exact path="/tickets/my-tickets" render={ (props) => {
-              // if (this.isAuthenticated()) {
-              return <TicketContainer
-                { ...props }
-                { ...this.props }
-                allUsers={ this.state.users }
-                allTickets={ this.state.tickets }
-                addTicket={ this.addTicket }
-                editTicket={ this.editTicket }
-                allTeacherTickets={ this.state.currentTicketUsers }
-                removeTeacherTicket={ this.deleteCurrentTicketUser }
-                addTeacherTicket={ this.addCurrentTicketUser }
-                editTeacherTicket={ this.editCurrentTicketUser }
-              />
-              // } else {
-              //   return <Redirect to="/" />
-              // }
-            } }
-            />
-            <Route exact path="/tickets/solved-tickets" render={ (props) => {
-              // if (this.isAuthenticated()) {
-              return <SolvedTicketsContainer
-                { ...props }
-                { ...this.props }
-                class={ this.state.classes }
-                allUsers={ this.state.users }
-                reverseTickets={ this.state.reverseTickets }
-                allTeacherTickets={ this.state.currentTicketUsers }
-              />
-              // } else {
-              //   return <Redirect to="/" />
-              // }
-            } }
-            />
-            <Route exact path="/tickets/new" render={ (props) => {
-              // if (this.isAuthenticated()) {
-              return <TicketForm
-                { ...props }
-                { ...this.props }
-                allUsers={ this.state.users }
-                ticket={ this.state.tickets }
-                editTicket={ this.editTicket }
-              />
-              // } else {
-              //   return <Redirect to="/" />
-              // }
+              if (this.isAuthenticated()) {
+                return <TicketContainer
+                  { ...props }
+                  { ...this.props }
+                  allUsers={ this.state.users }
+                  allTickets={ this.state.tickets }
+                  addTicket={ this.addTicket }
+                  editTicket={ this.editTicket }
+                  allTeacherTickets={ this.state.currentTicketUsers }
+                  removeTeacherTicket={ this.deleteCurrentTicketUser }
+                  addTeacherTicket={ this.addCurrentTicketUser }
+                  editTeacherTicket={ this.editCurrentTicketUser }
+                />
+              } else {
+                return <Redirect to="/" />
+              }
             } }
             />
 
-            {/* <Route exact path="/classes/all-classes" render={ (props) => {
-              // if (this.isAuthenticated()) {
-              return <AllClasses
-                { ...props }
-                { ...this.props }
-                allUsers={ this.state.users }
-                allClasses={ this.state.classes }
-                addClass={ this.addClass }
-                editClass={ this.editClass }
-              />
-              // } else {
-              //   return <Redirect to="/" />
-              // }
+            <Route exact path="/tickets/solved-tickets" render={ (props) => {
+              if (this.isAuthenticated()) {
+                return <SolvedTicketsContainer
+                  { ...props }
+                  { ...this.props }
+                  class={ this.state.classes }
+                  allUsers={ this.state.users }
+                  reverseTickets={ this.state.reverseTickets }
+                  allTeacherTickets={ this.state.currentTicketUsers }
+                />
+              } else {
+                return <Redirect to="/" />
+              }
             } }
-            /> */}
+            />
+
+            <Route exact path="/tickets/new" render={ (props) => {
+              if (this.isAuthenticated()) {
+                return <TicketForm
+                  { ...props }
+                  { ...this.props }
+                  allUsers={ this.state.users }
+                  ticket={ this.state.tickets }
+                  editTicket={ this.editTicket }
+                />
+              } else {
+                return <Redirect to="/" />
+              }
+            } }
+            />
 
             <Route exact path="/dashboard/teacher" render={ (props) => {
-              // if (this.isAuthenticated()) {
-              return <DashContainer
-                { ...props }
-                { ...this.props }
-                user={ this.state.users }
-                editUser={ this.editUser }
-              />
-              // } else {
-              //   return <Redirect to="/" />
-              // }
+              if (this.isAuthenticated()) {
+                return <DashContainer
+                  { ...props }
+                  { ...this.props }
+                  user={ this.state.users }
+                  editUser={ this.editUser }
+                />
+              } else {
+                return <Redirect to="/" />
+              }
             } }
             />
 
             <Route exact path="/register/step" render={ (props) => {
-              // if (this.isAuthenticated()) {
-              return <StepRegisterContainer
-                { ...props }
-                { ...this.props }
-                allUsers={ this.state.users }
-                allClasses={ this.state.classes }
-                addClass={ this.addClass }
-                editClass={ this.editClass }
-                onRegister={ (user) => this.props.setUser(user) }
-              />
-              // } else {
-              //   return <Redirect to="/" />
-              // }
+              if (this.isAuthenticated()) {
+                return <StepRegisterContainer
+                  { ...props }
+                  { ...this.props }
+                  allUsers={ this.state.users }
+                  allClasses={ this.state.classes }
+                  addClass={ this.addClass }
+                  editClass={ this.editClass }
+                  onRegister={ (user) => this.props.setUser(user) }
+                />
+              } else {
+                return <Redirect to="/" />
+              }
             } }
             />
           </div>

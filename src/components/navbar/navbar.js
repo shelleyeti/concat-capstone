@@ -14,61 +14,57 @@ class MenuNav extends Component {
     this.props.history.push('/login');
   }
 
+  handleAuth = () => {
+    if (this.isAuthenticated()) {
+      const { activeItem } = this.state
+      return (
+        <Menu secondary>
+          <Menu.Item>
+            <Link to='/dashboard/teacher'>Profile</Link>
+          </Menu.Item>
+          <Dropdown closeOnChange item text='Open Tickets'>
+            <Dropdown.Menu>
+              <Dropdown.Item >
+                <Link to='/tickets/my-tickets'>
+                  My Tickets
+            </Link>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <Link to='/tickets/solved-tickets'>
+                  Solved Tickets
+          </Link>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Menu.Item>
+            <Link to='/teacher/office-hours'>Office Hours</Link>
+          </Menu.Item>
+          <Menu.Menu position='right'>
+            <Menu.Item>
+              <Input
+                icon='search'
+                placeholder='Search...' />
+            </Menu.Item>
+            <Menu.Item
+              name='logout'
+              active={ activeItem === 'logout' }
+              onClick={ () => this.logout() }
+            />
+          </Menu.Menu>
+        </Menu>)
+    } else {
+      return null
+    }
+  }
+  isAuthenticated = () => localStorage.getItem("user") !== null;
+
   render() {
-    const { activeItem } = this.state
+
 
     return (
       <div className="navigation-bar" ref={ this.contextRef }>
         <Sticky context={ this.contextRef }>
-          <Menu secondary>
-            <Menu.Item>
-              <Link to='/dashboard/teacher'>Profile</Link>
-            </Menu.Item>
-            <Dropdown closeOnChange item text='Open Tickets'>
-              <Dropdown.Menu>
-                <Dropdown.Item >
-                  <Link to='/tickets/my-tickets'>
-                    My Tickets
-                  </Link>
-                </Dropdown.Item>
-                <Dropdown.Item>
-                  <Link to='/tickets/solved-tickets'>
-                    Solved Tickets
-                </Link>
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            {/* Closed until all primary isses are addressed */ }
-            {/* <Dropdown item simple text='Classes'>
-              <Dropdown.Menu>
-                <Dropdown.Item >
-                  <Link to='/classes/my-classes'>
-                    My Classes
-                  </Link>
-                </Dropdown.Item>
-                <Dropdown.Item>
-                  <Link to='/classes/all-classes'>
-                    All Classes
-                </Link>
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown> */}
-            <Menu.Item>
-              <Link to='/teacher/office-hours'>Office Hours</Link>
-            </Menu.Item>
-            <Menu.Menu position='right'>
-              <Menu.Item>
-                <Input
-                  icon='search'
-                  placeholder='Search...' />
-              </Menu.Item>
-              <Menu.Item
-                name='logout'
-                active={ activeItem === 'logout' }
-                onClick={ () => this.logout() }
-              />
-            </Menu.Menu>
-          </Menu>
+          { this.handleAuth() }
         </Sticky>
       </div >
     )
