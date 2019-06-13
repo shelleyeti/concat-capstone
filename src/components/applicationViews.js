@@ -105,6 +105,7 @@ class ApplicationViews extends Component {
       .then((ticket) => {
         this.props.history.push("/tickets/my-tickets")
         this.setState(newState)
+        //return ticket so it can be used in the form
         return ticket;
       });
   };
