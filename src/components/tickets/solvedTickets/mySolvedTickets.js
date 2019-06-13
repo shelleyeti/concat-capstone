@@ -38,7 +38,6 @@ export default class MySolvedTicketList extends Component {
           item={ item }
           index={ index }
           image={ image }
-        // editTicket={ this.props.editTicket } 
         />
       );
     });
