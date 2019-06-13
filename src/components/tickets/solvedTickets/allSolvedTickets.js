@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MySolvedTicketItem from './mySolvedTicketItem';
+import AllSolvedTicketItem from './allSolvedTicketsItem';
 import '../../tickets/tickets.css';
 
 class MySolvedTicketHeader extends Component {
@@ -8,21 +8,12 @@ class MySolvedTicketHeader extends Component {
   }
 }
 
-export default class MySolvedTicketList extends Component {
+export default class AllSolvedTicketList extends Component {
   render() {
     let solvedTicket = this.props.reverseTickets.filter((ticket) => {
-      //the logged in user is assigned to a ticket
-      let currentUserIsTeacherWithTicket = false;
-      //iterate over joined table
-      this.props.allTeacherTickets.forEach((join) => {
-        //both keys in joined table equal
-        if (join.ticketId === ticket.id && join.userId !== this.props.activeUser.id)
-          currentUserIsTeacherWithTicket = true;
-      })
-
-      if (ticket.ticketComplete && currentUserIsTeacherWithTicket)
-        return ticket;
-    });
+      if (ticket.ticketComplete && ticket.classId === this.props.activeUser.classId && ticket.userId !== this.props.activeUser.id)
+        return ticket
+    })
 
     let classTickets = solvedTicket.map((item, index) => {
       let image = ""
@@ -32,7 +23,7 @@ export default class MySolvedTicketList extends Component {
         }
       })
       return (
-        <MySolvedTicketItem
+        <AllSolvedTicketItem
           { ...this.props }
           key={ index }
           item={ item }

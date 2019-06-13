@@ -30,7 +30,7 @@ export default class CurrentTicketItem extends Component {
 
   handleReassign = () => {
     //should be grabing the id of the joined table, not the ticketId
-    this.props.removeTeacherTicket(this.props.index.id)
+    this.props.removeTeacherTicket(this.props.item.teacherTicketJoinId)
   };
 
   // handleReassign = () => {

@@ -10,15 +10,19 @@ class CurrentTicketHeader extends Component {
 export default class TicketForm extends Component {
 
   render() {
+    let teacherTicketJoinId = 0;
     let openTicket = this.props.allTickets.filter((ticket) => {
       let currentUserIsTeacherWithTicket = false;
       this.props.allTeacherTickets.forEach((join) => {
-        if (join.ticketId === ticket.id && join.userId === this.props.activeUser.id)
+        if (join.ticketId === ticket.id && join.userId === this.props.activeUser.id) {
           currentUserIsTeacherWithTicket = true;
+          teacherTicketJoinId = join.id;
+        }
       })
-
-      if (ticket.ticketComplete === false && (currentUserIsTeacherWithTicket))
+      if (ticket.ticketComplete === false && currentUserIsTeacherWithTicket) {
+        ticket.teacherTicketJoinId = teacherTicketJoinId
         return ticket;
+      }
     });
 
     let currentTickets = openTicket.map((item, index) => {
