@@ -12,7 +12,7 @@ export default class App extends Component {
   }
 
   setUser = (user) => {
-    //puts the active user in local storage, necessary for editing user profile
+    //puts the active user in local storage, necessary for editing user profiles
     localStorage.setItem("user", JSON.stringify(user));
     this.setState({
       activeUser: user

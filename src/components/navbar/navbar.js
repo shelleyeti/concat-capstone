@@ -16,29 +16,67 @@ class MenuNav extends Component {
   }
 
   handleAuth = () => {
-    if (this.props.activeUser) {
+    //teacher site
+    if (this.props.activeUser !== null && this.props.activeUser.student === false) {
       const { activeItem } = this.state
       return (
         <Menu secondary>
           <Menu.Item>
-            <Link to='/dashboard/teacher'>Profile</Link>
+            <Link to='/dashboard'>Profile</Link>
           </Menu.Item>
           <Dropdown closeOnChange item text='Open Tickets'>
             <Dropdown.Menu>
               <Dropdown.Item >
                 <Link to='/tickets/my-tickets'>
                   My Tickets
-            </Link>
+                </Link>
               </Dropdown.Item>
               <Dropdown.Item>
                 <Link to='/tickets/solved-tickets'>
                   Solved Tickets
-          </Link>
+                </Link>
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           <Menu.Item>
             <Link to='/teacher/office-hours'>Office Hours</Link>
+          </Menu.Item>
+          <Menu.Menu position='right'>
+            <Menu.Item>
+              <Input
+                icon='search'
+                placeholder='Search...' />
+            </Menu.Item>
+            <Menu.Item
+              name='logout'
+              active={ activeItem === 'logout' }
+              onClick={ () => this.logout() }
+            />
+          </Menu.Menu>
+        </Menu>)
+    } else if (this.props.activeUser !== null && this.props.activeUser.student) {
+      const { activeItem } = this.state
+      return (
+        <Menu secondary>
+          <Menu.Item>
+            <Link to='/dashboard'>Profile</Link>
+          </Menu.Item>
+          <Dropdown closeOnChange item text='Open Tickets'>
+            <Dropdown.Menu>
+              <Dropdown.Item >
+                <Link to='/tickets/my-tickets'>
+                  My Tickets
+                </Link>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <Link to='/tickets/solved-tickets'>
+                  Solved Tickets
+                </Link>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Menu.Item>
+            <Link to='/tickets/new'>New Ticket</Link>
           </Menu.Item>
           <Menu.Menu position='right'>
             <Menu.Item>
