@@ -12,7 +12,7 @@ import ClassManager from '../modules/classes';
 import StepRegisterContainer from './registration/stepRegisterContainer';
 import Login from './dashboard/Login';
 import Register from './dashboard/Register';
-import Home from './dashboard/home';
+import Home from './dashboard/Home';
 
 class ApplicationViews extends Component {
   state = {
@@ -217,9 +217,17 @@ class ApplicationViews extends Component {
                 onLogin={ (user) => this.props.setUser(user) } /> }
             />
 
-            <Route exact path="/register" render={ (props) =>
-              <Register { ...props }
-                onRegister={ (user) => this.props.setUser(user) } /> }
+            <Route exact path="/register" render={ (props) => {
+              return <StepRegisterContainer
+                { ...props }
+                { ...this.props }
+                allUsers={ this.state.users }
+                allClasses={ this.state.classes }
+                addClass={ this.addClass }
+                editClass={ this.editClass }
+                onRegister={ (user) => this.props.setUser(user) }
+              />
+            } }
             />
 
             <Route exact path="/tickets/my-tickets" render={ (props) => {
@@ -280,23 +288,6 @@ class ApplicationViews extends Component {
                   { ...this.props }
                   user={ this.state.users }
                   editUser={ this.editUser }
-                />
-              } else {
-                return <Redirect to="/" />
-              }
-            } }
-            />
-
-            <Route exact path="/register/step" render={ (props) => {
-              if (this.props.activeUser) {
-                return <StepRegisterContainer
-                  { ...props }
-                  { ...this.props }
-                  allUsers={ this.state.users }
-                  allClasses={ this.state.classes }
-                  addClass={ this.addClass }
-                  editClass={ this.editClass }
-                  onRegister={ (user) => this.props.setUser(user) }
                 />
               } else {
                 return <Redirect to="/" />
