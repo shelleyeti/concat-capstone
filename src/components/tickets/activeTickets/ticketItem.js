@@ -29,6 +29,10 @@ export default class TicketList extends Component {
     // })
   };
 
+  handleEditTicket = () => {
+
+  }
+
   handleStudentSolve = () => {
     this.props.editTicket({
       userId: this.props.item.userId,
@@ -54,6 +58,7 @@ export default class TicketList extends Component {
             onChange={ (e) => this.setState({ solutionNotes: e.target.value }) }
           />
         </Form>
+        <Button className="btn-margin" onClick={ this.handleEditTicket }>Edit</Button>
         <Button className="btn-margin" onClick={ this.handleStudentSolve }>Marked Solved</Button>
       </>)
     } else if (this.props.item.userId !== this.props.activeUser.id) {

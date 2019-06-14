@@ -22,7 +22,7 @@ export default class Home extends Component {
               <Header textAlign="center">Welcome { this.props.activeUser.name }</Header>
               <Message
                 header="You have solved"
-                content={ numberOfTickets.length + ` tickets` }
+                content={ numberOfTickets.length + " tickets" }
               />
             </Grid.Column>
           </Grid.Row>
