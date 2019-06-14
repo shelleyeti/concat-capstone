@@ -167,8 +167,6 @@ class ApplicationViews extends Component {
       .then(reverseTicket => { newState.reverseTickets = reverseTicket })
       .then(ClassManager.getAllClasses)
       .then(classes => { newState.classes = classes })
-      // .then(Messages.getAllMessages)
-      // .then(messages => { newState.messages = messages })
       .then(() => this.setState(newState));
   }
 
@@ -185,8 +183,6 @@ class ApplicationViews extends Component {
         .then(reverseTicket => { newState.reverseTickets = reverseTicket })
         .then(ClassManager.getAllClasses)
         .then(classes => { newState.classes = classes })
-        // .then(Messages.getAllMessages)
-        // .then(messages => { newState.messages = messages })
         .then(() => this.setState(newState));
     }
   }
@@ -225,6 +221,20 @@ class ApplicationViews extends Component {
                 editClass={ this.editClass }
                 onRegister={ (user) => this.props.setUser(user) }
               />
+            } }
+            />
+
+            <Route exact path="/dashboard" render={ (props) => {
+              if (this.props.activeUser) {
+                return <DashContainer
+                  { ...props }
+                  { ...this.props }
+                  user={ this.state.users }
+                  editUser={ this.editUser }
+                />
+              } else {
+                return <Redirect to="/" />
+              }
             } }
             />
 
@@ -272,20 +282,6 @@ class ApplicationViews extends Component {
                   allUsers={ this.state.users }
                   ticket={ this.state.tickets }
                   editTicket={ this.editTicket }
-                />
-              } else {
-                return <Redirect to="/" />
-              }
-            } }
-            />
-
-            <Route exact path="/dashboard" render={ (props) => {
-              if (this.props.activeUser) {
-                return <DashContainer
-                  { ...props }
-                  { ...this.props }
-                  user={ this.state.users }
-                  editUser={ this.editUser }
                 />
               } else {
                 return <Redirect to="/" />

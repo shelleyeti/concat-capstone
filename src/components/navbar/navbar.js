@@ -15,7 +15,7 @@ class MenuNav extends Component {
     this.props.history.push('/login');
   }
 
-  handleAuth = () => {
+  handleNavView = () => {
     //teacher site
     if (this.props.activeUser !== null && this.props.activeUser.student === false) {
       const { activeItem } = this.state
@@ -103,7 +103,7 @@ class MenuNav extends Component {
     return (
       <div className="navigation-bar" ref={ this.contextRef }>
         <Sticky context={ this.contextRef }>
-          { this.handleAuth() }
+          { this.handleNavView() }
         </Sticky>
       </div >
     )
