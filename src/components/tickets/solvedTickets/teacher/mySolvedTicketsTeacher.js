@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MySolvedTicketItem from './mySolvedTicketItem';
-import '../../tickets/tickets.css';
+import '../../../tickets/tickets.css';
 
 class MySolvedTicketHeader extends Component {
   render() {

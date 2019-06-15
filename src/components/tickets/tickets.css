@@ -1,4 +1,4 @@
-.new-ticket-container {
+.new-ticket-container, .new-ticket-form {
   /* border: 5px solid red; */
   display: inline-block;
   width: 40%;
@@ -16,7 +16,7 @@
 
 .ticketFormSuccess {
   margin-top: 10px;
-  width: 30%;
+  width: 70%;
   margin-left: auto;
   margin-right: auto;
 }

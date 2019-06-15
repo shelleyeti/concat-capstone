@@ -15,7 +15,7 @@ class MenuNav extends Component {
     this.props.history.push('/login');
   }
 
-  handleAuth = () => {
+  handleNavView = () => {
     //teacher site
     if (this.props.activeUser !== null && this.props.activeUser.student === false) {
       const { activeItem } = this.state
@@ -75,9 +75,6 @@ class MenuNav extends Component {
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          <Menu.Item>
-            <Link to='/tickets/new'>New Ticket</Link>
-          </Menu.Item>
           <Menu.Menu position='right'>
             <Menu.Item>
               <Input
@@ -103,7 +100,7 @@ class MenuNav extends Component {
     return (
       <div className="navigation-bar" ref={ this.contextRef }>
         <Sticky context={ this.contextRef }>
-          { this.handleAuth() }
+          { this.handleNavView() }
         </Sticky>
       </div >
     )
