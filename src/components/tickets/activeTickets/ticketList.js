@@ -12,8 +12,15 @@ class OpenTicketHeader extends Component {
 
 export default class TicketList extends Component {
   state = {
-    openModal: false
+    openModal: false,
+    editTicketItem: {}
   };
+
+  editTicketState = (editItem) => {
+    this.setState({
+      editTicketItem: editItem
+    })
+  }
 
   handleOpenCloseModal = (open) => {
     this.setState({
@@ -56,6 +63,7 @@ export default class TicketList extends Component {
           item={ item }
           index={ index }
           image={ image }
+          editTicketState={ this.editTicketState }
           handleOpenModal={ this.handleOpenCloseModal }
         // editTicket={ this.props.editTicket } 
         />
@@ -65,7 +73,10 @@ export default class TicketList extends Component {
       <div className="new-ticket-container">
         <OpenTicketHeader />
         <span> { classTickets } </span>
-        <EditTicket handleOpenCloseModal={ this.handleOpenCloseModal } openModal={ this.state.openModal } />
+        <EditTicket { ...this.props }
+          editTicketItem={ this.state.editTicketItem }
+          handleOpenCloseModal={ this.handleOpenCloseModal }
+          openModal={ this.state.openModal } />
       </div>
     );
   }

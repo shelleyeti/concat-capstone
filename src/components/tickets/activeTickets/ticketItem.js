@@ -31,6 +31,18 @@ export default class TicketList extends Component {
 
   handleEdit = () => {
     this.props.handleOpenModal(true);
+    this.props.editTicketState({
+      image: this.props.image,
+      userId: this.props.item.userId,
+      classId: this.props.item.classId,
+      ticketComplete: false,
+      ticketTitle: this.props.item.ticketTitle,
+      ticketBody: this.props.item.ticketBody,
+      submitTime: this.props.item.submitTime,
+      linked: this.props.item.linked,
+      solutionNotes: this.props.item.solutionNotes,
+      id: this.props.item.id
+    })
   }
 
   handleStudentSolve = () => {
@@ -45,9 +57,6 @@ export default class TicketList extends Component {
       solutionNotes: this.state.solutionNotes,
       id: this.props.item.id
     })
-    this.setState(
-      { editMode: false }
-    )
   };
 
   handleMyTicketView = () => {

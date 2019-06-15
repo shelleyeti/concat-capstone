@@ -32,3 +32,12 @@
 .margin-ticket {
   margin: 1em 0 !important;
 }
+
+.ticket-edit-image {
+  display: inline-block !important;
+}
+
+.ticket-edit-fields {
+  display: inline-block !important;
+  width: 65% !important;
+}
