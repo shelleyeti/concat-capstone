@@ -14,6 +14,12 @@ const FormSuccess = () => (
   </Form >
 )
 
+class FormHeader extends Component {
+  render() {
+    return <h1>Submit a New Ticket</h1>;
+  }
+}
+
 class TicketForm extends Component {
 
   newTicket = () => {
@@ -39,33 +45,33 @@ class TicketForm extends Component {
 
   render() {
     return (
-      <div className="new-ticket-list">
-        <Header>
-          <h1>Submit a New Ticket</h1>
-        </Header>
-        <Grid>
-          <Grid.Row centered>
-            <Grid.Column computer={ 5 }>
-              <Form className="form-fields" onSubmit={ this.newTicket }>
-                <Form.Field
-                  control="input"
-                  type="text"
-                  label="Ticket Title"
-                  onChange={ (e) => this.setState({ ticketTitle: e.target.value }) }
-                  placeholder="Ticket Title" />
-                <Form.Field
-                  control="textarea"
-                  type="text"
-                  label="Ticket Body"
-                  onChange={ (e) => this.setState({ ticketBody: e.target.value }) }
-                  placeholder="Ticket Body" />
-                <Button className="btn-margin" type="submit" content="Save" basic color="black" floated="right" />
-              </Form>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-        <FormSuccess />
-      </div>
+      <>
+        <div className="new-ticket-container">
+          <FormHeader />
+          <Grid>
+            <Grid.Row centered>
+              <Grid.Column>
+                <Form className="form-fields fluid" onSubmit={ this.newTicket }>
+                  <Form.Field
+                    control="input"
+                    type="text"
+                    label="Ticket Title"
+                    onChange={ (e) => this.setState({ ticketTitle: e.target.value }) }
+                    placeholder="Ticket Title" />
+                  <Form.Field
+                    control="textarea"
+                    type="text"
+                    label="Ticket Body"
+                    onChange={ (e) => this.setState({ ticketBody: e.target.value }) }
+                    placeholder="Ticket Body" />
+                  <Button className="btn-margin" type="submit" content="Save" basic color="black" floated="right" />
+                </Form>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+          <FormSuccess />
+        </div>
+      </>
     )
   }
 }
