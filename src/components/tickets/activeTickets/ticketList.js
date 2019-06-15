@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import TicketItem from './ticketItem';
+import EditTicket from './editTicketModal';
 import '../../tickets/tickets.css';
+
 
 class OpenTicketHeader extends Component {
   render() {
@@ -9,6 +11,23 @@ class OpenTicketHeader extends Component {
 }
 
 export default class TicketList extends Component {
+  state = {
+    openModal: false,
+    editTicketItem: {}
+  };
+
+  editTicketState = (editItem) => {
+    this.setState({
+      editTicketItem: editItem
+    })
+  }
+
+  handleOpenCloseModal = (open) => {
+    this.setState({
+      openModal: open
+    });
+  }
+
   render() {
     let openTicket = this.props.allTickets.filter((ticket) => {
       //the logged in user is assigned to a ticket
@@ -26,6 +45,8 @@ export default class TicketList extends Component {
 
       if (ticket.ticketComplete === false && (!currentUserIsTeacherWithTicket && isTicketAssignedToSomeone === false))
         return ticket;
+      //resolves react warning regarding return after arrow function
+      return null;
     });
 
     let classTickets = openTicket.map((item, index) => {
@@ -42,6 +63,8 @@ export default class TicketList extends Component {
           item={ item }
           index={ index }
           image={ image }
+          editTicketState={ this.editTicketState }
+          handleOpenModal={ this.handleOpenCloseModal }
         // editTicket={ this.props.editTicket } 
         />
       );
@@ -50,6 +73,10 @@ export default class TicketList extends Component {
       <div className="new-ticket-container">
         <OpenTicketHeader />
         <span> { classTickets } </span>
+        <EditTicket { ...this.props }
+          editTicketItem={ this.state.editTicketItem }
+          handleOpenCloseModal={ this.handleOpenCloseModal }
+          openModal={ this.state.openModal } />
       </div>
     );
   }

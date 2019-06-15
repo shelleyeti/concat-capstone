@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import TicketForm from './tickets/ticketForm';
 import TicketContainer from './tickets/activeTickets/ticketContainer';
 import TicketsManager from '../modules/ticketManager';
 import DashContainer from './dashboard/dashContainer'

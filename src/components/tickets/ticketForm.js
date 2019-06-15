@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Form, Grid, Button, Message } from 'semantic-ui-react';
 import moment from 'moment';
+import '../tickets/tickets.css';
 
 const displayStyle = {
   display: "none"

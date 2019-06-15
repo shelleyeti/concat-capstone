@@ -22,6 +22,8 @@ export default class MySolvedTicketList extends Component {
 
       if (ticket.ticketComplete && currentUserIsTeacherWithTicket)
         return ticket;
+      //resolves react warning regarding return after arrow function
+      return null;
     });
 
     let classTickets = solvedTicket.map((item, index) => {

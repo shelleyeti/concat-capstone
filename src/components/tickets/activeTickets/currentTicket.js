@@ -23,6 +23,8 @@ export default class TicketForm extends Component {
         ticket.teacherTicketJoinId = teacherTicketJoinId
         return ticket;
       }
+      //resolves react warning regarding return after arrow function
+      return null;
     });
 
     let currentTickets = openTicket.map((item, index) => {
