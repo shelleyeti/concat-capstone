@@ -12,7 +12,9 @@ export default class AllSolvedTicketList extends Component {
   render() {
     let solvedTicket = this.props.reverseTickets.filter((ticket) => {
       if (ticket.ticketComplete && ticket.classId === this.props.activeUser.classId && ticket.userId !== this.props.activeUser.id)
-        return ticket
+        return ticket;
+      //resolves react warning regarding return after arrow function
+      return null;
     })
 
     let classTickets = solvedTicket.map((item, index) => {

@@ -28,3 +28,7 @@
 .ticket-height {
   height: 250px !important;
 }
+
+.margin-ticket {
+  margin: 1em 0 !important;
+}

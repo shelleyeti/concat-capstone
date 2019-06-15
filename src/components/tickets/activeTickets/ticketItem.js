@@ -29,8 +29,8 @@ export default class TicketList extends Component {
     // })
   };
 
-  handleEditTicket = () => {
-
+  handleEdit = () => {
+    this.props.handleOpenModal(true);
   }
 
   handleStudentSolve = () => {
@@ -45,6 +45,9 @@ export default class TicketList extends Component {
       solutionNotes: this.state.solutionNotes,
       id: this.props.item.id
     })
+    this.setState(
+      { editMode: false }
+    )
   };
 
   handleMyTicketView = () => {
@@ -58,7 +61,7 @@ export default class TicketList extends Component {
             onChange={ (e) => this.setState({ solutionNotes: e.target.value }) }
           />
         </Form>
-        <Button className="btn-margin" onClick={ this.handleEditTicket }>Edit</Button>
+        <Button className="btn-margin" onClick={ this.handleEdit }>Edit</Button>
         <Button className="btn-margin" onClick={ this.handleStudentSolve }>Marked Solved</Button>
       </>)
     } else if (this.props.item.userId !== this.props.activeUser.id) {
@@ -70,7 +73,7 @@ export default class TicketList extends Component {
     //teacher ticket view
     if (this.props.activeUser !== null && this.props.activeUser.student === false) {
       return (
-        <Card centered fluid key={ this.props.item.id } >
+        <Card centered fluid key={ this.props.item.id } className="margin-ticket">
           <Image floated='left' size='mini' src={ this.props.image } />
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
@@ -83,7 +86,7 @@ export default class TicketList extends Component {
       //student ticket view
     } else if (this.props.activeUser !== null && this.props.activeUser.student) {
       return (
-        <Card centered fluid key={ this.props.item.id } >
+        <Card centered fluid key={ this.props.item.id } className="margin-ticket">
           <Image floated='left' size='mini' src={ this.props.image } />
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
@@ -94,7 +97,6 @@ export default class TicketList extends Component {
         </Card>
       )
     }
-
   }
   render() {
     return (

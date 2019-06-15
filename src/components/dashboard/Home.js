@@ -12,6 +12,8 @@ export default class Home extends Component {
     let numberOfTickets = this.props.ticket.filter((ticket) => {
       if (ticket.userId === this.props.activeUser.id && ticket.ticketComplete)
         return ticket
+      //resolves react warning regarding return after arrow function
+      return null;
     })
 
     return (

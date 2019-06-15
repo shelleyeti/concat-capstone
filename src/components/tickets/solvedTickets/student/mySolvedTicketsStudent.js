@@ -13,6 +13,8 @@ export default class MySolvedTicketList extends Component {
     let solvedTicket = this.props.reverseTickets.filter((ticket) => {
       if (ticket.ticketComplete && ticket.userId === this.props.activeUser.id)
         return ticket;
+      //resolves react warning regarding return after arrow function
+      return null;
     });
 
     let classTickets = solvedTicket.map((item, index) => {
