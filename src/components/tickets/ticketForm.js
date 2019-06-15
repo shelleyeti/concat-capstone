@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { Header, Form, Grid, Button, Message } from 'semantic-ui-react';
+import { Form, Grid, Button, Message } from 'semantic-ui-react';
 import moment from 'moment';
-import Tickets from '../../modules/ticketManager';
 
 const displayStyle = {
   display: "none"
@@ -23,7 +22,7 @@ class FormHeader extends Component {
 class TicketForm extends Component {
 
   newTicket = () => {
-    Tickets.saveTicket({
+    this.props.addTicket({
       userId: this.props.activeUser.id,
       classId: this.props.activeUser.classId,
       ticketComplete: false,
@@ -37,10 +36,12 @@ class TicketForm extends Component {
       .then(() => {
         setTimeout(() => {
           document.querySelector(".ticketFormSuccess").style.display = "block";
-          document.querySelector(".form-fields").reset()
+          document.querySelector(".form-fields").reset();
+          setTimeout(() => {
+            document.querySelector(".ticketFormSuccess").style.display = "none";
+          }, 1000)
         }, 200)
       })
-      .then(() => { setTimeout(() => { this.props.history.push("/tickets/my-tickets") }, 2000) })
   }
 
   render() {

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import MySolvedTicketList from './mySolvedTickets';
-import AllSolvedTicketList from './allSolvedTickets';
+import MySolvedTicketListTeacher from './teacher/mySolvedTicketsTeacher';
+import AllSolvedTicketListTeacher from './teacher/allSolvedTicketsTeacher';
+import MySolvedTicketListStudent from './student/mySolvedTicketsStudent'
+import AllSolvedTicketListStudent from './student/allSolvedTicketsStudent';
 import '../../tickets/tickets.css';
 
 export default class SolvedTicketsContainer extends Component {
@@ -10,14 +12,17 @@ export default class SolvedTicketsContainer extends Component {
     if (this.props.activeUser !== null && this.props.activeUser.student === false) {
       return (
         <div className='ticket-list'>
-          <MySolvedTicketList { ...this.props } />
-          <AllSolvedTicketList { ...this.props } />
+          <MySolvedTicketListTeacher { ...this.props } />
+          <AllSolvedTicketListTeacher { ...this.props } />
         </div>
       )
       //student view
     } else if (this.props.activeUser !== null && this.props.activeUser.student) {
       return (
-        <h1>sup more</h1>
+        <div className='ticket-list'>
+          <MySolvedTicketListStudent { ...this.props } />
+          <AllSolvedTicketListStudent { ...this.props } />
+        </div>
       )
     }
   }

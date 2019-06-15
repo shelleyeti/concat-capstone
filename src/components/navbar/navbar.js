@@ -75,9 +75,6 @@ class MenuNav extends Component {
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          <Menu.Item>
-            <Link to='/tickets/new'>New Ticket</Link>
-          </Menu.Item>
           <Menu.Menu position='right'>
             <Menu.Item>
               <Input

@@ -3,7 +3,6 @@ import TicketList from './ticketList';
 import CurrentTicket from './currentTicket';
 import NewTicket from '../ticketForm'
 import '../../tickets/tickets.css';
-import TicketForm from './currentTicket';
 
 export default class TicketContainer extends Component {
 

@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import AllSolvedTicketItem from './allSolvedTicketsItem';
-import '../../tickets/tickets.css';
+import MySolvedTicketItem from './mySolvedTicketItem';
+import '../../../tickets/tickets.css';
 
 class MySolvedTicketHeader extends Component {
   render() {
-    return <h1>All Solved Tickets</h1>;
+    return <h1>My Solved Tickets</h1>;
   }
 }
 
-export default class AllSolvedTicketList extends Component {
+export default class MySolvedTicketList extends Component {
   render() {
     let solvedTicket = this.props.reverseTickets.filter((ticket) => {
-      if (ticket.ticketComplete && ticket.classId === this.props.activeUser.classId && ticket.userId !== this.props.activeUser.id)
-        return ticket
-    })
+      if (ticket.ticketComplete && ticket.userId === this.props.activeUser.id)
+        return ticket;
+    });
 
     let classTickets = solvedTicket.map((item, index) => {
       let image = ""
@@ -23,13 +23,12 @@ export default class AllSolvedTicketList extends Component {
         }
       })
       return (
-        <AllSolvedTicketItem
+        <MySolvedTicketItem
           { ...this.props }
           key={ index }
           item={ item }
           index={ index }
           image={ image }
-        // editTicket={ this.props.editTicket } 
         />
       );
     });
