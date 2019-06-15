@@ -1,9 +1,17 @@
-.new-ticket-container, .current-ticket-container .new-ticket-form {
+.new-ticket-container, .new-ticket-form {
   /* border: 5px solid red; */
   display: inline-block;
   width: 40%;
   vertical-align: top;
   margin-right: 30px;
+}
+
+.current-ticket-container {
+  /* border: 5px solid red; */
+  display: inline-block;
+  width: 40%;
+  vertical-align: top;
+  margin-left: 30px;
 }
 
 .ticketFormSuccess {
