@@ -50,14 +50,17 @@ export default class TicketList extends Component {
       return null;
     });
 
+    // let joinedTickets = this.props.joinedTickets.filter((joinedUser) => {
+    // if()  
+    // })
+
     let classTickets = openTicket.map((item, index) => {
       let image = ""
-      // let joinedTickets = this.props.joinedTickets.map((item, index))
       this.props.allUsers.forEach((user) => {
         if (item.userId === user.id) {
           image = user.image
-          // } else if(joinedTickets) {
-
+          // } else if(joinedTickets.userId !== this.prop.activeUser.id) {
+          // image= user.image
         }
       })
       return (
@@ -69,7 +72,6 @@ export default class TicketList extends Component {
           image={ image }
           editTicketState={ this.editTicketState }
           handleOpenModal={ this.handleOpenCloseModal }
-        // editTicket={ this.props.editTicket } 
         />
       );
     });

@@ -35,7 +35,9 @@ export default class TicketList extends Component {
   }
 
   handleCardColor = () => {
-
+    if (this.props.item.userId === this.props.activeUser.id) {
+      return "straw"
+    }
   }
 
   handleEdit = () => {
@@ -103,8 +105,15 @@ export default class TicketList extends Component {
       )
       //student ticket view
     } else if (this.props.activeUser !== null && this.props.activeUser.student) {
+
+      let cardColor = "";
+      if (this.props.item.userId === this.props.activeUser.id) {
+        cardColor = "steel";
+        // } else if () {
+        //   cardColor = "";
+      }
       return (
-        <Card centered fluid raised key={ this.props.item.id } className="">
+        <Card centered fluid raised key={ this.props.item.id } className={ cardColor }>
           <Image floated='left' size='mini' src={ this.props.image } />
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>

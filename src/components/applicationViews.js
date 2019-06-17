@@ -182,9 +182,9 @@ class ApplicationViews extends Component {
         .then(CurrentTicketManager.getAllCurrentTicketUsers)
         .then(ticket => { newState.currentTicketUsers = ticket })
         .then(TicketsManager.getAllTicketsReverse)
+        .then(reverseTicket => { newState.reverseTickets = reverseTicket })
         .then(ClassManager.getAllClasses)
         .then(classes => { newState.classes = classes })
-        .then(reverseTicket => { newState.reverseTickets = reverseTicket })
         .then(JoinedTicketManager.getAllJoinedTickets)
         .then(joinedTickets => { newState.joinedTickets = joinedTickets })
         .then(() => this.setState(newState));
