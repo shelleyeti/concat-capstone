@@ -5,6 +5,7 @@ import TicketContainer from './tickets/activeTickets/ticketContainer';
 import TicketsManager from '../modules/ticketManager';
 import DashContainer from './dashboard/dashContainer'
 import UsersManager from '../modules/userManager';
+import ClassManager from '../modules/classes';
 import CurrentTicketManager from '../modules/currentTicketUsers';
 import SolvedTicketsContainer from './tickets/solvedTickets/solvedContainer';
 import JoinedTicketManager from '../modules/joinedTickets';
@@ -164,6 +165,8 @@ class ApplicationViews extends Component {
       .then(ticket => { newState.currentTicketUsers = ticket })
       .then(TicketsManager.getAllTicketsReverse)
       .then(reverseTicket => { newState.reverseTickets = reverseTicket })
+      .then(ClassManager.getAllClasses)
+      .then(classes => { newState.classes = classes })
       .then(JoinedTicketManager.getAllJoinedTickets)
       .then(joinedTickets => { newState.joinedTickets = joinedTickets })
       .then(() => this.setState(newState));
@@ -179,6 +182,8 @@ class ApplicationViews extends Component {
         .then(CurrentTicketManager.getAllCurrentTicketUsers)
         .then(ticket => { newState.currentTicketUsers = ticket })
         .then(TicketsManager.getAllTicketsReverse)
+        .then(ClassManager.getAllClasses)
+        .then(classes => { newState.classes = classes })
         .then(reverseTicket => { newState.reverseTickets = reverseTicket })
         .then(JoinedTicketManager.getAllJoinedTickets)
         .then(joinedTickets => { newState.joinedTickets = joinedTickets })
