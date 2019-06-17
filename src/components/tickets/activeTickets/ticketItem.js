@@ -27,9 +27,14 @@ export default class TicketList extends Component {
       userId: this.props.activeUser.id,
       ticketId: this.props.item.id
     })
+    // this.handleCardColor();
   };
 
   handleButtonColor = () => {
+
+  }
+
+  handleCardColor = () => {
 
   }
 
