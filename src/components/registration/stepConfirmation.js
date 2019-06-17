@@ -3,6 +3,7 @@ import { Button, Form, Message, Container, Grid, Segment, Header, Card } from 's
 import { register } from '../auth/userManager';
 import * as firebase from 'firebase/app';
 import 'firebase/storage';
+import './register.css'
 
 const displayStyle = {
   display: "none"
@@ -47,14 +48,13 @@ export default class StepConfirmation extends Component {
             student: student
           }).then(newUser => {
             this.props.onRegister(newUser);
-            // this.props.history.push('/dashboard/teacher');
           });
         }).then(() => {
           setTimeout(() => {
             document.querySelector(".registerFormSuccess").style.display = "block";
           }, 200)
         })
-        .then(() => { setTimeout(() => { this.props.history.push("/dashboard/teacher") }, 2000) })
+        .then(() => { setTimeout(() => { this.props.history.push("/dashboard") }, 2000) })
     }
 
     return (
