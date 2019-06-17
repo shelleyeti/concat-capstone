@@ -11,3 +11,293 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+
+/*******************************
+            Cards
+*******************************/
+
+.ui.card {
+  margin: 1.5em 0em !important;
+}
+
+/* Colors */
+
+/* Laurel */
+.ui.laurel.cards > .card,
+.ui.cards > .laurel.card,
+.ui.laurel.card,
+.ui.laurel.cards > .card:hover,
+.ui.cards > .laurel.card:hover,
+.ui.laurel.card:hover  {
+  border: 4px solid #ADB993;
+}
+
+.ui.laurel.cards > .card > .content,
+.ui.laurel.card > .content  {
+  border-top: 1px solid #ADB993;
+}
+
+/* Steel */
+.ui.steel.cards > .card,
+.ui.cards > .steel.card,
+.ui.steel.card,
+.ui.steel.cards > .card:hover,
+.ui.cards > .steel.card:hover,
+.ui.steel.card:hover  {
+  border: 4px solid #B8CAE0;
+}
+
+.ui.steel.cards > .card > .content,
+.ui.steel.card > .content {
+  border-top: 1px solid #B8CAE0;
+}
+
+/* Rose */
+.ui.rose.cards > .card,
+.ui.cards > .rose.card,
+.ui.rose.card,
+.ui.rose.cards > .card:hover,
+.ui.cards > .rose.card:hover,
+.ui.rose.card:hover  {
+  border: 4px solid #BC8171;
+}
+
+.ui.rose.cards > .card > .content,
+.ui.rose.card > .content  {
+  border-top: 1px solid #BC8171;
+}
+
+/* Straw */
+.ui.straw.cards > .card,
+.ui.cards > .straw.card,
+.ui.straw.card,
+.ui.straw.cards > .card:hover,
+.ui.cards > .straw.card:hover,
+.ui.straw.card:hover  {
+  border: 4px solid #DFC878;
+}
+
+.ui.straw.cards > .card > .content,
+.ui.straw.card > .content {
+  border-top: 1px solid #DFC878;
+}
+
+/*******************************
+            Buttons
+*******************************/
+
+.ui.button {
+  margin: 1em 0.25em 0em 0em !important;
+}
+
+/* Trolley */
+
+.ui.trolley.buttons .button,
+.ui.trolley.button {
+  background-color: #817F82;
+  color: #FFFFFF;
+  text-shadow: none;
+  background-image: none;
+}
+.ui.trolley.button {
+  -webkit-box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+          box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+}
+
+.ui.trolley.buttons .button:hover,
+.ui.trolley.button:hover {
+  background-color: #6A686B;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+.ui.trolley.buttons .button:focus,
+.ui.trolley.button:focus {
+  background-color: #535153;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+.ui.trolley.buttons .button:active,
+.ui.trolley.button:active {
+  background-color: #535153;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+.ui.trolley.buttons .active.button,
+.ui.trolley.buttons .active.button:active,
+.ui.trolley.active.button,
+.ui.trolley.button .active.button:active {
+  background-color: #535153;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+/* Laurel */
+
+.ui.laurel.buttons .button,
+.ui.laurel.button {
+  background-color: #ADB993;
+  color: #FFFFFF;
+  text-shadow: none;
+  background-image: none;
+}
+.ui.laurel.button {
+  -webkit-box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+          box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+}
+
+.ui.laurel.buttons .button:hover,
+.ui.laurel.button:hover {
+  background-color: #8E9879;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+.ui.laurel.buttons .button:focus,
+.ui.laurel.button:focus {
+  background-color: #6F765E;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+.ui.laurel.buttons .button:active,
+.ui.laurel.button:active {
+  background-color: #6F765E;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+.ui.laurel.buttons .active.button,
+.ui.laurel.buttons .active.button:active,
+.ui.laurel.active.button,
+.ui.laurel.button .active.button:active {
+  background-color: #6F765E;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+/* Steel */
+
+.ui.steel.buttons .button,
+.ui.steel.button {
+  background-color: #B8CAE0;
+  color: #FFFFFF;
+  text-shadow: none;
+  background-image: none;
+}
+.ui.steel.button {
+  -webkit-box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+          box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+}
+
+.ui.steel.buttons .button:hover,
+.ui.steel.button:hover {
+  background-color: #97A6B8;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+.ui.steel.buttons .button:focus,
+.ui.steel.button:focus {
+  background-color: #76818F;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+.ui.steel.buttons .button:active,
+.ui.steel.button:active {
+  background-color: #76818F;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+.ui.steel.buttons .active.button,
+.ui.steel.buttons .active.button:active,
+.ui.steel.active.button,
+.ui.steel.button .active.button:active {
+  background-color: #76818F;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+/* Rose */
+
+.ui.rose.buttons .button,
+.ui.rose.button {
+  background-color: #BC8171;
+  color: #FFFFFF;
+  text-shadow: none;
+  background-image: none;
+}
+.ui.rose.button {
+  -webkit-box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+          box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+}
+
+.ui.rose.buttons .button:hover,
+.ui.rose.button:hover {
+  background-color: #9A6A5D;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+.ui.rose.buttons .button:focus,
+.ui.rose.button:focus {
+  background-color: #785348;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+.ui.rose.buttons .button:active,
+.ui.rose.button:active {
+  background-color: #785348;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+.ui.rose.buttons .active.button,
+.ui.rose.buttons .active.button:active,
+.ui.rose.active.button,
+.ui.rose.button .active.button:active {
+  background-color: #785348;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+/* Straw */
+
+.ui.straw.buttons .button,
+.ui.straw.button {
+  background-color: #DFC878;
+  color: #FFFFFF;
+  text-shadow: none;
+  background-image: none;
+}
+.ui.straw.button {
+  -webkit-box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+          box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+}
+
+.ui.straw.buttons .button:hover,
+.ui.straw.button:hover {
+  background-color: #B7A463;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+.ui.straw.buttons .button:focus,
+.ui.straw.button:focus {
+  background-color: #8E804D;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+.ui.straw.buttons .button:active,
+.ui.straw.button:active {
+  background-color: #8E804D;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+.ui.straw.buttons .active.button,
+.ui.straw.buttons .active.button:active,
+.ui.straw.active.button,
+.ui.straw.button .active.button:active {
+  background-color: #8E804D;
+  color: #FFFFFF;
+  text-shadow: none;
+}

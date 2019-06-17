@@ -87,8 +87,8 @@ export default class StepTwoClassDetails extends Component {
                     </Form.Field>
                   </div>
                 </Card>
-                <Button className="ui left floated" onClick={ this.back }>Back</Button>
-                <Button className="ui right floated" onClick={ this.saveAndContinue }>Save and Continue </Button>
+                <Button className="ui left floated trolley" onClick={ this.back }>Back</Button>
+                <Button className="ui right floated trolley" onClick={ this.saveAndContinue }>Save and Continue </Button>
               </Form>
               <div className="ui four steps">
                 <div className="ui disabled step">

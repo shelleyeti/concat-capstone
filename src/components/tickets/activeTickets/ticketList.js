@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TicketItem from './ticketItem';
 import EditTicket from './editTicketModal';
 import '../../tickets/tickets.css';
+import joinedTickets from '../../../modules/joinedTickets';
 
 
 class OpenTicketHeader extends Component {
@@ -51,9 +52,12 @@ export default class TicketList extends Component {
 
     let classTickets = openTicket.map((item, index) => {
       let image = ""
+      // let joinedTickets = this.props.joinedTickets.map((item, index))
       this.props.allUsers.forEach((user) => {
         if (item.userId === user.id) {
           image = user.image
+          // } else if(joinedTickets) {
+
         }
       })
       return (
@@ -69,6 +73,7 @@ export default class TicketList extends Component {
         />
       );
     });
+
     return (
       <div className="new-ticket-container">
         <OpenTicketHeader />

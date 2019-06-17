@@ -129,7 +129,7 @@ export default class Register extends Component {
                     onChange={ (e) => this.setState({ image: e.target.files[0] }) }
                     placeholder="Photo" />
                   <Form.Field control="input" type="hidden" />
-                  <Button fluid content="Register" />
+                  <Button className="trolley" fluid content="Register" />
                 </Form>
                 <Message className="auth--message">
                   Already registered? <Link to="/login">Log In</Link>

@@ -38,8 +38,8 @@ export default class StepOneUserDetails extends Component {
                     this.props.handleChange(e.target.files[0]);
                   } }
                   placeholder="Photo" />
-                <Button className="ui left floated" onClick={ this.back }>Back</Button>
-                <Button className="ui right floated" onClick={ this.saveAndContinue }>Save and Continue </Button>
+                <Button className="ui left floated trolley" onClick={ this.back }>Back</Button>
+                <Button className="ui right floated trolley" onClick={ this.saveAndContinue }>Save and Continue </Button>
               </Form>
               <div className="ui four steps">
                 <div className="ui disabled step">

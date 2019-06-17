@@ -53,8 +53,8 @@ export default class EditTicket extends Component {
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
-            <Button emphasis="negative" onClick={ this.onCloseModal }>Cancel</Button>
-            <Button emphasis="positive" onClick={ this.handleEdit }>Save</Button>
+            <Button className="rose" onClick={ this.onCloseModal }>Cancel</Button>
+            <Button className="laurel" onClick={ this.handleEdit }>Save</Button>
           </Modal.Actions>
         </Modal>
       </div>
