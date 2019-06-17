@@ -22,12 +22,16 @@ export default class TicketList extends Component {
     })
   };
 
-  handleAddToTicket = () => {
-    // this.props.addTeacherTicket({
-    //   ticketId: this.props.item.id,
-    //   userId: this.props.activeUser.id,
-    // })
+  handleJoinTicket = () => {
+    this.props.addJoin({
+      userId: this.props.activeUser.id,
+      ticketId: this.props.item.id
+    })
   };
+
+  handleButtonColor = () => {
+
+  }
 
   handleEdit = () => {
     this.props.handleOpenModal(true);
@@ -70,11 +74,11 @@ export default class TicketList extends Component {
             onChange={ (e) => this.setState({ solutionNotes: e.target.value }) }
           />
         </Form>
-        <Button className="btn-margin" onClick={ this.handleEdit }>Edit</Button>
-        <Button className="btn-margin" onClick={ this.handleStudentSolve }>Marked Solved</Button>
+        <Button className="steel" onClick={ this.handleEdit }>Edit</Button>
+        <Button className="trolley" onClick={ this.handleStudentSolve }>Marked Solved</Button>
       </>)
     } else if (this.props.item.userId !== this.props.activeUser.id) {
-      return (<Button className="btn-margin" onClick={ this.handleAddToTicket }>Join Ticket</Button>)
+      return (<Button className="laurel" onClick={ this.handleJoinTicket }>Join Ticket</Button>)
     }
   }
 
@@ -82,20 +86,20 @@ export default class TicketList extends Component {
     //teacher ticket view
     if (this.props.activeUser !== null && this.props.activeUser.student === false) {
       return (
-        <Card centered fluid key={ this.props.item.id } className="margin-ticket">
+        <Card centered fluid raised key={ this.props.item.id } className="">
           <Image floated='left' size='mini' src={ this.props.image } />
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
             <Card.Description>{ this.props.item.ticketBody }</Card.Description>
             <Card.Meta>{ this.props.item.submitTime }</Card.Meta>
-            <Button className="btn-margin" onClick={ this.handleAssign }>Assign</Button>
+            <Button className="trolley" onClick={ this.handleAssign }>Assign</Button>
           </Card.Content>
         </Card>
       )
       //student ticket view
     } else if (this.props.activeUser !== null && this.props.activeUser.student) {
       return (
-        <Card centered fluid key={ this.props.item.id } className="margin-ticket">
+        <Card centered fluid raised key={ this.props.item.id } className="">
           <Image floated='left' size='mini' src={ this.props.image } />
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>

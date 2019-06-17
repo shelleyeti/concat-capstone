@@ -121,13 +121,13 @@ export default class TeacherContainer extends Component {
           <UserImage { ...this.props }
             editMode={ this.state.editModeImage }
           />
-          { this.state.editModeImage ? <Button onClick={ this.handleSaveImage }>Save Image</Button> : <Button onClick={ this.handleEditImage }>Edit Image</Button> }
+          { this.state.editModeImage ? <Button className="trolley" onClick={ this.handleSaveImage }>Save Image</Button> : <Button className="trolley" onClick={ this.handleEditImage }>Edit Image</Button> }
         </div>
         <div className="input-fields-section">
           <UserProfile  { ...this.props }
             editMode={ this.state.editMode }
           />
-          { this.state.editMode ? <Button onClick={ this.handleSaveState }>Save</Button> : <Button onClick={ this.handleEditState }>Edit</Button> }
+          { this.state.editMode ? <Button className="trolley" onClick={ this.handleSaveState }>Save</Button> : <Button className="trolley" onClick={ this.handleEditState }>Edit</Button> }
         </div>
       </div>
     );

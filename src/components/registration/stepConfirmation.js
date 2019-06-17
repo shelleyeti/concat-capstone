@@ -81,8 +81,8 @@ export default class StepConfirmation extends Component {
                 </Card.Content>
               </Card>
 
-              <Button className="ui left floated" onClick={ this.back }>Back</Button>
-              <Button className="ui right floated" onClick={ submit }>Register</Button>
+              <Button className="ui left floated trolley" onClick={ this.back }>Back</Button>
+              <Button className="ui right floated trolley" onClick={ submit }>Register</Button>
               <div className="ui four steps">
                 <div className="ui disabled step">
                   User Details

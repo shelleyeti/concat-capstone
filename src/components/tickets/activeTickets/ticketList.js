@@ -69,6 +69,7 @@ export default class TicketList extends Component {
         />
       );
     });
+
     return (
       <div className="new-ticket-container">
         <OpenTicketHeader />

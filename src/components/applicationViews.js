@@ -7,7 +7,7 @@ import DashContainer from './dashboard/dashContainer'
 import UsersManager from '../modules/userManager';
 import CurrentTicketManager from '../modules/currentTicketUsers';
 import SolvedTicketsContainer from './tickets/solvedTickets/solvedContainer';
-import ClassManager from '../modules/classes';
+import JoinedTicketManager from '../modules/joinedTickets';
 import StepRegisterContainer from './registration/stepRegisterContainer';
 import Login from './dashboard/Login';
 import Home from './dashboard/Home';
@@ -119,36 +119,36 @@ class ApplicationViews extends Component {
       });
   };
 
-  deleteClass = id => {
+  deleteJoin = id => {
     const newState = {};
-    ClassManager.deleteClass(id)
-      .then(ClassManager.getAllClasses)
-      .then(cohort => (newState.classes = cohort))
+    JoinedTicketManager.deleteJoinedTicket(id)
+      .then(JoinedTicketManager.getAllJoinedTickets)
+      .then(joinedTicket => (newState.joinedTickets = joinedTicket))
       .then(() => {
-        this.props.history.push("/classes/all-classes");
+        this.props.history.push("/tickets/my-tickets");
         this.setState(newState);
       });
   };
 
-  addClass = newCohort => {
+  addJoin = newJoin => {
     const newState = {};
-    return ClassManager.saveClass(newCohort)
-      .then(() => ClassManager.getAllClasses())
-      .then(cohort => newState.classes = cohort)
-      .then((cohort) => {
-        this.props.history.push("/classes/all-classes")
+    return JoinedTicketManager.saveJoinedTicket(newJoin)
+      .then(() => JoinedTicketManager.getAllJoinedTickets())
+      .then(joinedTicket => newState.joinedTickets = joinedTicket)
+      .then((joinedTicket) => {
+        this.props.history.push("/tickets/my-tickets")
         this.setState(newState)
-        return cohort;
+        return joinedTicket;
       });
   };
 
-  editClass = editCohort => {
+  editJoin = editJoinedTicket => {
     const newState = {};
-    ClassManager.editClass(editCohort)
-      .then(() => ClassManager.getAllClasses())
-      .then(cohort => (newState.classes = cohort))
+    JoinedTicketManager.editJoinedTicket(editJoinedTicket)
+      .then(() => JoinedTicketManager.getAllJoinedTickets())
+      .then(joinedTicket => (newState.joinedTickets = joinedTicket))
       .then(() => {
-        this.props.history.push("/classes/all-classes");
+        this.props.history.push("/tickets/my-tickets");
         this.setState(newState);
       });
   };
@@ -164,8 +164,8 @@ class ApplicationViews extends Component {
       .then(ticket => { newState.currentTicketUsers = ticket })
       .then(TicketsManager.getAllTicketsReverse)
       .then(reverseTicket => { newState.reverseTickets = reverseTicket })
-      .then(ClassManager.getAllClasses)
-      .then(classes => { newState.classes = classes })
+      .then(JoinedTicketManager.getAllJoinedTickets)
+      .then(joinedTickets => { newState.joinedTickets = joinedTickets })
       .then(() => this.setState(newState));
   }
 
@@ -180,8 +180,8 @@ class ApplicationViews extends Component {
         .then(ticket => { newState.currentTicketUsers = ticket })
         .then(TicketsManager.getAllTicketsReverse)
         .then(reverseTicket => { newState.reverseTickets = reverseTicket })
-        .then(ClassManager.getAllClasses)
-        .then(classes => { newState.classes = classes })
+        .then(JoinedTicketManager.getAllJoinedTickets)
+        .then(joinedTickets => { newState.joinedTickets = joinedTickets })
         .then(() => this.setState(newState));
     }
   }
@@ -201,7 +201,7 @@ class ApplicationViews extends Component {
                   ticket={ this.state.tickets }
                 />
               } else {
-                return <Redirect to="/" />
+                return <Redirect to="/login" />
               }
             } } />
 
@@ -232,7 +232,7 @@ class ApplicationViews extends Component {
                   editUser={ this.editUser }
                 />
               } else {
-                return <Redirect to="/" />
+                return <Redirect to="/login" />
               }
             } }
             />
@@ -244,15 +244,19 @@ class ApplicationViews extends Component {
                   { ...this.props }
                   allUsers={ this.state.users }
                   allTickets={ this.state.tickets }
+                  joinedTickets={ this.state.joinedTickets }
                   addTicket={ this.addTicket }
                   editTicket={ this.editTicket }
+                  addJoin={ this.addJoin }
+                  editJoin={ this.editJoin }
+                  deleteJoin={ this.deleteJoin }
                   allTeacherTickets={ this.state.currentTicketUsers }
                   removeTeacherTicket={ this.deleteCurrentTicketUser }
                   addTeacherTicket={ this.addCurrentTicketUser }
                   editTeacherTicket={ this.editCurrentTicketUser }
                 />
               } else {
-                return <Redirect to="/" />
+                return <Redirect to="/login" />
               }
             } }
             />
@@ -268,7 +272,7 @@ class ApplicationViews extends Component {
                   allTeacherTickets={ this.state.currentTicketUsers }
                 />
               } else {
-                return <Redirect to="/" />
+                return <Redirect to="/login" />
               }
             } }
             />

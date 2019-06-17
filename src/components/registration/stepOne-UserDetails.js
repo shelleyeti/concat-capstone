@@ -43,7 +43,7 @@ export default class StepOneUserDetails extends Component {
                   placeholder="Password"
                   onChange={ this.props.handleChange('password') }
                 />
-                <Button className="ui right floated" onClick={ this.saveAndContinue }>Save and Continue </Button>
+                <Button className="ui right floated trolley" onClick={ this.saveAndContinue }>Save and Continue </Button>
               </Form>
               <div className="ui four steps">
                 <div className="ui active step">
