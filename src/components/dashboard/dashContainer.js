@@ -40,12 +40,12 @@ export default class TeacherContainer extends Component {
             blurb: this.props.activeUser.blurb,
             email: this.props.activeUser.email,
             password: null,
-            image: url
+            image: url,
+            available: this.props.activeUser.available,
+            student: this.props.activeUser.student
           })
         })
     }
-
-
     this.setState(
       { editModeImage: false }
     )
@@ -100,7 +100,9 @@ export default class TeacherContainer extends Component {
       blurb: blurb,
       email: email,
       password: null,
-      image: this.props.activeUser.image
+      image: this.props.activeUser.image,
+      available: this.props.activeUser.available,
+      student: this.props.activeUser.student
     })
     if (password !== "" && newPassword !== "" && password !== newPassword)
       this.changePassword(password, newPassword)

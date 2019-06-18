@@ -73,8 +73,8 @@ export default class TicketList extends Component {
   getUserImage = () => {
     let images;
     if (typeof (this.props.image) === "object") {
-      images = this.props.image.map((image) => {
-        return (<Image className="inline-image" floated='left' size='mini' src={ image } />)
+      images = this.props.image.map((image, index) => {
+        return (<Image className="inline-image" floated='left' size='mini' key={ index } src={ image } />)
       });
     } else {
       images = <Image floated='left' size='mini' src={ this.props.image } />

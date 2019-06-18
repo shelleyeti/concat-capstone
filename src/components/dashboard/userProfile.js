@@ -5,13 +5,15 @@ import './dashboard.css';
 
 export default class UserProfile extends Component {
   state = {
-    userId: "",
-    username: "",
     name: "",
+    username: "",
     email: "",
     password: "",
     newPassword: "",
-    blurb: ""
+    image: "",
+    blurb: "",
+    available: "",
+    student: ""
   }
 
   displayConditions = () => {

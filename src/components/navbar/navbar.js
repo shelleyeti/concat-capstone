@@ -92,6 +92,7 @@ class MenuNav extends Component {
       return null
     }
   }
+
   isAuthenticated = () => localStorage.getItem("user") !== null;
 
   render() {

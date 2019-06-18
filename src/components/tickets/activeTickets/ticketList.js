@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import TicketItem from './ticketItem';
 import EditTicket from './editTicketModal';
 import '../../tickets/tickets.css';
-import joinedTickets from '../../../modules/joinedTickets';
 
 
 class OpenTicketHeader extends Component {
