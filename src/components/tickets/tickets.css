@@ -29,3 +29,11 @@
   display: inline-block !important;
   width: 65% !important;
 }
+
+.ticket-height {
+  height: 250px !important;
+}
+
+.inline-image{
+  display: inline-block;
+}

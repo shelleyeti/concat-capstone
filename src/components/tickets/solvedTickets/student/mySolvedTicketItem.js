@@ -6,7 +6,7 @@ export default class SolvedTicketList extends Component {
 
   render() {
     return (
-      <Card centered fluid raised key={ this.props.item.id } >
+      <Card className="ticket-height" centered fluid raised key={ this.props.item.id } >
         <Image floated='left' size='mini' src={ this.props.image } />
         <Card.Content>
           <Card.Header>{ this.props.item.ticketTitle }</Card.Header>

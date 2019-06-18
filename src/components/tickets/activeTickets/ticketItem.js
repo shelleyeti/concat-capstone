@@ -109,12 +109,12 @@ export default class TicketList extends Component {
       let cardColor = "";
       if (this.props.item.userId === this.props.activeUser.id) {
         cardColor = "steel";
-        // } else if () {
-        //   cardColor = "";
+        // } else if (joined ticket is true) {
+        //   cardColor = "laurel";
       }
       return (
         <Card centered fluid raised key={ this.props.item.id } className={ cardColor }>
-          <Image floated='left' size='mini' src={ this.props.image } />
+          { this.getUserImage() }
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
             <Card.Description>{ this.props.item.ticketBody }</Card.Description>
@@ -125,6 +125,20 @@ export default class TicketList extends Component {
       )
     }
   }
+
+  getUserImage = () => {
+    let images;
+    if (typeof (this.props.image) === "object") {
+      images = this.props.image.map((image) => {
+        return (<Image className="inline-image" floated='left' size='mini' src={ image } />)
+      });
+    } else {
+      images = <Image floated='left' size='mini' src={ this.props.image } />
+    }
+
+    return images;
+  }
+
   render() {
     return (
       <div>
