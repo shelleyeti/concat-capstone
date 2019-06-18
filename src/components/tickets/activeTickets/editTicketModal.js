@@ -35,7 +35,7 @@ export default class EditTicket extends Component {
           <Icon name="close" onClick={ this.onCloseModal } />
           <Modal.Header>Edit Ticket</Modal.Header>
           <Modal.Content>
-            <Image className="ui small image ticket-edit-image" src={ this.props.editTicketItem.image } />
+            <Image avatar className="ui small image ticket-edit-image" src={ this.props.editTicketItem.image } />
             <Modal.Description className="ticket-edit-fields">
               <label>Ticket Title: </label>
               <Input

@@ -27,18 +27,11 @@ export default class TicketList extends Component {
       userId: this.props.activeUser.id,
       ticketId: this.props.item.id
     })
-    // this.handleCardColor();
   };
 
-  handleButtonColor = () => {
-
-  }
-
-  handleCardColor = () => {
-    if (this.props.item.userId === this.props.activeUser.id) {
-      return "straw"
-    }
-  }
+  handleRemoveJoinTicket = () => {
+    this.props.deleteJoin(this.props.joinedTicketId)
+  };
 
   handleEdit = () => {
     this.props.handleOpenModal(true);
@@ -74,10 +67,10 @@ export default class TicketList extends Component {
     let images;
     if (typeof (this.props.image) === "object") {
       images = this.props.image.map((image, index) => {
-        return (<Image className="inline-image" floated='left' size='mini' key={ index } src={ image } />)
+        return (<Image className="avatar" key={ index } src={ image } />)
       });
     } else {
-      images = <Image floated='left' size='mini' src={ this.props.image } />
+      images = <Image className="avatar" src={ this.props.image } />
     }
 
     return images;
@@ -97,17 +90,22 @@ export default class TicketList extends Component {
         <Button className="steel" onClick={ this.handleEdit }>Edit</Button>
         <Button className="trolley" onClick={ this.handleStudentSolve }>Marked Solved</Button>
       </>)
-    } else if (this.props.item.userId !== this.props.activeUser.id) {
+
+    } if (!this.props.showRemoveJoin) {
       return (<Button className="laurel" onClick={ this.handleJoinTicket }>Join Ticket</Button>)
+    }
+    else if (this.props.showRemoveJoin) {
+      return (<Button onClick={ this.handleRemoveJoinTicket }>Remove Join</Button>)
     }
   };
 
   handleTicketView = () => {
     //teacher ticket view
     if (this.props.activeUser !== null && this.props.activeUser.student === false) {
+
       return (
         <Card centered fluid raised key={ this.props.item.id } className="">
-          <Image floated='left' size='mini' src={ this.props.image } />
+          <Image avatar floated='left' size='mini' src={ this.props.image } />
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
             <Card.Description>{ this.props.item.ticketBody }</Card.Description>
@@ -118,13 +116,13 @@ export default class TicketList extends Component {
       )
       //student ticket view
     } else if (this.props.activeUser !== null && this.props.activeUser.student) {
-
       let cardColor = "";
       if (this.props.item.userId === this.props.activeUser.id) {
         cardColor = "steel";
       } else if (this.props.hasMultipleJoins !== null && this.props.hasMultipleJoins) {
         cardColor = "laurel";
       }
+
       return (
         <Card centered fluid raised key={ this.props.item.id } className={ cardColor }>
           { this.getUserImage() }
@@ -140,6 +138,7 @@ export default class TicketList extends Component {
   };
 
   render() {
+    console.log(this.props.joinedTicketId)
     return (
       <div>
         { this.handleTicketView() }
