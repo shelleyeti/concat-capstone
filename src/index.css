@@ -13,13 +13,17 @@ code {
 }
 
 
-
 /*******************************
             Cards
 *******************************/
 
 .ui.card {
   margin: 1.5em 0em !important;
+}
+
+.ui.card>:first-child, 
+.ui.cards>.card>:first-child {
+  border-radius: 500rem !important;
 }
 
 /* Colors */

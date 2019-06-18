@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Image, Button, Form, TextArea } from 'semantic-ui-react';
+import moment from 'moment';
 import '../../tickets/tickets.css';
 
 export default class TicketList extends Component {
@@ -99,13 +100,20 @@ export default class TicketList extends Component {
     }
   };
 
+  handleCardLength = () => {
+    let ticketTime = this.props.item.submitTime
+    let time = moment(ticketTime).isValid()
+    // moment.duration().subtract(ticketTime);
+    console.log(time)
+  }
+
   handleTicketView = () => {
     //teacher ticket view
     if (this.props.activeUser !== null && this.props.activeUser.student === false) {
 
       return (
-        <Card centered fluid raised key={ this.props.item.id } className="">
-          <Image avatar floated='left' size='tiny' src={ this.props.image } />
+        <Card centered fluid raised key={ this.props.item.id } className={ this.handleCardLength }>
+          <Image circular floated='left' size='tiny' src={ this.props.image } />
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
             <Card.Description>{ this.props.item.ticketBody }</Card.Description>
@@ -138,10 +146,10 @@ export default class TicketList extends Component {
   };
 
   render() {
-    console.log(this.props.joinedTicketId)
     return (
       <div>
         { this.handleTicketView() }
+        { this.handleCardLength() }
       </div>
     )
   }
