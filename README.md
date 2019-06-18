@@ -5,7 +5,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## To Get Started
-1. Open your terminal, nagivgate to the directory you would like to save this project, and run the command ```git clone git@github.com:shelleyeti/concat-capstone.git```
+1. Create your own Firebase Project
+  * [Google Console](https://console.firebase.google.com/)
+  * Start New Project
+  * Click the </> icon under "Get started by adding Firebase to your app"
+  * Name you app to get access to you Firebase SDK
+  * Navigate to the config.TEMPLATE.js and input your information
+2. Open your terminal, nagivgate to the directory you would like to save this project, and run the command ```git clone git@github.com:shelleyeti/concat-capstone.git```
 1. Run ```npm install``` to git all the node dependencies
 1. Navigate to the API folder to start the JSON server on port 8088
   - ```json-server -w database.json -p 8088```
@@ -42,3 +48,5 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 1. Semantic-UI-React
 1. Moment.js
 1. React-Moment
+
+![ERD](Concat-ERD.png?raw=true)
