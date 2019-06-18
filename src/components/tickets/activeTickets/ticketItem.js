@@ -67,10 +67,10 @@ export default class TicketList extends Component {
     let images;
     if (typeof (this.props.image) === "object") {
       images = this.props.image.map((image, index) => {
-        return (<Image className="avatar" key={ index } src={ image } />)
+        return (<Image className="circular tiny" key={ index } src={ image } />)
       });
     } else {
-      images = <Image className="avatar" src={ this.props.image } />
+      images = <Image className="circular tiny" src={ this.props.image } />
     }
 
     return images;
@@ -105,7 +105,7 @@ export default class TicketList extends Component {
 
       return (
         <Card centered fluid raised key={ this.props.item.id } className="">
-          <Image avatar floated='left' size='mini' src={ this.props.image } />
+          <Image avatar floated='left' size='tiny' src={ this.props.image } />
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
             <Card.Description>{ this.props.item.ticketBody }</Card.Description>
