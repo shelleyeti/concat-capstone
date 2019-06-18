@@ -35,7 +35,9 @@ export default class TicketList extends Component {
   }
 
   handleCardColor = () => {
-
+    if (this.props.item.userId === this.props.activeUser.id) {
+      return "straw"
+    }
   }
 
   handleEdit = () => {
@@ -68,6 +70,19 @@ export default class TicketList extends Component {
     })
   };
 
+  getUserImage = () => {
+    let images;
+    if (typeof (this.props.image) === "object") {
+      images = this.props.image.map((image) => {
+        return (<Image className="inline-image" floated='left' size='mini' src={ image } />)
+      });
+    } else {
+      images = <Image floated='left' size='mini' src={ this.props.image } />
+    }
+
+    return images;
+  };
+
   handleMyTicketView = () => {
     if (this.props.item.userId === this.props.activeUser.id) {
       return (<>
@@ -85,7 +100,7 @@ export default class TicketList extends Component {
     } else if (this.props.item.userId !== this.props.activeUser.id) {
       return (<Button className="laurel" onClick={ this.handleJoinTicket }>Join Ticket</Button>)
     }
-  }
+  };
 
   handleTicketView = () => {
     //teacher ticket view
@@ -103,9 +118,16 @@ export default class TicketList extends Component {
       )
       //student ticket view
     } else if (this.props.activeUser !== null && this.props.activeUser.student) {
+
+      let cardColor = "";
+      if (this.props.item.userId === this.props.activeUser.id) {
+        cardColor = "steel";
+      } else if (this.props.hasMultipleJoins !== null && this.props.hasMultipleJoins) {
+        cardColor = "laurel";
+      }
       return (
-        <Card centered fluid raised key={ this.props.item.id } className="">
-          <Image floated='left' size='mini' src={ this.props.image } />
+        <Card centered fluid raised key={ this.props.item.id } className={ cardColor }>
+          { this.getUserImage() }
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
             <Card.Description>{ this.props.item.ticketBody }</Card.Description>
@@ -115,7 +137,8 @@ export default class TicketList extends Component {
         </Card>
       )
     }
-  }
+  };
+
   render() {
     return (
       <div>
