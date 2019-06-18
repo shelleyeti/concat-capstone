@@ -52,10 +52,10 @@ export default class TicketList extends Component {
 
     let classTickets = openTicket.map((item, index) => {
       let hasMultipleJoins = false;
-
       let images = [];
       let joinedTicketId = 0
       let showRemoveJoin = false;
+
       this.props.allUsers.forEach((user) => {
         if (item.userId === user.id) {
           images.push(user.image);
