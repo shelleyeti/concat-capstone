@@ -26,6 +26,14 @@ code {
   border-radius: 500rem !important;
 }
 
+.ui.card>.image, .ui.cards>.card>.image {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
+  padding: 0;
+  background: rgba(0,0,0,0);
+}
+
 /* Colors */
 
 /* Laurel */

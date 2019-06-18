@@ -8,6 +8,7 @@ import * as firebase from 'firebase/app';
 import { FBapiKey, FBauthDomain, FBdatabaseURL, FBprojectId, FBstorageBucket, FBmessagingSenderId, FBappId } from './config';
 import './index.css';
 
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: FBapiKey,
@@ -18,6 +19,7 @@ const firebaseConfig = {
   messagingSenderId: FBmessagingSenderId,
   appId: FBappId
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
