@@ -51,6 +51,8 @@ export default class TicketList extends Component {
     });
 
     let classTickets = openTicket.map((item, index) => {
+      let hasMultipleJoins = false;
+
       let images = [];
       this.props.allUsers.forEach((user) => {
         if (item.userId === user.id) {
@@ -64,7 +66,8 @@ export default class TicketList extends Component {
         });
       })
 
-
+      if (images.length > 1)
+        hasMultipleJoins = true;
 
       return (
         <TicketItem
@@ -75,6 +78,7 @@ export default class TicketList extends Component {
           image={ images }
           editTicketState={ this.editTicketState }
           handleOpenModal={ this.handleOpenCloseModal }
+          hasMultipleJoins={ hasMultipleJoins }
         />
       );
     });
