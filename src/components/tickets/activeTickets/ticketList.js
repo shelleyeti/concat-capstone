@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import TicketItem from './ticketItem';
 import EditTicket from './editTicketModal';
 import '../../tickets/tickets.css';
-import joinedTickets from '../../../modules/joinedTickets';
 
 
 class OpenTicketHeader extends Component {
@@ -50,10 +49,13 @@ export default class TicketList extends Component {
       return null;
     });
 
+
     let classTickets = openTicket.map((item, index) => {
       let hasMultipleJoins = false;
 
       let images = [];
+      let joinedTicketId = 0
+      let showRemoveJoin = false;
       this.props.allUsers.forEach((user) => {
         if (item.userId === user.id) {
           images.push(user.image);
@@ -62,6 +64,10 @@ export default class TicketList extends Component {
         this.props.joinedTickets.forEach((join) => {
           if (item.id === join.ticketId && join.userId === user.id) {
             images.push(user.image);
+          }
+          if (item.id === join.ticketId && join.userId === this.props.activeUser.id) {
+            showRemoveJoin = true;
+            joinedTicketId = join.id
           }
         });
       })
@@ -79,6 +85,8 @@ export default class TicketList extends Component {
           editTicketState={ this.editTicketState }
           handleOpenModal={ this.handleOpenCloseModal }
           hasMultipleJoins={ hasMultipleJoins }
+          showRemoveJoin={ showRemoveJoin }
+          joinedTicketId={ joinedTicketId }
         />
       );
     });
