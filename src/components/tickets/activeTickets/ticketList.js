@@ -41,18 +41,24 @@ export default class TicketList extends Component {
       //the logged in user is assigned to a ticket
       let currentUserIsTeacherWithTicket = false;
       let isTicketAssignedToSomeone = false;
+      let teacherHadTicket = false;
       //iterate over joined table
       this.props.allTeacherTickets.forEach((join) => {
         //both keys in joined table equal
-        if (join.ticketId === ticket.id && join.userId === this.props.activeUser.id && ticket.classId === this.props.activeUser.classId)
+        if (join.ticketId === ticket.id && join.userId === this.props.activeUser.id && ticket.classId === this.props.activeUser.classId) {
+          teacherHadTicket = true;
           currentUserIsTeacherWithTicket = true;
+        }
         else if (join.ticketId === ticket.id) {
+          teacherHadTicket = true;
           isTicketAssignedToSomeone = true;
         }
       })
 
-      if (ticket.ticketComplete === false && (!currentUserIsTeacherWithTicket && isTicketAssignedToSomeone === false))
+      if (ticket.ticketComplete === false && (!currentUserIsTeacherWithTicket && isTicketAssignedToSomeone === false)) {
+        ticket.teacherHadTicket = teacherHadTicket;
         return ticket;
+      }
       //resolves react warning regarding return after arrow function
       return null;
     });

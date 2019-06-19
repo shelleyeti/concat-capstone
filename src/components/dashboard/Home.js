@@ -8,13 +8,34 @@ export default class Home extends Component {
     this.props.history.push('/login');
   }
 
+  solvedTickets = () => {
+    let numberOfTickets = 0;
+    if (this.props.activeUser.student) {
+      numberOfTickets = this.props.ticket.filter((ticket) => {
+        if (ticket.userId === this.props.activeUser.id && ticket.ticketComplete && ticket.classId === this.props.activeUser.classId)
+          return ticket
+        return null
+      })
+    } else if (this.props.activeUser.student === false) {
+      numberOfTickets = this.props.ticket.filter((ticket) => {
+        let currentUserIsTeacherWithTicket = false;
+        //iterate over joined table
+        this.props.allTeacherTickets.forEach((join) => {
+          //both keys in joined table equal
+          if (join.ticketId === ticket.id && join.userId === this.props.activeUser.id)
+            currentUserIsTeacherWithTicket = true;
+        })
+
+        if (ticket.classId === this.props.activeUser.classId && ticket.ticketComplete && currentUserIsTeacherWithTicket)
+          return ticket
+        return null
+      })
+    }
+    return numberOfTickets;
+  }
+
+
   render() {
-    let numberOfTickets = this.props.ticket.filter((ticket) => {
-      if (ticket.userId === this.props.activeUser.id && ticket.ticketComplete)
-        return ticket
-      //resolves react warning regarding return after arrow function
-      return null;
-    })
 
     return (
       <Container className="home--container">
@@ -24,7 +45,7 @@ export default class Home extends Component {
               <Header textAlign="center">Welcome { this.props.activeUser.name }</Header>
               <Message
                 header="You have solved"
-                content={ numberOfTickets.length + " tickets" }
+                content={ this.solvedTickets().length + " tickets" }
               />
             </Grid.Column>
           </Grid.Row>

@@ -204,6 +204,7 @@ class ApplicationViews extends Component {
                   activeUser={ this.props.activeUser }
                   allUsers={ this.state.users }
                   ticket={ this.state.tickets }
+                  allTeacherTickets={ this.state.currentTicketUsers }
                 />
               } else {
                 return <Redirect to="/login" />
@@ -259,6 +260,7 @@ class ApplicationViews extends Component {
                   removeTeacherTicket={ this.deleteCurrentTicketUser }
                   addTeacherTicket={ this.addCurrentTicketUser }
                   editTeacherTicket={ this.editCurrentTicketUser }
+                  getAllCurrentTicketUsers={ CurrentTicketManager.getAllCurrentTicketUsers }
                 />
               } else {
                 return <Redirect to="/login" />

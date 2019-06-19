@@ -19,7 +19,7 @@ export default class NotifyModal extends Component {
           <Icon name="close" onClick={ this.onCloseModal } />
           <Modal.Header>You're Up!</Modal.Header>
           <Modal.Content>
-            <Image circular className="ui small image ticket-edit-image" src={ this.props.editTicketItem.image } />
+            {/* <Image circular className="ui small image ticket-edit-image" src={ this.props.editTicketItem.image } /> */ }
             {/* <p>Please see { teacher } for help with { ticketTitle }</p> */ }
           </Modal.Content>
           <Modal.Actions>
