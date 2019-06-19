@@ -16,6 +16,8 @@ export default class TicketList extends Component {
     solutionNotes: ''
   };
 
+  subTimeInterval = {};
+
   handleAssign = () => {
     this.props.addTeacherTicket({
       ticketId: this.props.item.id,
@@ -68,7 +70,7 @@ export default class TicketList extends Component {
     let images;
     if (typeof (this.props.image) === "object") {
       images = this.props.image.map((image, index) => {
-        return (<div className="user-image-inline"><Image className="circular tiny" key={ index } src={ image } /></div>)
+        return (<div className="user-image-inline" key={ index }><Image className="circular tiny" key={ index } src={ image } /></div>)
       });
     } else {
       images = <Image className="circular tiny" src={ this.props.image } />
@@ -101,10 +103,14 @@ export default class TicketList extends Component {
   };
 
   handleCardLength = () => {
-    let ticketTime = this.props.item.submitTime
-    let time = moment(ticketTime).isValid()
-    // moment.duration().subtract(ticketTime);
-    console.log(time)
+    let parsedDate = moment(this.props.item.submitTime, 'MMMM Do YYYY, h:mm:ss a');
+    let time = moment().diff(parsedDate, 'minutes');
+    if (time > 30) {
+      clearImmediate(this.subTimeInterval);
+      return "rose"
+    }
+    if (time > 20) return "straw"
+    if (time > 10) return "steel"
   }
 
   handleTicketView = () => {
@@ -112,7 +118,7 @@ export default class TicketList extends Component {
     if (this.props.activeUser !== null && this.props.activeUser.student === false) {
 
       return (
-        <Card centered fluid raised key={ this.props.item.id } className="">
+        <Card centered fluid raised key={ this.props.item.id } className={ this.handleCardLength() }>
           <Image circular floated='left' size='tiny' src={ this.props.image } />
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
@@ -145,11 +151,17 @@ export default class TicketList extends Component {
     }
   };
 
+  checkSubTime = () => {
+    this.subTimeInterval = setInterval(() => {
+      this.forceUpdate();
+    }, 30000)
+  }
+
   render() {
+    this.checkSubTime();
     return (
       <div>
         { this.handleTicketView() }
-        { this.handleCardLength() }
       </div>
     )
   }
