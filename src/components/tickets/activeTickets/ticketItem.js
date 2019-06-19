@@ -6,6 +6,7 @@ import '../../tickets/tickets.css';
 export default class TicketList extends Component {
 
   state = {
+    openNotify: this.props.openNotify,
     userId: this.props.userId,
     classId: this.props.classId,
     ticketComplete: this.props.ticketComplete,
@@ -23,6 +24,7 @@ export default class TicketList extends Component {
   };
 
   handleAssign = () => {
+    this.props.handleNotifyModal(true);
     this.props.addTeacherTicket({
       ticketId: this.props.item.id,
       userId: this.props.activeUser.id,

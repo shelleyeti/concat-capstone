@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CurrentTicketItem from './currentTicketItem'
 
 class CurrentTicketHeader extends Component {
+
   render() {
     return <h1>Current Ticket</h1>;
   }

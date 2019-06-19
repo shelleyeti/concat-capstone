@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TicketItem from './ticketItem';
 import EditTicket from './editTicketModal';
+import NotifyModal from './notifyTicketModal'
 import '../../tickets/tickets.css';
 
 
@@ -13,6 +14,7 @@ class OpenTicketHeader extends Component {
 export default class TicketList extends Component {
   state = {
     openModal: false,
+    openNotify: false,
     editTicketItem: {}
   };
 
@@ -25,6 +27,12 @@ export default class TicketList extends Component {
   handleOpenCloseModal = (open) => {
     this.setState({
       openModal: open
+    });
+  }
+
+  handleNotifyModal = (open) => {
+    this.setState({
+      openNotify: open
     });
   }
 
@@ -88,6 +96,7 @@ export default class TicketList extends Component {
           image={ images }
           editTicketState={ this.editTicketState }
           handleOpenModal={ this.handleOpenCloseModal }
+          handleNotifyModal={ this.handleNotifyModal }
           hasMultipleJoins={ hasMultipleJoins }
           showRemoveJoin={ showRemoveJoin }
           joinedTicketId={ joinedTicketId }
@@ -99,10 +108,18 @@ export default class TicketList extends Component {
       <div className="new-ticket-container">
         <OpenTicketHeader />
         <span> { classTickets } </span>
-        <EditTicket { ...this.props }
+        <EditTicket
+          { ...this.props }
           editTicketItem={ this.state.editTicketItem }
           handleOpenCloseModal={ this.handleOpenCloseModal }
-          openModal={ this.state.openModal } />
+          openModal={ this.state.openModal }
+        />
+        <NotifyModal
+          { ...this.props }
+          editTicketItem={ this.state.editTicketItem }
+          handleNotifyModal={ this.handleNotifyModal }
+          openNotify={ this.state.NotifyModal }
+        />
       </div>
     );
   }
