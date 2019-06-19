@@ -33,3 +33,12 @@
 .ticket-height {
   height: 250px !important;
 }
+
+.user-image-inline{
+  float:left;
+}
+
+.user-image-container{
+  display:inline-block;
+  width:100%;
+}

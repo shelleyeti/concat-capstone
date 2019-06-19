@@ -31,7 +31,6 @@ export default class StepConfirmation extends Component {
   render() {
     const { values: { name, username, email, blurb, classId, student, image, password, cohortName } } = this.props;
     const submit = () => {
-      debugger
       const ref = this.storageRef.child(`${Date.now()}`);
 
       ref.put(image)

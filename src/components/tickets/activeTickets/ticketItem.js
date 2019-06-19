@@ -68,7 +68,7 @@ export default class TicketList extends Component {
     let images;
     if (typeof (this.props.image) === "object") {
       images = this.props.image.map((image, index) => {
-        return (<Image className="circular tiny" key={ index } src={ image } />)
+        return (<div className="user-image-inline"><Image className="circular tiny" key={ index } src={ image } /></div>)
       });
     } else {
       images = <Image className="circular tiny" src={ this.props.image } />
@@ -112,7 +112,7 @@ export default class TicketList extends Component {
     if (this.props.activeUser !== null && this.props.activeUser.student === false) {
 
       return (
-        <Card centered fluid raised key={ this.props.item.id } className={ this.handleCardLength }>
+        <Card centered fluid raised key={ this.props.item.id } className="">
           <Image circular floated='left' size='tiny' src={ this.props.image } />
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
@@ -133,7 +133,7 @@ export default class TicketList extends Component {
 
       return (
         <Card centered fluid raised key={ this.props.item.id } className={ cardColor }>
-          { this.getUserImage() }
+          <div className="user-image-container">{ this.getUserImage() }</div>
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
             <Card.Description>{ this.props.item.ticketBody }</Card.Description>

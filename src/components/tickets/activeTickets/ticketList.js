@@ -56,15 +56,19 @@ export default class TicketList extends Component {
       let joinedTicketId = 0
       let showRemoveJoin = false;
 
+      //keeps the creator of the ticket first in image render
       this.props.allUsers.forEach((user) => {
         if (item.userId === user.id) {
           images.push(user.image);
         }
+      });
 
+      this.props.allUsers.forEach((user) => {
         this.props.joinedTickets.forEach((join) => {
           if (item.id === join.ticketId && join.userId === user.id) {
             images.push(user.image);
           }
+
           if (item.id === join.ticketId && join.userId === this.props.activeUser.id) {
             showRemoveJoin = true;
             joinedTicketId = join.id
