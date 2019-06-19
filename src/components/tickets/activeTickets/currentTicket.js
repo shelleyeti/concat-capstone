@@ -28,28 +28,42 @@ export default class TicketForm extends Component {
     });
 
     let currentTickets = openTicket.map((item, index) => {
-      let image = ""
+      let hasMultipleJoins = false;
+      let images = [];
+
+      //keeps the creator of the ticket first in image render
       this.props.allUsers.forEach((user) => {
         if (item.userId === user.id) {
-          image = user.image
+          images.push(user.image);
         }
+      });
+
+      this.props.allUsers.forEach((user) => {
+        this.props.joinedTickets.forEach((join) => {
+          if (item.id === join.ticketId && join.userId === user.id) {
+            images.push(user.image);
+          }
+        });
       })
+      if (images.length > 1)
+        hasMultipleJoins = true;
+
       return (
         <CurrentTicketItem
           { ...this.props }
           key={ index }
           item={ item }
           index={ index }
-          image={ image }
-        // editTicket={ this.props.editTicket }
+          image={ images }
+          editTicketState={ this.editTicketState }
+          handleOpenModal={ this.handleOpenCloseModal }
+          hasMultipleJoins={ hasMultipleJoins }
         />
       );
-
     });
 
 
     return (
-
       <div className="current-ticket-container">
         <CurrentTicketHeader />
         <span> { currentTickets } </span>

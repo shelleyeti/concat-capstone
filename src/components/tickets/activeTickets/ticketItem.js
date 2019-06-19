@@ -6,17 +6,21 @@ import '../../tickets/tickets.css';
 export default class TicketList extends Component {
 
   state = {
-    userId: '',
-    classId: '',
-    ticketComplete: '',
-    ticketTitle: '',
-    ticketBody: '',
-    submitTime: '',
-    linked: '',
-    solutionNotes: ''
+    userId: this.props.userId,
+    classId: this.props.classId,
+    ticketComplete: this.props.ticketComplete,
+    ticketTitle: this.props.ticketTitle,
+    ticketBody: this.props.ticketBody,
+    submitTime: this.props.submitTime,
+    linked: this.props.linked,
+    solutionNotes: this.props.solutionNotes
   };
 
-  subTimeInterval = {};
+  submitTimeInterval = {};
+
+  componentWillUnmount = () => {
+    // clearInterval(this.submitTimeInterval);
+  };
 
   handleAssign = () => {
     this.props.addTeacherTicket({
@@ -50,7 +54,7 @@ export default class TicketList extends Component {
       solutionNotes: this.props.item.solutionNotes,
       id: this.props.item.id
     })
-  }
+  };
 
   handleStudentSolve = () => {
     this.props.editTicket({
@@ -105,12 +109,14 @@ export default class TicketList extends Component {
   handleCardLength = () => {
     let parsedDate = moment(this.props.item.submitTime, 'MMMM Do YYYY, h:mm:ss a');
     let time = moment().diff(parsedDate, 'minutes');
-    if (time > 30) {
-      clearImmediate(this.subTimeInterval);
+    if (time > 5) {
+      clearInterval(this.submitTimeInterval);
       return "rose"
+    } else if (time > 3) {
+      return "straw"
+    } else if (time > 1) {
+      return "steel"
     }
-    if (time > 20) return "straw"
-    if (time > 10) return "steel"
   }
 
   handleTicketView = () => {
@@ -119,7 +125,7 @@ export default class TicketList extends Component {
 
       return (
         <Card centered fluid raised key={ this.props.item.id } className={ this.handleCardLength() }>
-          <Image circular floated='left' size='tiny' src={ this.props.image } />
+          <div className="user-image-container">{ this.getUserImage() }</div>
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
             <Card.Description>{ this.props.item.ticketBody }</Card.Description>
@@ -151,14 +157,14 @@ export default class TicketList extends Component {
     }
   };
 
-  checkSubTime = () => {
-    this.subTimeInterval = setInterval(() => {
-      this.forceUpdate();
+  checkSubmitTime = () => {
+    this.submitTimeInterval = setInterval(() => {
+      this.setState(this.state)
     }, 30000)
   }
 
   render() {
-    this.checkSubTime();
+    this.checkSubmitTime();
     return (
       <div>
         { this.handleTicketView() }
