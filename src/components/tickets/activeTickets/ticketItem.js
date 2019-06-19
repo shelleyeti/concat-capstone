@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Image, Button, Form, TextArea } from 'semantic-ui-react';
+import moment from 'moment';
 import '../../tickets/tickets.css';
 
 export default class TicketList extends Component {
@@ -14,6 +15,8 @@ export default class TicketList extends Component {
     linked: '',
     solutionNotes: ''
   };
+
+  subTimeInterval = {};
 
   handleAssign = () => {
     this.props.addTeacherTicket({
@@ -67,7 +70,7 @@ export default class TicketList extends Component {
     let images;
     if (typeof (this.props.image) === "object") {
       images = this.props.image.map((image, index) => {
-        return (<Image className="circular tiny" key={ index } src={ image } />)
+        return (<div className="user-image-inline" key={ index }><Image className="circular tiny" key={ index } src={ image } /></div>)
       });
     } else {
       images = <Image className="circular tiny" src={ this.props.image } />
@@ -99,13 +102,24 @@ export default class TicketList extends Component {
     }
   };
 
+  handleCardLength = () => {
+    let parsedDate = moment(this.props.item.submitTime, 'MMMM Do YYYY, h:mm:ss a');
+    let time = moment().diff(parsedDate, 'minutes');
+    if (time > 30) {
+      clearImmediate(this.subTimeInterval);
+      return "rose"
+    }
+    if (time > 20) return "straw"
+    if (time > 10) return "steel"
+  }
+
   handleTicketView = () => {
     //teacher ticket view
     if (this.props.activeUser !== null && this.props.activeUser.student === false) {
 
       return (
-        <Card centered fluid raised key={ this.props.item.id } className="">
-          <Image avatar floated='left' size='tiny' src={ this.props.image } />
+        <Card centered fluid raised key={ this.props.item.id } className={ this.handleCardLength() }>
+          <Image circular floated='left' size='tiny' src={ this.props.image } />
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
             <Card.Description>{ this.props.item.ticketBody }</Card.Description>
@@ -125,7 +139,7 @@ export default class TicketList extends Component {
 
       return (
         <Card centered fluid raised key={ this.props.item.id } className={ cardColor }>
-          { this.getUserImage() }
+          <div className="user-image-container">{ this.getUserImage() }</div>
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
             <Card.Description>{ this.props.item.ticketBody }</Card.Description>
@@ -137,8 +151,14 @@ export default class TicketList extends Component {
     }
   };
 
+  checkSubTime = () => {
+    this.subTimeInterval = setInterval(() => {
+      this.forceUpdate();
+    }, 30000)
+  }
+
   render() {
-    console.log(this.props.joinedTicketId)
+    this.checkSubTime();
     return (
       <div>
         { this.handleTicketView() }
