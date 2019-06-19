@@ -15,15 +15,15 @@ export default class NotifyModal extends Component {
   render() {
     return (
       <div>
-        <Modal open={ this.props.openModal } onClose={ this.onCloseModal } >
+        <Modal size='tiny' basic open={ this.props.openNotify } onClose={ this.onCloseModal } >
           <Icon name="close" onClick={ this.onCloseModal } />
           <Modal.Header>You're Up!</Modal.Header>
           <Modal.Content>
             <Image circular className="ui small image ticket-edit-image" src={ this.props.editTicketItem.image } />
-            <p>Please see { this.props.allTeacherTickets.id } for help with { this.props.ticketTitle }</p>
+            {/* <p>Please see { teacher } for help with { ticketTitle }</p> */ }
           </Modal.Content>
           <Modal.Actions>
-            <Button onClick={ this.onCloseModal }>Got It</Button>
+            <Button floated='right' onClick={ this.onCloseModal }>Got It</Button>
           </Modal.Actions>
         </Modal>
       </div>

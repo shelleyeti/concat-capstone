@@ -118,7 +118,7 @@ export default class TicketList extends Component {
           { ...this.props }
           editTicketItem={ this.state.editTicketItem }
           handleNotifyModal={ this.handleNotifyModal }
-          openNotify={ this.state.NotifyModal }
+          openNotify={ this.state.openNotify }
         />
       </div>
     );
