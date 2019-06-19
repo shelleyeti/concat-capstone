@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AllSolvedTicketItem from './allSolvedTicketsItem';
 import '../../../tickets/tickets.css';
 
-class MySolvedTicketHeader extends Component {
+class AllSolvedTicketHeader extends Component {
   render() {
     return <h1>All Solved Tickets</h1>;
   }
@@ -31,13 +31,12 @@ export default class AllSolvedTicketList extends Component {
           item={ item }
           index={ index }
           image={ image }
-        // editTicket={ this.props.editTicket } 
         />
       );
     });
     return (
       <div className="new-ticket-container">
-        <MySolvedTicketHeader />
+        <AllSolvedTicketHeader />
         <span> { classTickets } </span>
       </div>
     );

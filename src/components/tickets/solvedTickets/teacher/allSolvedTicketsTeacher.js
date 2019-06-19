@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AllSolvedTicketItem from './allSolvedTicketsItem';
 import '../../../tickets/tickets.css';
 
-class MySolvedTicketHeader extends Component {
+class AllSolvedTicketHeader extends Component {
   render() {
     return <h1>All Solved Tickets</h1>;
   }
@@ -11,7 +11,16 @@ class MySolvedTicketHeader extends Component {
 export default class AllSolvedTicketList extends Component {
   render() {
     let solvedTicket = this.props.reverseTickets.filter((ticket) => {
-      if (ticket.ticketComplete && ticket.classId === this.props.activeUser.classId && ticket.userId !== this.props.activeUser.id)
+      //the logged in user is assigned to a ticket
+      let currentUserIsTeacherWithTicket = false;
+      //iterate over joined table
+      this.props.allTeacherTickets.forEach((join) => {
+        //both keys in joined table equal
+        if (join.ticketId === ticket.id && join.userId === this.props.activeUser.id)
+          currentUserIsTeacherWithTicket = true;
+      })
+
+      if (ticket.ticketComplete && ticket.classId === this.props.activeUser.classId && !currentUserIsTeacherWithTicket)
         return ticket;
       //resolves react warning regarding return after arrow function
       return null;
@@ -31,13 +40,12 @@ export default class AllSolvedTicketList extends Component {
           item={ item }
           index={ index }
           image={ image }
-        // editTicket={ this.props.editTicket } 
         />
       );
     });
     return (
       <div className="new-ticket-container">
-        <MySolvedTicketHeader />
+        <AllSolvedTicketHeader />
         <span> { classTickets } </span>
       </div>
     );

@@ -6,19 +6,32 @@ import '../../tickets/tickets.css';
 export default class TicketList extends Component {
 
   state = {
-    userId: '',
-    classId: '',
-    ticketComplete: '',
-    ticketTitle: '',
-    ticketBody: '',
-    submitTime: '',
-    linked: '',
-    solutionNotes: ''
+    userId: this.props.userId,
+    classId: this.props.classId,
+    ticketComplete: this.props.ticketComplete,
+    ticketTitle: this.props.ticketTitle,
+    ticketBody: this.props.ticketBody,
+    submitTime: this.props.submitTime,
+    linked: this.props.linked,
+    solutionNotes: this.props.solutionNotes,
+    teacherHasTicketCurrent: this.props.item.teacherHadTicket
   };
 
-  subTimeInterval = {};
+  submitTimeInterval = {};
+  studentWaitingOnTeacherInterval = {};
+
+  componentWillUnmount = () => {
+    clearInterval(this.submitTimeInterval);
+  };
+
+  checkSubmitTime = () => {
+    this.submitTimeInterval = setInterval(() => {
+      this.setState(this.state)
+    }, 30000)
+  }
 
   handleAssign = () => {
+    this.props.handleNotifyModal(true);
     this.props.addTeacherTicket({
       ticketId: this.props.item.id,
       userId: this.props.activeUser.id,
@@ -50,7 +63,7 @@ export default class TicketList extends Component {
       solutionNotes: this.props.item.solutionNotes,
       id: this.props.item.id
     })
-  }
+  };
 
   handleStudentSolve = () => {
     this.props.editTicket({
@@ -105,12 +118,28 @@ export default class TicketList extends Component {
   handleCardLength = () => {
     let parsedDate = moment(this.props.item.submitTime, 'MMMM Do YYYY, h:mm:ss a');
     let time = moment().diff(parsedDate, 'minutes');
-    if (time > 30) {
-      clearImmediate(this.subTimeInterval);
+    if (time > 5) {
+      clearInterval(this.submitTimeInterval);
       return "rose"
+    } else if (time > 3) {
+      return "straw"
+    } else if (time > 1) {
+      return "steel"
     }
-    if (time > 20) return "straw"
-    if (time > 10) return "steel"
+  }
+
+  handleCheckTeacherHasTicket = () => {
+    this.studentWaitingOnTeacherInterval = setInterval(() => {
+      this.props.getAllCurrentTicketUsers().then((joins) => {
+        joins.forEach((join) => {
+          if (join.ticketId === this.props.item.id) {
+            this.setState({ teacherHasTicketCurrent: true });
+            this.props.handleNotifyModal(true);
+            clearInterval(this.studentWaitingOnTeacherInterval);
+          }
+        });
+      });
+    }, 30000)
   }
 
   handleTicketView = () => {
@@ -119,7 +148,7 @@ export default class TicketList extends Component {
 
       return (
         <Card centered fluid raised key={ this.props.item.id } className={ this.handleCardLength() }>
-          <Image circular floated='left' size='tiny' src={ this.props.image } />
+          <div className="user-image-container">{ this.getUserImage() }</div>
           <Card.Content>
             <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
             <Card.Description>{ this.props.item.ticketBody }</Card.Description>
@@ -136,6 +165,9 @@ export default class TicketList extends Component {
       } else if (this.props.hasMultipleJoins !== null && this.props.hasMultipleJoins) {
         cardColor = "laurel";
       }
+      if (!this.props.item.teacherHadTicket && !this.state.teacherHasTicketCurrent) {
+        this.handleCheckTeacherHasTicket();
+      }
 
       return (
         <Card centered fluid raised key={ this.props.item.id } className={ cardColor }>
@@ -151,14 +183,8 @@ export default class TicketList extends Component {
     }
   };
 
-  checkSubTime = () => {
-    this.subTimeInterval = setInterval(() => {
-      this.forceUpdate();
-    }, 30000)
-  }
-
   render() {
-    this.checkSubTime();
+    this.checkSubmitTime();
     return (
       <div>
         { this.handleTicketView() }
