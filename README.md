@@ -1,8 +1,10 @@
 ![Concat](concatLogo.png?raw=true "Title")
 
 # Concat - Queue App
+This web application was created to allow students to generate help tickets and for a teacher to be able to select and solve tickets based on the time they were submitted.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Students may also join existing tickets, allowing a single teacher to assist multiple students. Teachers can keep solution notes and refer back to solutions across the entire class.
+
 
 ## To Get Started
 1. Create your own Firebase Project
@@ -11,7 +13,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   * Click the </> icon under "Get started by adding Firebase to your app"
   * Name you app to get access to you Firebase SDK
   * Navigate to the config.TEMPLATE.js and input your information
-2. Open your terminal, nagivgate to the directory you would like to save this project, and run the command ```git clone git@github.com:shelleyeti/concat-capstone.git```
+2. Open your terminal, navigate to the directory you would like to save this project, and run the command ```git clone git@github.com:shelleyeti/concat-capstone.git```
 1. Run ```npm install``` to git all the node dependencies
 1. Navigate to the API folder to start the JSON server on port 8088
   - ```json-server -w database.json -p 8088```
@@ -50,3 +52,5 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 1. React-Moment
 
 ![ERD](Concat-ERD.png?raw=true)
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
