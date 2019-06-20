@@ -273,6 +273,7 @@ class ApplicationViews extends Component {
                 return <SolvedTicketsContainer
                   { ...props }
                   { ...this.props }
+                  joinedTickets={ this.state.joinedTickets }
                   class={ this.state.classes }
                   allUsers={ this.state.users }
                   reverseTickets={ this.state.reverseTickets }
