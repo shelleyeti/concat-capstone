@@ -24,14 +24,17 @@ export default class TicketList extends Component {
     clearInterval(this.submitTimeInterval);
   };
 
+  componentDidMount = () => {
+    this.checkSubmitTime();
+  }
+
   checkSubmitTime = () => {
     this.submitTimeInterval = setInterval(() => {
       this.setState(this.state)
-    }, 30000)
+    }, 15000)
   }
 
   handleAssign = () => {
-    this.props.handleNotifyModal(true);
     this.props.addTeacherTicket({
       ticketId: this.props.item.id,
       userId: this.props.activeUser.id,
@@ -118,10 +121,10 @@ export default class TicketList extends Component {
   handleCardLength = () => {
     let parsedDate = moment(this.props.item.submitTime, 'MMMM Do YYYY, h:mm:ss a');
     let time = moment().diff(parsedDate, 'minutes');
-    if (time > 5) {
+    if (time > 3) {
       clearInterval(this.submitTimeInterval);
       return "rose"
-    } else if (time > 3) {
+    } else if (time > 2) {
       return "straw"
     } else if (time > 1) {
       return "steel"
@@ -139,7 +142,7 @@ export default class TicketList extends Component {
           }
         });
       });
-    }, 30000)
+    }, 15000)
   }
 
   handleTicketView = () => {
@@ -184,7 +187,7 @@ export default class TicketList extends Component {
   };
 
   render() {
-    this.checkSubmitTime();
+    console.log('submit time', this.submitTimeInterval)
     return (
       <div>
         { this.handleTicketView() }
