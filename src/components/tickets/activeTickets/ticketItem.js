@@ -35,7 +35,6 @@ export default class TicketList extends Component {
   }
 
   handleAssign = () => {
-    this.props.handleNotifyModal(true);
     this.props.addTeacherTicket({
       ticketId: this.props.item.id,
       userId: this.props.activeUser.id,
