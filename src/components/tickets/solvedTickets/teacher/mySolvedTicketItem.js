@@ -19,7 +19,6 @@ export default class SolvedTicketList extends Component {
   render() {
     return (
       <Card centered fluid raised key={ this.props.item.id } >
-        { this.props.item.id } >
         <div className="user-image-container">{ this.getUserImage() }</div>
         <Card.Content>
           <Card.Header>{ this.props.item.ticketTitle }</Card.Header>
