@@ -51,6 +51,6 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 1. Moment.js
 1. React-Moment
 
-![ERD](Concat-ERD.png?raw=true)
+![ERD](concat-ERD.png?raw=true)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
