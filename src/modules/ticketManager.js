@@ -1,12 +1,12 @@
+import * as firebase from 'firebase';
+import 'firebase/auth';
 const remoteURL = "http://localhost:8088"
 
+
 export default {
+
   getTicket(id) {
     return fetch(`${remoteURL}/tickets/${id}`).then(e => e.json())
-  },
-
-  getAllTickets() {
-    return fetch(`${remoteURL}/tickets?_sort=submitTime&_order=asc`).then(e => e.json())
   },
 
   getAllTicketsReverse() {
@@ -14,14 +14,11 @@ export default {
   },
 
   saveTicket(obj) {
-    return fetch(`${remoteURL}/tickets`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    })
-    // .then(e => e.json())
+    let newTicketKey = firebase.database().ref().child('tickets').push().key;
+    obj.id = newTicketKey;
+    let database = firebase.database();
+
+    return database.ref('tickets/' + newTicketKey).set(obj);
   },
 
   editTicket(editedTicket) {

@@ -12,6 +12,7 @@ import JoinedTicketManager from '../modules/joinedTickets';
 import StepRegisterContainer from './registration/stepRegisterContainer';
 import Login from './dashboard/Login';
 import Home from './dashboard/Home';
+import * as firebase from 'firebase';
 
 class ApplicationViews extends Component {
   state = {
@@ -28,8 +29,8 @@ class ApplicationViews extends Component {
   addTicket = ticket => {
     const newState = {};
     return TicketsManager.saveTicket(ticket)
-      .then(() => TicketsManager.getAllTickets())
-      .then(ticket => newState.tickets = ticket)
+      //.then(() => TicketsManager.getAllTickets())
+      //.then(ticket => newState.tickets = ticket)
       .then((tickets) => {
         this.props.history.push("/tickets/my-tickets")
         this.setState(newState)
@@ -40,8 +41,8 @@ class ApplicationViews extends Component {
   editTicket = editedTicket => {
     const newState = {};
     TicketsManager.editTicket(editedTicket)
-      .then(() => TicketsManager.getAllTickets())
-      .then(ticket => (newState.tickets = ticket))
+      //.then(() => TicketsManager.getAllTickets())
+      //.then(ticket => (newState.tickets = ticket))
       .then(() => {
         this.props.history.push("/tickets/my-tickets");
         this.setState(newState);
@@ -157,9 +158,23 @@ class ApplicationViews extends Component {
 
   componentDidMount() {
     const newState = {};
-    TicketsManager.getAllTickets()
-      .then(tickets => { newState.tickets = tickets })
-      .then(UsersManager.getAllUsers)
+    //TicketsManager.getAllTickets()
+    //  .then(tickets => { newState.tickets = tickets })
+    //  .then(
+    let database = firebase.database();
+
+    let ticketsRef = database.ref('tickets/');
+    ticketsRef.on('value', (tickets) => {
+      let ticketArr = [];
+      let allTickets = tickets.val();
+      for (let ticket in allTickets) {
+        ticketArr.push(allTickets[ticket]);
+      }
+      newState.tickets = ticketArr;
+      this.setState(newState);
+    });
+
+    UsersManager.getAllUsers()//)
       .then(users => { newState.users = users })
       .then(CurrentTicketManager.getAllCurrentTicketUsers)
       .then(ticket => { newState.currentTicketUsers = ticket })
