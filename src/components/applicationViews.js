@@ -29,8 +29,6 @@ class ApplicationViews extends Component {
   addTicket = ticket => {
     const newState = {};
     return TicketsManager.saveTicket(ticket)
-      //.then(() => TicketsManager.getAllTickets())
-      //.then(ticket => newState.tickets = ticket)
       .then((tickets) => {
         this.props.history.push("/tickets/my-tickets")
         this.setState(newState)
@@ -41,8 +39,6 @@ class ApplicationViews extends Component {
   editTicket = editedTicket => {
     const newState = {};
     TicketsManager.editTicket(editedTicket)
-      //.then(() => TicketsManager.getAllTickets())
-      //.then(ticket => (newState.tickets = ticket))
       .then(() => {
         this.props.history.push("/tickets/my-tickets");
         this.setState(newState);
@@ -52,8 +48,6 @@ class ApplicationViews extends Component {
   deleteUser = id => {
     const newState = {};
     UsersManager.deleteUser(id)
-      .then(UsersManager.getAllUsers)
-      .then(user => (newState.users = user))
       .then(() => {
         this.props.history.push("/dashboard");
         this.setState(newState);
@@ -63,8 +57,6 @@ class ApplicationViews extends Component {
   addUser = user => {
     const newState = {};
     return UsersManager.saveUser(user)
-      .then(() => UsersManager.getAllUsers())
-      .then(user => newState.users = user)
       .then((users) => {
         this.props.setUser(user);
         this.props.history.push("/dashboard")
@@ -77,8 +69,6 @@ class ApplicationViews extends Component {
   editUser = editedUser => {
     const newState = {};
     UsersManager.editUser(editedUser)
-      .then(() => UsersManager.getAllUsers())
-      .then(user => (newState.users = user))
       .then(() => {
         this.props.setUser(editedUser);
         this.props.history.push("/dashboard");
@@ -89,8 +79,6 @@ class ApplicationViews extends Component {
   deleteCurrentTicketUser = id => {
     const newState = {};
     CurrentTicketManager.deleteCurrentTicketUser(id)
-      .then(CurrentTicketManager.getAllCurrentTicketUsers)
-      .then(teacherTicket => (newState.currentTicketUsers = teacherTicket))
       .then(() => {
         this.props.history.push("/tickets/my-tickets");
         this.setState(newState);
@@ -101,8 +89,6 @@ class ApplicationViews extends Component {
   addCurrentTicketUser = teacherTicket => {
     const newState = {};
     return CurrentTicketManager.saveCurrentTicketUser(teacherTicket)
-      .then(() => CurrentTicketManager.getAllCurrentTicketUsers())
-      .then(teacherTicket => newState.currentTicketUsers = teacherTicket)
       .then((ticket) => {
         this.props.history.push("/tickets/my-tickets")
         this.setState(newState)
@@ -113,8 +99,6 @@ class ApplicationViews extends Component {
   editCurrentTicketUser = editedTicket => {
     const newState = {};
     CurrentTicketManager.editCurrentTicketUser(editedTicket)
-      .then(() => CurrentTicketManager.getAllCurrentTicketUsers())
-      .then(teacherTicket => (newState.currentTicketUser = teacherTicket))
       .then(() => {
         this.props.history.push("/tickets/my-tickets");
         this.setState(newState);
@@ -124,8 +108,6 @@ class ApplicationViews extends Component {
   deleteJoin = id => {
     const newState = {};
     JoinedTicketManager.deleteJoinedTicket(id)
-      .then(JoinedTicketManager.getAllJoinedTickets)
-      .then(joinedTicket => (newState.joinedTickets = joinedTicket))
       .then(() => {
         this.props.history.push("/tickets/my-tickets");
         this.setState(newState);
@@ -135,8 +117,6 @@ class ApplicationViews extends Component {
   addJoin = newJoin => {
     const newState = {};
     return JoinedTicketManager.saveJoinedTicket(newJoin)
-      .then(() => JoinedTicketManager.getAllJoinedTickets())
-      .then(joinedTicket => newState.joinedTickets = joinedTicket)
       .then((joinedTicket) => {
         this.props.history.push("/tickets/my-tickets")
         this.setState(newState)
@@ -147,8 +127,6 @@ class ApplicationViews extends Component {
   editJoin = editJoinedTicket => {
     const newState = {};
     JoinedTicketManager.editJoinedTicket(editJoinedTicket)
-      .then(() => JoinedTicketManager.getAllJoinedTickets())
-      .then(joinedTicket => (newState.joinedTickets = joinedTicket))
       .then(() => {
         this.props.history.push("/tickets/my-tickets");
         this.setState(newState);
@@ -156,11 +134,9 @@ class ApplicationViews extends Component {
   };
 
 
+
   componentDidMount() {
     const newState = {};
-    //TicketsManager.getAllTickets()
-    //  .then(tickets => { newState.tickets = tickets })
-    //  .then(
     let database = firebase.database();
 
     let ticketsRef = database.ref('tickets/');
@@ -174,37 +150,84 @@ class ApplicationViews extends Component {
       this.setState(newState);
     });
 
-    UsersManager.getAllUsers()//)
-      .then(users => { newState.users = users })
-      .then(CurrentTicketManager.getAllCurrentTicketUsers)
-      .then(ticket => { newState.currentTicketUsers = ticket })
-      .then(TicketsManager.getAllTicketsReverse)
-      .then(reverseTicket => { newState.reverseTickets = reverseTicket })
-      .then(ClassManager.getAllClasses)
-      .then(classes => { newState.classes = classes })
-      .then(JoinedTicketManager.getAllJoinedTickets)
-      .then(joinedTickets => { newState.joinedTickets = joinedTickets })
+    let usersRef = database.ref('users/');
+    usersRef.on('value', (users) => {
+      let userArr = [];
+      let allUsers = users.val();
+      for (let user in allUsers) {
+        userArr.push(allUsers[user]);
+      }
+      newState.users = userArr;
+      this.setState(newState);
+    });
+
+    let joinedTicketsRef = database.ref('joinedTickets/');
+    joinedTicketsRef.on('value', (joinedTickets) => {
+      let joinedTicketsArr = [];
+      let allJoinedTickets = joinedTickets.val();
+      for (let joinedTicket in allJoinedTickets) {
+        joinedTicketsArr.push(allJoinedTickets[joinedTicket]);
+      }
+      newState.joinedTickets = joinedTicketsArr;
+      this.setState(newState);
+    });
+
+    let classTicketsRef = database.ref('classTickets/');
+    classTicketsRef.on('value', (classTickets) => {
+      let classTicketsArr = [];
+      let allClassTickets = classTickets.val();
+      for (let classTicket in allClassTickets) {
+        classTicketsArr.push(allClassTickets[classTicket]);
+      }
+      newState.classTickets = classTicketsArr;
+      this.setState(newState);
+    });
+
+    let currentTicketUsersRef = database.ref('currentTicketUsers/');
+    currentTicketUsersRef.on('value', (currentTicketUsers) => {
+      let currentTicketUsersArr = [];
+      let allCurrentTicketUsers = currentTicketUsers.val();
+      for (let currentTicketUser in allCurrentTicketUsers) {
+        currentTicketUsersArr.push(allCurrentTicketUsers[currentTicketUser]);
+      }
+      newState.currentTicketUsers = currentTicketUsersArr;
+      this.setState(newState);
+    });
+
+    let classesRef = database.ref('classes/');
+    classesRef.on('value', (classes) => {
+      let classesArr = [];
+      let allClasses = classes.val();
+      for (let oneClass in allClasses) {
+        classesArr.push(allClasses[oneClass]);
+      }
+      newState.classes = classesArr;
+      this.setState(newState);
+    });
+
+
+    TicketsManager.getAllTicketsReverse()
       .then(() => this.setState(newState));
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.location.pathname !== prevProps.location.pathname) {
-      const newState = {};
-      TicketsManager.getAllTickets()
-        .then(tickets => { newState.tickets = tickets })
-        .then(UsersManager.getAllUsers)
-        .then(users => { newState.users = users })
-        .then(CurrentTicketManager.getAllCurrentTicketUsers)
-        .then(ticket => { newState.currentTicketUsers = ticket })
-        .then(TicketsManager.getAllTicketsReverse)
-        .then(reverseTicket => { newState.reverseTickets = reverseTicket })
-        .then(ClassManager.getAllClasses)
-        .then(classes => { newState.classes = classes })
-        .then(JoinedTicketManager.getAllJoinedTickets)
-        .then(joinedTickets => { newState.joinedTickets = joinedTickets })
-        .then(() => this.setState(newState));
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.location.pathname !== prevProps.location.pathname) {
+  //     const newState = {};
+  //     TicketsManager.getAllTickets()
+  //       .then(tickets => { newState.tickets = tickets })
+  //       .then(UsersManager.getAllUsers)
+  //       .then(users => { newState.users = users })
+  //       .then(CurrentTicketManager.getAllCurrentTicketUsers)
+  //       .then(ticket => { newState.currentTicketUsers = ticket })
+  //       .then(TicketsManager.getAllTicketsReverse)
+  //       .then(reverseTicket => { newState.reverseTickets = reverseTicket })
+  //       .then(ClassManager.getAllClasses)
+  //       .then(classes => { newState.classes = classes })
+  //       .then(JoinedTicketManager.getAllJoinedTickets)
+  //       .then(joinedTickets => { newState.joinedTickets = joinedTickets })
+  //       .then(() => this.setState(newState));
+  //   }
+  // }
 
   render() {
     return (
@@ -275,7 +298,6 @@ class ApplicationViews extends Component {
                   removeTeacherTicket={ this.deleteCurrentTicketUser }
                   addTeacherTicket={ this.addCurrentTicketUser }
                   editTeacherTicket={ this.editCurrentTicketUser }
-                  getAllCurrentTicketUsers={ CurrentTicketManager.getAllCurrentTicketUsers }
                 />
               } else {
                 return <Redirect to="/login" />

@@ -1,7 +1,6 @@
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-
-const url = 'http://localhost:8088/users';
+import saveUserToFirebase from '../../modules/userManager'
 
 const setUserInLocalStorage = (user) => {
   localStorage.setItem('user', JSON.stringify(user));
@@ -13,14 +12,15 @@ export const register = (user) => {
     .then(firebaseId => {
       user.password = null;
       user.id = firebaseId;
-      return saveUserToJsonServer(user)
+      return saveUserToFirebase.saveUser(user)
     })
-    .then(newUserFromJSONServer => {
-      setUserInLocalStorage(newUserFromJSONServer);
-      return newUserFromJSONServer;
+    .then(newUserFromFirebase => {
+      setUserInLocalStorage(newUserFromFirebase);
+      return newUserFromFirebase;
     })
     .catch(function (error) {
       alert(`Yikes`)
+      console.log(error)
     })
 }
 
@@ -29,33 +29,19 @@ export const login = (email, password) => {
     .then(firebaseId => {
       return getUser(firebaseId)
     })
-    .then(userFromJSONServer => {
-      setUserInLocalStorage(userFromJSONServer);
-      return userFromJSONServer
+    .then(userFromFirebase => {
+      setUserInLocalStorage(userFromFirebase);
+      return userFromFirebase
     })
     .catch(() => {
       alert(`No LoG iN`)
     });
 }
 
-export const saveUserToJsonServer = (user) => {
-  return fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
-  })
-    .then(res => res.json())
-    .then(newUser => {
-      setUserInLocalStorage(newUser);
-      return newUser;
-    });
-}
-
 export const getUser = (userId) => {
-  return fetch(`${url}/${userId}`)
-    .then(res => res.json());
+  return firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+    return snapshot.val();
+  });
 }
 
 export const getUserFromLocalStorage = () => {

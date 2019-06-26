@@ -3,12 +3,10 @@ import 'firebase/auth';
 const remoteURL = "http://localhost:8088"
 
 export default {
-  getUser(id) {
-    return fetch(`${remoteURL}/users/${id}`).then(e => e.json())
-  },
-
-  getAllUsers() {
-    return fetch(`${remoteURL}/users`).then(e => e.json())
+  getUser(userId) {
+    return firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+      return snapshot.val();
+    });
   },
 
   deleteUser(id) {
@@ -25,7 +23,10 @@ export default {
     obj.id = newUserKey;
     let database = firebase.database();
 
-    return database.ref('users/' + newUserKey).set(obj);
+    return database.ref('users/' + newUserKey).set(obj)
+      .then((snapShot) => {
+        return this.getUser(newUserKey);
+      });
   },
 
 

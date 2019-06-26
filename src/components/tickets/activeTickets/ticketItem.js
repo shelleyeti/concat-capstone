@@ -133,14 +133,12 @@ export default class TicketList extends Component {
 
   handleCheckTeacherHasTicket = () => {
     this.studentWaitingOnTeacherInterval = setInterval(() => {
-      this.props.getAllCurrentTicketUsers().then((joins) => {
-        joins.forEach((join) => {
-          if (join.ticketId === this.props.item.id) {
-            this.setState({ teacherHasTicketCurrent: true });
-            this.props.handleNotifyModal(true);
-            clearInterval(this.studentWaitingOnTeacherInterval);
-          }
-        });
+      this.props.allTeacherTickets.forEach((join) => {
+        if (join.ticketId === this.props.item.id) {
+          this.setState({ teacherHasTicketCurrent: true });
+          this.props.handleNotifyModal(true);
+          clearInterval(this.studentWaitingOnTeacherInterval);
+        }
       });
     }, 15000)
   }

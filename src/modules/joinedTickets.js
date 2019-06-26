@@ -1,16 +1,8 @@
 import * as firebase from 'firebase';
-import 'firebase/auth'; w
+import 'firebase/auth';
 const remoteURL = "http://localhost:8088"
 
 export default {
-  getJoinedTicket(id) {
-    return fetch(`${remoteURL}/joinedTickets/${id}`).then(e => e.json())
-  },
-
-  getAllJoinedTickets() {
-    return fetch(`${remoteURL}/joinedTickets`).then(e => e.json())
-  },
-
   deleteJoinedTicket(id) {
     return fetch(`${remoteURL}/joinedTickets/${id}`, {
       method: "DELETE",

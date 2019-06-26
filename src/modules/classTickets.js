@@ -3,14 +3,6 @@ import 'firebase/auth';
 const remoteURL = "http://localhost:8088"
 
 export default {
-  getClassTicket(id) {
-    return fetch(`${remoteURL}/classTickets/${id}`).then(e => e.json())
-  },
-
-  getAllClassTickets() {
-    return fetch(`${remoteURL}/classTickets`).then(e => e.json())
-  },
-
   deleteClassTicket(id) {
     return fetch(`${remoteURL}/classTickets/${id}`, {
       method: "DELETE",
