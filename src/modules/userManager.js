@@ -23,14 +23,11 @@ export default {
       });
   },
 
-
   editUser(editedUser) {
-    return fetch(`${remoteURL}/users/${editedUser.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(editedUser)
-    }).then(data => data.json());
+    let updates = {};
+    updates["/users/" + editedUser.id] = editedUser;
+    return firebase.database().ref().update(updates).then(() => {
+      return this.getUser(editedUser.id);
+    });
   }
 }

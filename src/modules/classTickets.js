@@ -1,8 +1,13 @@
 import * as firebase from 'firebase';
 import 'firebase/auth';
-const remoteURL = "http://localhost:8088"
 
 export default {
+  getClassTicket(joinedId) {
+    return firebase.database().ref('/classTickets/' + joinedId).once('value').then(function (snapshot) {
+      return snapshot.val();
+    });
+  },
+
   deleteClassTicket(id) {
     return firebase.database().ref("classTickets/" + id).remove();
   },
@@ -16,12 +21,10 @@ export default {
   },
 
   editClassTicket(editedClassTicket) {
-    return fetch(`${remoteURL}/classTickets/${editedClassTicket.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(editedClassTicket)
-    }).then(data => data.json());
+    let updates = {};
+    updates["/classTickets/" + editedClassTicket.id] = editedClassTicket;
+    return firebase.database().ref().update(updates).then(() => {
+      return this.getClassTicket(editedClassTicket.id);
+    });
   }
 }

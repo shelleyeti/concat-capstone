@@ -1,8 +1,13 @@
 import * as firebase from 'firebase';
 import 'firebase/auth';
-const remoteURL = "http://localhost:8088"
 
 export default {
+  getCurrentTicketUser(joinedId) {
+    return firebase.database().ref('/currentTicketUsers/' + joinedId).once('value').then(function (snapshot) {
+      return snapshot.val();
+    });
+  },
+
   deleteCurrentTicketUser(id) {
     return firebase.database().ref("currentTicketUsers/" + id).remove();
   },
@@ -16,12 +21,10 @@ export default {
   },
 
   editCurrentTicketUser(editedCurrentTicketUser) {
-    return fetch(`${remoteURL}/currentTicketUsers/${editedCurrentTicketUser.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(editedCurrentTicketUser)
-    }).then(data => data.json());
+    let updates = {};
+    updates["/currentTicketUsers/" + editedCurrentTicketUser.id] = editedCurrentTicketUser;
+    return firebase.database().ref().update(updates).then(() => {
+      return this.getCurrentTicketUser(editedCurrentTicketUser.id);
+    });
   }
 }

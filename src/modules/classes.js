@@ -1,8 +1,13 @@
 import * as firebase from 'firebase';
 import 'firebase/auth';
-const remoteURL = "http://localhost:8088"
 
 export default {
+  getClass(classId) {
+    return firebase.database().ref('/classes/' + classId).once('value').then(function (snapshot) {
+      return snapshot.val();
+    });
+  },
+
   deleteClass(id) {
     return firebase.database().ref("classes/" + id).remove();
   },
@@ -16,12 +21,10 @@ export default {
   },
 
   editClass(editedClass) {
-    return fetch(`${remoteURL}/classes/${editedClass.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(editedClass)
-    }).then(data => data.json());
+    let updates = {};
+    updates["/classes/" + editedClass.id] = editedClass;
+    return firebase.database().ref().update(updates).then(() => {
+      return this.getClass(editedClass.id);
+    });
   }
 }
