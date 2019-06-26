@@ -1,3 +1,5 @@
+import * as firebase from 'firebase';
+import 'firebase/auth'; w
 const remoteURL = "http://localhost:8088"
 
 export default {
@@ -19,14 +21,11 @@ export default {
   },
 
   saveJoinedTicket(obj) {
-    return fetch(`${remoteURL}/joinedTickets`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    })
-    // .then(e => e.json())
+    let newJoinedTicketKey = firebase.database().ref().child('joinedTickets').push().key;
+    obj.id = newJoinedTicketKey;
+    let database = firebase.database();
+
+    return database.ref('joinedTickets/' + newJoinedTicketKey).set(obj);
   },
 
   editJoinedTicket(editedJoinedTicket) {

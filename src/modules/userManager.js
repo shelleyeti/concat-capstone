@@ -1,3 +1,5 @@
+import * as firebase from 'firebase';
+import 'firebase/auth';
 const remoteURL = "http://localhost:8088"
 
 export default {
@@ -19,15 +21,13 @@ export default {
   },
 
   saveUser(obj) {
-    return fetch(`${remoteURL}/users`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    })
-    // .then(e => e.json())
+    let newUserKey = firebase.database().ref().child('users').push().key;
+    obj.id = newUserKey;
+    let database = firebase.database();
+
+    return database.ref('users/' + newUserKey).set(obj);
   },
+
 
   editUser(editedUser) {
     return fetch(`${remoteURL}/users/${editedUser.id}`, {

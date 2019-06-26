@@ -1,3 +1,5 @@
+import * as firebase from 'firebase';
+import 'firebase/auth';
 const remoteURL = "http://localhost:8088"
 
 export default {
@@ -19,14 +21,11 @@ export default {
   },
 
   saveCurrentTicketUser(obj) {
-    return fetch(`${remoteURL}/currentTicketUsers`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    })
-    // .then(e => e.json())
+    let newCurrentTicketUserKey = firebase.database().ref().child('currentTicketUsers').push().key;
+    obj.id = newCurrentTicketUserKey;
+    let database = firebase.database();
+
+    return database.ref('currentTicketUsers/' + newCurrentTicketUserKey).set(obj);
   },
 
   editCurrentTicketUser(editedCurrentTicketUser) {

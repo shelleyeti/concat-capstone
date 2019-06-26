@@ -1,3 +1,5 @@
+import * as firebase from 'firebase';
+import 'firebase/auth';
 const remoteURL = "http://localhost:8088"
 
 export default {
@@ -19,14 +21,11 @@ export default {
   },
 
   saveClass(obj) {
-    return fetch(`${remoteURL}/classes`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    })
-    // .then(e => e.json())
+    let newClassKey = firebase.database().ref().child('classes').push().key;
+    obj.id = newClassKey;
+    let database = firebase.database();
+
+    return database.ref('classes/' + newClassKey).set(obj);
   },
 
   editClass(editedClass) {
