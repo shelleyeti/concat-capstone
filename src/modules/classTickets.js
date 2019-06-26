@@ -4,12 +4,7 @@ const remoteURL = "http://localhost:8088"
 
 export default {
   deleteClassTicket(id) {
-    return fetch(`${remoteURL}/classTickets/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(e => e.json())
+    return firebase.database().ref("classTickets/" + id).remove();
   },
 
   saveClassTicket(obj) {

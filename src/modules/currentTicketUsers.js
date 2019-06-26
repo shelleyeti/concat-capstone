@@ -5,12 +5,6 @@ const remoteURL = "http://localhost:8088"
 export default {
   deleteCurrentTicketUser(id) {
     return firebase.database().ref("currentTicketUsers/" + id).remove();
-    /*return fetch(`${remoteURL}/currentTicketUsers/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(e => e.json())*/
   },
 
   saveCurrentTicketUser(obj) {

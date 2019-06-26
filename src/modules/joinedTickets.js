@@ -4,12 +4,7 @@ const remoteURL = "http://localhost:8088"
 
 export default {
   deleteJoinedTicket(id) {
-    return fetch(`${remoteURL}/joinedTickets/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(e => e.json())
+    return firebase.database().ref("joinedTickets/" + id).remove();
   },
 
   saveJoinedTicket(obj) {

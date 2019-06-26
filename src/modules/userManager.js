@@ -1,6 +1,5 @@
 import * as firebase from 'firebase';
 import 'firebase/auth';
-const remoteURL = "http://localhost:8088"
 
 export default {
   getUser(userId) {
@@ -10,12 +9,7 @@ export default {
   },
 
   deleteUser(id) {
-    return fetch(`${remoteURL}/users/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(e => e.json())
+    return firebase.database().ref("users/" + id).remove();
   },
 
   saveUser(obj) {
