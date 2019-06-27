@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Image, Icon } from 'semantic-ui-react';
+import { Modal, Button, Icon } from 'semantic-ui-react';
 
 export default class NotifyModal extends Component {
   state = {

@@ -186,6 +186,8 @@ class ApplicationViews extends Component {
 
     let currentTicketUsersRef = database.ref('currentTicketUsers/');
     currentTicketUsersRef.on('value', (currentTicketUsers) => {
+      localStorage.setItem("notifyModalOpenAlready", false);
+
       let currentTicketUsersArr = [];
       let allCurrentTicketUsers = currentTicketUsers.val();
       for (let currentTicketUser in allCurrentTicketUsers) {
