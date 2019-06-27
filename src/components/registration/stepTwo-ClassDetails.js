@@ -23,7 +23,6 @@ export default class StepTwoClassDetails extends Component {
     const { values } = this.props
     const classes = this.props.allClasses.map((cohort, index) => {
       return { key: index, text: cohort.cohortName, value: cohort.id };
-
     })
     return (
       <Container className="auth-container ui grid container">

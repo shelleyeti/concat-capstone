@@ -31,12 +31,26 @@ export default class TicketList extends Component {
   }
 
   handleNotifyModal = (open) => {
+    if (open && localStorage.notifyModalOpenAlready === "true")
+      return;
+
+    if (open) {
+      localStorage.setItem("notifyModalOpenAlready", true);
+    }
+
     this.setState({
       openNotify: open
     });
   }
 
+  componentWillMount() {
+    localStorage.setItem("notifyModalOpenAlready", false);
+  }
+
   render() {
+    let teacherHadYourTicket = false;
+    let numOfTeachHadTicket = 0;
+
     let openTicket = this.props.allTickets.filter((ticket) => {
       //the logged in user is assigned to a ticket
       let currentUserIsTeacherWithTicket = false;
@@ -45,6 +59,7 @@ export default class TicketList extends Component {
       //iterate over joined table
       this.props.allTeacherTickets.forEach((join) => {
         //both keys in joined table equal
+
         if (join.ticketId === ticket.id && join.userId === this.props.activeUser.id && ticket.classId === this.props.activeUser.classId) {
           teacherHadTicket = true;
           currentUserIsTeacherWithTicket = true;
@@ -55,14 +70,24 @@ export default class TicketList extends Component {
         }
       })
 
+      if (ticket.ticketComplete === false && teacherHadTicket && ticket.userId === this.props.activeUser.id) {
+        teacherHadYourTicket = true;
+        numOfTeachHadTicket++;
+      }
+
       if (ticket.ticketComplete === false && (!currentUserIsTeacherWithTicket && isTicketAssignedToSomeone === false)) {
-        ticket.teacherHadTicket = teacherHadTicket;
         return ticket;
       }
       //resolves react warning regarding return after arrow function
       return null;
     });
 
+    if (teacherHadYourTicket && this.state.openNotify === false) {
+      setTimeout(() => {
+        this.handleNotifyModal(true);
+        console.log(numOfTeachHadTicket);
+      }, 0)
+    }
 
     let classTickets = openTicket.map((item, index) => {
       let hasMultipleJoins = false;

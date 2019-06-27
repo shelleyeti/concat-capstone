@@ -13,12 +13,11 @@ export default class TicketList extends Component {
     ticketBody: this.props.ticketBody,
     submitTime: this.props.submitTime,
     linked: this.props.linked,
-    solutionNotes: this.props.solutionNotes,
-    teacherHasTicketCurrent: this.props.item.teacherHadTicket
+    solutionNotes: this.props.solutionNotes
   };
 
   submitTimeInterval = {};
-  studentWaitingOnTeacherInterval = {};
+  //studentWaitingOnTeacherInterval = {};
 
   componentWillUnmount = () => {
     clearInterval(this.submitTimeInterval);
@@ -131,20 +130,6 @@ export default class TicketList extends Component {
     }
   }
 
-  handleCheckTeacherHasTicket = () => {
-    this.studentWaitingOnTeacherInterval = setInterval(() => {
-      this.props.getAllCurrentTicketUsers().then((joins) => {
-        joins.forEach((join) => {
-          if (join.ticketId === this.props.item.id) {
-            this.setState({ teacherHasTicketCurrent: true });
-            this.props.handleNotifyModal(true);
-            clearInterval(this.studentWaitingOnTeacherInterval);
-          }
-        });
-      });
-    }, 15000)
-  }
-
   handleTicketView = () => {
     //teacher ticket view
     if (this.props.activeUser !== null && this.props.activeUser.student === false) {
@@ -168,9 +153,6 @@ export default class TicketList extends Component {
       } else if (this.props.hasMultipleJoins !== null && this.props.hasMultipleJoins) {
         cardColor = "laurel";
       }
-      if (!this.props.item.teacherHadTicket && !this.state.teacherHasTicketCurrent) {
-        this.handleCheckTeacherHasTicket();
-      }
 
       return (
         <Card centered fluid raised key={ this.props.item.id } className={ cardColor }>
@@ -187,7 +169,6 @@ export default class TicketList extends Component {
   };
 
   render() {
-    console.log('submit time', this.submitTimeInterval)
     return (
       <div>
         { this.handleTicketView() }

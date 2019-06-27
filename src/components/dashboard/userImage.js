@@ -31,7 +31,7 @@ export default class UserImage extends Component {
       //edit mode false
       return (
         <Card centered fluid className="card-dash">
-          <Image centered floated='left' size='medium' src={ this.props.activeUser.image } alt="user profile" className="user-image" />
+          <Image centered size='small' src={ this.props.activeUser.image } alt="user profile" className="user-image" />
         </Card>
       )
     }

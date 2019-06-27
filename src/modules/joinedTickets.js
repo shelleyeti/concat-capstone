@@ -1,41 +1,31 @@
-const remoteURL = "http://localhost:8088"
+import firebase from 'firebase/app';
+import 'firebase/database';
+import 'firebase/auth';
 
 export default {
-  getJoinedTicket(id) {
-    return fetch(`${remoteURL}/joinedTickets/${id}`).then(e => e.json())
-  },
-
-  getAllJoinedTickets() {
-    return fetch(`${remoteURL}/joinedTickets`).then(e => e.json())
+  getJoinedTicket(joinedId) {
+    return firebase.database().ref('/joinedTickets/' + joinedId).once('value').then(function (snapshot) {
+      return snapshot.val();
+    });
   },
 
   deleteJoinedTicket(id) {
-    return fetch(`${remoteURL}/joinedTickets/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(e => e.json())
+    return firebase.database().ref("joinedTickets/" + id).remove();
   },
 
   saveJoinedTicket(obj) {
-    return fetch(`${remoteURL}/joinedTickets`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    })
-    // .then(e => e.json())
+    let newJoinedTicketKey = firebase.database().ref().child('joinedTickets').push().key;
+    obj.id = newJoinedTicketKey;
+    let database = firebase.database();
+
+    return database.ref('joinedTickets/' + newJoinedTicketKey).set(obj);
   },
 
   editJoinedTicket(editedJoinedTicket) {
-    return fetch(`${remoteURL}/joinedTickets/${editedJoinedTicket.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(editedJoinedTicket)
-    }).then(data => data.json());
+    let updates = {};
+    updates["/joinedTickets/" + editedJoinedTicket.id] = editedJoinedTicket;
+    return firebase.database().ref().update(updates).then(() => {
+      return this.getJoinedTicket(editedJoinedTicket.id);
+    });
   }
 }

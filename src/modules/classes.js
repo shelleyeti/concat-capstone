@@ -1,41 +1,31 @@
-const remoteURL = "http://localhost:8088"
+import firebase from 'firebase/app';
+import 'firebase/database';
+import 'firebase/auth';
 
 export default {
-  getClass(id) {
-    return fetch(`${remoteURL}/classes/${id}`).then(e => e.json())
-  },
-
-  getAllClasses() {
-    return fetch(`${remoteURL}/classes`).then(e => e.json())
+  getClass(classId) {
+    return firebase.database().ref('/classes/' + classId).once('value').then(function (snapshot) {
+      return snapshot.val();
+    });
   },
 
   deleteClass(id) {
-    return fetch(`${remoteURL}/classes/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(e => e.json())
+    return firebase.database().ref("classes/" + id).remove();
   },
 
   saveClass(obj) {
-    return fetch(`${remoteURL}/classes`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    })
-    // .then(e => e.json())
+    let newClassKey = firebase.database().ref().child('classes').push().key;
+    obj.id = newClassKey;
+    let database = firebase.database();
+
+    return database.ref('classes/' + newClassKey).set(obj);
   },
 
   editClass(editedClass) {
-    return fetch(`${remoteURL}/classes/${editedClass.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(editedClass)
-    }).then(data => data.json());
+    let updates = {};
+    updates["/classes/" + editedClass.id] = editedClass;
+    return firebase.database().ref().update(updates).then(() => {
+      return this.getClass(editedClass.id);
+    });
   }
 }

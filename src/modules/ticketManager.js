@@ -1,36 +1,28 @@
-const remoteURL = "http://localhost:8088"
+import firebase from 'firebase/app';
+import 'firebase/database';
+import 'firebase/auth';
+
 
 export default {
-  getTicket(id) {
-    return fetch(`${remoteURL}/tickets/${id}`).then(e => e.json())
-  },
-
-  getAllTickets() {
-    return fetch(`${remoteURL}/tickets?_sort=submitTime&_order=asc`).then(e => e.json())
-  },
-
-  getAllTicketsReverse() {
-    return fetch(`${remoteURL}/tickets?_sort=submitTime&_order=desc,asc`).then(e => e.json())
+  getTicket(ticketId) {
+    return firebase.database().ref('/tickets/' + ticketId).once('value').then(function (snapshot) {
+      return snapshot.val();
+    });
   },
 
   saveTicket(obj) {
-    return fetch(`${remoteURL}/tickets`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    })
-    // .then(e => e.json())
+    let newTicketKey = firebase.database().ref().child('tickets').push().key;
+    obj.id = newTicketKey;
+    let database = firebase.database();
+
+    return database.ref('tickets/' + newTicketKey).set(obj);
   },
 
   editTicket(editedTicket) {
-    return fetch(`${remoteURL}/tickets/${editedTicket.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(editedTicket)
-    }).then(data => data.json());
+    let updates = {};
+    updates["/tickets/" + editedTicket.id] = editedTicket;
+    return firebase.database().ref().update(updates).then(() => {
+      return this.getTicket(editedTicket.id);
+    });
   }
 }

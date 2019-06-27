@@ -1,41 +1,34 @@
-const remoteURL = "http://localhost:8088"
+import firebase from 'firebase/app';
+import 'firebase/database';
+import 'firebase/auth';
 
 export default {
-  getUser(id) {
-    return fetch(`${remoteURL}/users/${id}`).then(e => e.json())
-  },
-
-  getAllUsers() {
-    return fetch(`${remoteURL}/users`).then(e => e.json())
+  getUser(userId) {
+    return firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+      return snapshot.val();
+    });
   },
 
   deleteUser(id) {
-    return fetch(`${remoteURL}/users/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(e => e.json())
+    return firebase.database().ref("users/" + id).remove();
   },
 
   saveUser(obj) {
-    return fetch(`${remoteURL}/users`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    })
-    // .then(e => e.json())
+    let newUserKey = firebase.database().ref().child('users').push().key;
+    obj.id = newUserKey;
+    let database = firebase.database();
+
+    return database.ref('users/' + newUserKey).set(obj)
+      .then((snapShot) => {
+        return this.getUser(newUserKey);
+      });
   },
 
   editUser(editedUser) {
-    return fetch(`${remoteURL}/users/${editedUser.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(editedUser)
-    }).then(data => data.json());
+    let updates = {};
+    updates["/users/" + editedUser.id] = editedUser;
+    return firebase.database().ref().update(updates).then(() => {
+      return this.getUser(editedUser.id);
+    });
   }
 }

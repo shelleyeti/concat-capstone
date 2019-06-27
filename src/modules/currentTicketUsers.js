@@ -1,41 +1,31 @@
-const remoteURL = "http://localhost:8088"
+import firebase from 'firebase/app';
+import 'firebase/database';
+import 'firebase/auth';
 
 export default {
-  getCurrentTicketUser(id) {
-    return fetch(`${remoteURL}/currentTicketUsers/${id}`).then(e => e.json())
-  },
-
-  getAllCurrentTicketUsers() {
-    return fetch(`${remoteURL}/currentTicketUsers`).then(e => e.json())
+  getCurrentTicketUser(joinedId) {
+    return firebase.database().ref('/currentTicketUsers/' + joinedId).once('value').then(function (snapshot) {
+      return snapshot.val();
+    });
   },
 
   deleteCurrentTicketUser(id) {
-    return fetch(`${remoteURL}/currentTicketUsers/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(e => e.json())
+    return firebase.database().ref("currentTicketUsers/" + id).remove();
   },
 
   saveCurrentTicketUser(obj) {
-    return fetch(`${remoteURL}/currentTicketUsers`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    })
-    // .then(e => e.json())
+    let newCurrentTicketUserKey = firebase.database().ref().child('currentTicketUsers').push().key;
+    obj.id = newCurrentTicketUserKey;
+    let database = firebase.database();
+
+    return database.ref('currentTicketUsers/' + newCurrentTicketUserKey).set(obj);
   },
 
   editCurrentTicketUser(editedCurrentTicketUser) {
-    return fetch(`${remoteURL}/currentTicketUsers/${editedCurrentTicketUser.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(editedCurrentTicketUser)
-    }).then(data => data.json());
+    let updates = {};
+    updates["/currentTicketUsers/" + editedCurrentTicketUser.id] = editedCurrentTicketUser;
+    return firebase.database().ref().update(updates).then(() => {
+      return this.getCurrentTicketUser(editedCurrentTicketUser.id);
+    });
   }
 }

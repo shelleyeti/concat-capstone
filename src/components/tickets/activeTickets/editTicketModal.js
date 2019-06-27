@@ -12,20 +12,46 @@ export default class EditTicket extends Component {
     submitTime: this.props.editTicketItem.submitTime,
     linked: this.props.editTicketItem.linked,
     solutionNotes: this.props.editTicketItem.solutionNotes,
-    id: this.props.editTicketItem.id
+    id: this.props.editTicketItem.id,
+    opened: false
   }
 
   onCloseModal = () => {
     this.props.handleOpenCloseModal(false);
+    this.setState({ opened: false });
   }
 
   handleEdit = () => {
     this.props.editTicket({
+      userId: this.props.editTicketItem.userId,
+      classId: this.props.editTicketItem.classId,
+      ticketComplete: false,
       ticketTitle: this.state.ticketTitle,
       ticketBody: this.state.ticketBody,
+      submitTime: this.props.editTicketItem.submitTime,
+      linked: this.props.editTicketItem.linked,
+      solutionNotes: this.props.editTicketItem.solutionNotes === undefined ? "" : this.props.editTicketItem.solutionNotes,
       id: this.props.editTicketItem.id
     })
     this.onCloseModal()
+  }
+
+  componentDidUpdate() {
+    if (this.props.editTicketItem.id != null && this.props.openModal && this.state.opened === false) {
+      this.setState({
+        active: this.props.openModal,
+        userId: this.props.editTicketItem.userId,
+        classId: this.props.editTicketItem.classId,
+        ticketComplete: false,
+        ticketTitle: this.props.editTicketItem.ticketTitle,
+        ticketBody: this.props.editTicketItem.ticketBody,
+        submitTime: this.props.editTicketItem.submitTime,
+        linked: this.props.editTicketItem.linked,
+        solutionNotes: this.props.editTicketItem.solutionNotes,
+        id: this.props.editTicketItem.id,
+        opened: true
+      });
+    }
   }
 
   render() {
@@ -41,13 +67,19 @@ export default class EditTicket extends Component {
               <Input
                 type="text"
                 className="fluid"
-                onChange={ (e) => this.setState({ ticketTitle: e.target.value }) }
+                onChange={ (e) => {
+                  this.setState({ ticketTitle: e.target.value })
+                }
+                }
                 defaultValue={ this.props.editTicketItem.ticketTitle } />
               <label>Ticket Body: </label>
               <Form>
                 <TextArea
                   className="fluid"
-                  onChange={ (e) => this.setState({ ticketBody: e.target.value }) }
+                  onChange={ (e) => {
+                    this.setState({ ticketBody: e.target.value })
+                  }
+                  }
                   defaultValue={ this.props.editTicketItem.ticketBody } />
               </Form>
             </Modal.Description>
