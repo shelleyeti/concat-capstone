@@ -220,25 +220,6 @@ class ApplicationViews extends Component {
     });
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.location.pathname !== prevProps.location.pathname) {
-  //     const newState = {};
-  //     TicketsManager.getAllTickets()
-  //       .then(tickets => { newState.tickets = tickets })
-  //       .then(UsersManager.getAllUsers)
-  //       .then(users => { newState.users = users })
-  //       .then(CurrentTicketManager.getAllCurrentTicketUsers)
-  //       .then(ticket => { newState.currentTicketUsers = ticket })
-  //       .then(TicketsManager.getAllTicketsReverse)
-  //       .then(reverseTicket => { newState.reverseTickets = reverseTicket })
-  //       .then(ClassManager.getAllClasses)
-  //       .then(classes => { newState.classes = classes })
-  //       .then(JoinedTicketManager.getAllJoinedTickets)
-  //       .then(joinedTickets => { newState.joinedTickets = joinedTickets })
-  //       .then(() => this.setState(newState));
-  //   }
-  // }
-
   render() {
     return (
       <>
