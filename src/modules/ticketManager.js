@@ -10,10 +10,6 @@ export default {
     });
   },
 
-  getAllTicketsReverse() {
-    return fetch(`${remoteURL}/tickets?_sort=submitTime&_order=desc,asc`).then(e => e.json())
-  },
-
   saveTicket(obj) {
     let newTicketKey = firebase.database().ref().child('tickets').push().key;
     obj.id = newTicketKey;

@@ -205,9 +205,16 @@ class ApplicationViews extends Component {
       this.setState(newState);
     });
 
-
-    TicketsManager.getAllTicketsReverse()
-      .then(() => this.setState(newState));
+    let ticketsInReverseRef = database.ref('/tickets/').orderByChild("submitTime");
+    ticketsInReverseRef.on('value', (tickets) => {
+      let ticketArr = [];
+      let allTickets = tickets.val();
+      for (let ticket in allTickets) {
+        ticketArr.push(allTickets[ticket]);
+      }
+      newState.reverseTickets = ticketArr.reverse();
+      this.setState(newState);
+    });
   }
 
   // componentDidUpdate(prevProps) {
