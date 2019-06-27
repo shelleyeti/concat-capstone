@@ -19,7 +19,7 @@ export const register = (user) => {
       return newUserFromFirebase;
     })
     .catch(function (error) {
-      alert(`Yikes`)
+      alert(`Yikes, you did not register`)
       console.log(error)
     })
 }
@@ -33,9 +33,6 @@ export const login = (email, password) => {
       setUserInLocalStorage(userFromFirebase);
       return userFromFirebase
     })
-    .catch(() => {
-      alert(`No LoG iN`)
-    });
 }
 
 export const getUser = (userId) => {
@@ -67,6 +64,8 @@ export const loginWithFirebase = (email, password) => {
   return firebase.auth().signInWithEmailAndPassword(email, password)
     .then(data => {
       return data.user.uid
+    }).catch(() => {
+      alert(`No LoG iN. TrY AgAiN`)
     })
 }
 
