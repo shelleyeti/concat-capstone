@@ -5,14 +5,15 @@ import TicketContainer from './tickets/activeTickets/ticketContainer';
 import TicketsManager from '../modules/ticketManager';
 import DashContainer from './dashboard/dashContainer'
 import UsersManager from '../modules/userManager';
-import ClassManager from '../modules/classes';
 import CurrentTicketManager from '../modules/currentTicketUsers';
 import SolvedTicketsContainer from './tickets/solvedTickets/solvedContainer';
 import JoinedTicketManager from '../modules/joinedTickets';
 import StepRegisterContainer from './registration/stepRegisterContainer';
 import Login from './dashboard/Login';
 import Home from './dashboard/Home';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/database';
+
 
 class ApplicationViews extends Component {
   state = {

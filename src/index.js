@@ -22,7 +22,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-let database = firebase.database();
 
 ReactDOM.render(
   <Router>

@@ -1,6 +1,6 @@
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/database';
 import 'firebase/auth';
-const remoteURL = "http://localhost:8088"
 
 
 export default {
