@@ -15,7 +15,8 @@ export default class TicketList extends Component {
   state = {
     openModal: false,
     openNotify: false,
-    editTicketItem: {}
+    editTicketItem: {},
+    notifyTicketItem: {}
   };
 
   editTicketState = (editItem) => {
@@ -30,7 +31,7 @@ export default class TicketList extends Component {
     });
   }
 
-  handleNotifyModal = (open) => {
+  handleNotifyModal = (open, ticketNotify) => {
     if (open && localStorage.notifyModalOpenAlready === "true")
       return;
 
@@ -39,7 +40,8 @@ export default class TicketList extends Component {
     }
 
     this.setState({
-      openNotify: open
+      openNotify: open,
+      notifyTicketItem: ticketNotify
     });
   }
 
@@ -50,12 +52,14 @@ export default class TicketList extends Component {
   render() {
     let teacherHadYourTicket = false;
     let numOfTeachHadTicket = 0;
+    let ticketNotify = {};
 
     let openTicket = this.props.allTickets.filter((ticket) => {
       //the logged in user is assigned to a ticket
       let currentUserIsTeacherWithTicket = false;
       let isTicketAssignedToSomeone = false;
       let teacherHadTicket = false;
+
       //iterate over joined table
       this.props.allTeacherTickets.forEach((join) => {
         //both keys in joined table equal
@@ -73,6 +77,7 @@ export default class TicketList extends Component {
       if (ticket.ticketComplete === false && teacherHadTicket && ticket.userId === this.props.activeUser.id) {
         teacherHadYourTicket = true;
         numOfTeachHadTicket++;
+        ticketNotify = ticket;
       }
 
       if (ticket.ticketComplete === false && (!currentUserIsTeacherWithTicket && isTicketAssignedToSomeone === false)) {
@@ -84,7 +89,7 @@ export default class TicketList extends Component {
 
     if (teacherHadYourTicket && this.state.openNotify === false) {
       setTimeout(() => {
-        this.handleNotifyModal(true);
+        this.handleNotifyModal(true, ticketNotify);
         console.log(numOfTeachHadTicket);
       }, 0)
     }
@@ -147,7 +152,7 @@ export default class TicketList extends Component {
         />
         <NotifyModal
           { ...this.props }
-          editTicketItem={ this.state.editTicketItem }
+          notifyTicketItem={ this.state.notifyTicketItem }
           handleNotifyModal={ this.handleNotifyModal }
           openNotify={ this.state.openNotify }
         />
