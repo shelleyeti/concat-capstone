@@ -1,6 +1,7 @@
 src/config.js
-# Created by https://www.gitignore.io/api/node,code,macos,database
-# Edit at https://www.gitignore.io/?templates=node,code,macos,database
+
+# Created by https://www.gitignore.io/api/node,code,macos,database,firebase
+# Edit at https://www.gitignore.io/?templates=node,code,macos,database,firebase
 
 ### Code ###
 .vscode/*
@@ -17,6 +18,15 @@ src/config.js
 *.pdb
 *.sqlite3
 *.json
+
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
 
 ### macOS ###
 # General
@@ -69,6 +79,7 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
+*.lcov
 
 # nyc test coverage
 .nyc_output
@@ -91,6 +102,9 @@ jspm_packages/
 
 # TypeScript v1 declaration files
 typings/
+
+# TypeScript cache
+*.tsbuildinfo
 
 # Optional npm cache directory
 .npm
@@ -132,4 +146,4 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
-# End of https://www.gitignore.io/api/node,code,macos,database
+# End of https://www.gitignore.io/api/node,code,macos,database,firebase
