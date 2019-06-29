@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button, Container } from 'semantic-ui-react';
 import UserProfile from './userProfile';
 import UserImage from './userImage';
 import * as firebase from 'firebase/app';
@@ -117,7 +117,8 @@ export default class TeacherContainer extends Component {
 
   render() {
     return (
-      <div className="profile-container">
+
+      <Container className="profile-container">
         <h1>Welcome back { this.props.activeUser.name }</h1>
         <div className="image-section">
           <UserImage { ...this.props }
@@ -131,7 +132,7 @@ export default class TeacherContainer extends Component {
           />
           { this.state.editMode ? <Button className="trolley" onClick={ this.handleSaveState }>Save</Button> : <Button className="trolley" onClick={ this.handleEditState }>Edit</Button> }
         </div>
-      </div>
+      </Container>
     );
   }
 }

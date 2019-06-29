@@ -20,7 +20,7 @@ class MenuNav extends Component {
     if (this.props.activeUser !== null && this.props.activeUser.student === false) {
       const { activeItem } = this.state
       return (
-        <Menu secondary attached stackable>
+        <Menu secondary stackable>
           <Menu.Item>
             <Link to='/dashboard'>Profile</Link>
           </Menu.Item>
@@ -57,7 +57,7 @@ class MenuNav extends Component {
     } else if (this.props.activeUser !== null && this.props.activeUser.student) {
       const { activeItem } = this.state
       return (
-        <Menu secondary attached stackable>
+        <Menu secondary stackable>
           <Menu.Item>
             <Link to='/dashboard'>Profile</Link>
           </Menu.Item>
