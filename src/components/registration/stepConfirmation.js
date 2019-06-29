@@ -61,7 +61,7 @@ export default class StepConfirmation extends Component {
 
       <Container className="auth-container ui grid container">
         <Grid.Row centered>
-          <Grid.Column className="six wide">
+          <Grid.Column className="six wide" largeScreen={ 6 } computer={ 6 } tablet={ 10 } mobile={ 16 }>
             <Segment>
               <Header as="h1" textAlign="center">
                 Confirm your Details
