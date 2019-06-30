@@ -15,6 +15,14 @@ class MenuNav extends Component {
     this.props.history.push('/login');
   }
 
+  handleSearch(input) {
+    if (input.keyCode === 13) {
+      console.log("HANDLE SEARCH - INPUT TARGET VALUE:", input.target.value);
+      this.props.getSearchResults(input.target.value);
+      // this.props.history.push("/search");
+    }
+  }
+
   handleNavView = () => {
     //teacher site
     if (this.props.activeUser !== null && this.props.activeUser.student === false) {
@@ -79,7 +87,9 @@ class MenuNav extends Component {
             <Menu.Item>
               <Input
                 icon='search'
-                placeholder='Search...' />
+                placeholder='Search...'
+                onKeyUp={ e => this.handleSearch(e) }
+              />
             </Menu.Item>
             <Menu.Item
               name='logout'
@@ -93,7 +103,7 @@ class MenuNav extends Component {
     }
   }
 
-  isAuthenticated = () => localStorage.getItem("user") !== null;
+  isAuthenticated = () => { return sessionStorage.getItem("user") !== null }
 
   render() {
 

@@ -47,14 +47,29 @@ export default class StepConfirmation extends Component {
             classId: classId,
             student: student
           }).then(newUser => {
+            if (newUser === null || newUser === undefined)
+              return false;
+
             this.props.onRegister(newUser);
-          });
-        }).then(() => {
-          setTimeout(() => {
-            document.querySelector(".registerFormSuccess").style.display = "block";
-          }, 200)
+
+            return true;
+          }).then((shouldRedirect) => {
+            if (!shouldRedirect)
+              return false;
+
+            setTimeout(() => {
+              document.querySelector(".registerFormSuccess").style.display = "block";
+            }, 200)
+
+            return true;
+          })
+            .then((shouldRedirect) => {
+              if (!shouldRedirect)
+                return false;
+              setTimeout(() => { this.props.history.push("/dashboard") }, 2000)
+
+            })
         })
-        .then(() => { setTimeout(() => { this.props.history.push("/dashboard") }, 2000) })
     }
 
     return (

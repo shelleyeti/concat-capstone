@@ -1,60 +1,14 @@
 import React, { Component } from 'react';
-import TicketItem from './ticketItem';
-import EditTicket from './editTicketModal';
-import NotifyModal from './notifyTicketModal'
-import '../../tickets/tickets.css';
+import { Container } from 'semantic-ui-react';
+import TicketItem from '../tickets/activeTickets/ticketItem';
 
-
-class OpenTicketHeader extends Component {
-  render() {
-    return <h1>Open Tickets</h1>;
-  }
-}
-
-export default class TicketList extends Component {
-  state = {
-    openModal: false,
-    openNotify: false,
-    editTicketItem: {},
-    notifyTicketItem: {}
-  };
-
-  editTicketState = (editItem) => {
-    this.setState({
-      editTicketItem: editItem
-    })
-  }
-
-  handleOpenCloseModal = (open) => {
-    this.setState({
-      openModal: open
-    });
-  }
-
-  handleNotifyModal = (open, ticketNotify) => {
-    if (open && sessionStorage.notifyModalOpenAlready === "true")
-      return;
-
-    if (open) {
-      sessionStorage.setItem("notifyModalOpenAlready", true);
-    }
-
-    this.setState({
-      openNotify: open,
-      notifyTicketItem: ticketNotify
-    });
-  }
-
-  componentWillMount() {
-    sessionStorage.setItem("notifyModalOpenAlready", false);
-  }
-
+export default class SearchResults extends Component {
   render() {
     let teacherHadYourTicket = false;
     let numOfTeachHadTicket = 0;
     let ticketNotify = {};
 
-    let openTicket = this.props.allTickets.filter((ticket) => {
+    let openTicket = this.props.searchResults.filter((ticket) => {
       //the logged in user is assigned to a ticket
       let currentUserIsTeacherWithTicket = false;
       let isTicketAssignedToSomeone = false;
@@ -80,19 +34,19 @@ export default class TicketList extends Component {
         ticketNotify = ticket;
       }
 
-      if (ticket.ticketComplete === false && (!currentUserIsTeacherWithTicket && isTicketAssignedToSomeone === false)) {
-        return ticket;
-      }
+      //if (ticket.ticketComplete === false && (!currentUserIsTeacherWithTicket && isTicketAssignedToSomeone //=== false)) {
+      return ticket;
+      // }
       //resolves react warning regarding return after arrow function
-      return null;
+      // return null;
     });
 
-    if (teacherHadYourTicket && this.state.openNotify === false) {
+    /*if (teacherHadYourTicket && this.state.openNotify === false) {
       setTimeout(() => {
         this.handleNotifyModal(true, ticketNotify);
         console.log(numOfTeachHadTicket);
       }, 0)
-    }
+    }*/
 
     let classTickets = openTicket.map((item, index) => {
       let hasMultipleJoins = false;
@@ -130,9 +84,9 @@ export default class TicketList extends Component {
           item={ item }
           index={ index }
           image={ images }
-          editTicketState={ this.editTicketState }
-          handleOpenModal={ this.handleOpenCloseModal }
-          handleNotifyModal={ this.handleNotifyModal }
+          //editTicketState={ this.editTicketState }
+          //handleOpenModal={ this.handleOpenCloseModal }
+          //handleNotifyModal={ this.handleNotifyModal }
           hasMultipleJoins={ hasMultipleJoins }
           showRemoveJoin={ showRemoveJoin }
           joinedTicketId={ joinedTicketId }
@@ -141,22 +95,10 @@ export default class TicketList extends Component {
     });
 
     return (
-      <div className="new-ticket-container">
-        <OpenTicketHeader />
+      <Container className="searchResults">
+        <h1>Search Results</h1>
         <span> { classTickets } </span>
-        <EditTicket
-          { ...this.props }
-          editTicketItem={ this.state.editTicketItem }
-          handleOpenCloseModal={ this.handleOpenCloseModal }
-          openModal={ this.state.openModal }
-        />
-        <NotifyModal
-          { ...this.props }
-          notifyTicketItem={ this.state.notifyTicketItem }
-          handleNotifyModal={ this.handleNotifyModal }
-          openNotify={ this.state.openNotify }
-        />
-      </div>
+      </Container>
     );
   }
 }
