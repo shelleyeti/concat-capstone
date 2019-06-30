@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, Menu, Sticky, Dropdown } from 'semantic-ui-react';
+import { Input, Menu, Sticky, Dropdown, Item } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import './navbar.css';
@@ -39,7 +39,7 @@ class MenuNav extends Component {
             </Dropdown.Menu>
           </Dropdown>
           <Menu.Item>
-            <Link to='/teacher/office-hours'>Office Hours</Link>
+            <Item>Office Hours</Item>
           </Menu.Item>
           <Menu.Menu position='right'>
             <Menu.Item>
