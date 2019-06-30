@@ -313,3 +313,20 @@ code {
   color: #FFFFFF;
   text-shadow: none;
 }
+
+/*--------------
+     Avatar
+---------------*/
+
+.ui.avatar.images .image,
+.ui.avatar.images img,
+.ui.avatar.images svg,
+.ui.avatar.image img,
+.ui.avatar.image svg,
+.ui.avatar.image {
+  margin-right: 0.25em;
+  display: inline-block;
+  width: 5em !important;
+  height: 5em !important;
+  border-radius: 500rem;
+}
