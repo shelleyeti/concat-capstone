@@ -1,5 +1,6 @@
 .search-result-item {
-  margin-right: .5em !important; 
+  margin-right: .5em !important;
+  height: 275px !important;
 }
 
 .search-result-spacer{

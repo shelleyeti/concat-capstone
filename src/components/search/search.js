@@ -47,7 +47,7 @@ export default class SearchResults extends Component {
     return (
       <Container className="searchResults">
         <h1>Search Results</h1>
-        <Container className="ui four cards search-results"> { classTickets } </Container>
+        <Container className="ui three cards search-results"> { classTickets } </Container>
       </Container>
     );
   }

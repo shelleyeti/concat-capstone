@@ -13,7 +13,8 @@ export default class UserProfile extends Component {
     image: "",
     blurb: "",
     available: "",
-    student: ""
+    student: "",
+    classId: ""
   }
 
   displayConditions = () => {
