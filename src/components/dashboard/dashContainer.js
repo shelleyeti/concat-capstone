@@ -42,7 +42,8 @@ export default class TeacherContainer extends Component {
             password: null,
             image: url,
             available: this.props.activeUser.available,
-            student: this.props.activeUser.student
+            student: this.props.activeUser.student,
+            classId: this.props.activeUser.classId
           })
         })
     }
@@ -102,7 +103,8 @@ export default class TeacherContainer extends Component {
       password: null,
       image: this.props.activeUser.image,
       available: this.props.activeUser.available,
-      student: this.props.activeUser.student
+      student: this.props.activeUser.student,
+      classId: this.props.activeUser.classId
     })
     if (password !== "" && newPassword !== "" && password !== newPassword)
       this.changePassword(password, newPassword)
