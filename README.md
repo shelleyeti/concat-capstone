@@ -41,14 +41,10 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ## Dependencies Used
 1. Firebase
 1. React
-1. React-DOM
 1. React-Router-DOM
-1. React-Scripts
 1. Semantic-UI
-1. Semantic-UI-React
 1. Moment.js
-1. React-Moment
 
-![ERD](concat-ERD.png?raw=true "Title")
+![ERD](ERD.png?raw=true "Title")
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
