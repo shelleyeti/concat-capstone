@@ -14,7 +14,7 @@ export default class UserProfile extends Component {
     blurb: "",
     available: "",
     student: "",
-    classId: ""
+    classId: this.props.activeUser.classId
   }
 
   displayConditions = () => {
