@@ -14,7 +14,7 @@ Students may also join existing tickets, allowing a single teacher to assist mul
   * Click the </> icon under "Get started by adding Firebase to your app"
   * Name you app to get access to you Firebase SDK
   * Navigate to the config.TEMPLATE.js and input your information
-1. Run ```npm install``` to git all the node dependencies
+3. Run ```npm install``` to git all the node dependencies
 
 ## Available Scripts
 
