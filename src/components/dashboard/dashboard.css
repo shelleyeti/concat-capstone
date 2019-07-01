@@ -10,6 +10,7 @@
   height: 125px;
   border-radius: 50%;
   border-radius: 50%;
+  margin-top: 2em;
 }
 
 .input-fields-section {
@@ -20,4 +21,8 @@
 
 .card-dash {
   height: 200px;
+}
+
+.input-fields {
+  margin-top: 4em;
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, Menu, Sticky, Dropdown } from 'semantic-ui-react';
+import { Input, Menu, Sticky, Dropdown, Item } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import './navbar.css';
@@ -13,6 +13,14 @@ class MenuNav extends Component {
     this.props.onLogout();
     this.props.clearActiveUser(null);
     this.props.history.push('/login');
+  }
+
+  handleSearch(input) {
+    if (input.keyCode === 13) {
+      console.log("HANDLE SEARCH - INPUT TARGET VALUE:", input.target.value);
+      this.props.getSearchResults(input.target.value);
+      // this.props.history.push("/search");
+    }
   }
 
   handleNavView = () => {
@@ -39,7 +47,7 @@ class MenuNav extends Component {
             </Dropdown.Menu>
           </Dropdown>
           <Menu.Item>
-            <Link to='/teacher/office-hours'>Office Hours</Link>
+            <Item>Office Hours</Item>
           </Menu.Item>
           <Menu.Menu position='right'>
             <Menu.Item>
@@ -79,7 +87,9 @@ class MenuNav extends Component {
             <Menu.Item>
               <Input
                 icon='search'
-                placeholder='Search...' />
+                placeholder='Search...'
+                onKeyUp={ e => this.handleSearch(e) }
+              />
             </Menu.Item>
             <Menu.Item
               name='logout'
@@ -93,7 +103,7 @@ class MenuNav extends Component {
     }
   }
 
-  isAuthenticated = () => localStorage.getItem("user") !== null;
+  isAuthenticated = () => { return sessionStorage.getItem("user") !== null }
 
   render() {
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Icon, Image, Item } from 'semantic-ui-react';
+import { Modal, Button, Icon, Image } from 'semantic-ui-react';
 
 export default class NotifyModal extends Component {
   state = {
@@ -29,7 +29,7 @@ export default class NotifyModal extends Component {
           <Icon name="close" onClick={ this.onCloseModal } />
           <Modal.Header>You're Up!</Modal.Header>
           <Modal.Content>
-            <Image circular className="ui small image ticket-edit-image" src={ teacher.image } />
+            <Image className="ui avatar image ticket-edit-image" src={ teacher.image } />
             <p>Please see { teacher.name } for help with { this.props.notifyTicketItem !== null && this.props.notifyTicketItem !== undefined ? this.props.notifyTicketItem.ticketTitle : "" }</p>
           </Modal.Content>
           <Modal.Actions>

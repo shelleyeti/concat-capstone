@@ -2,20 +2,26 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import saveUserToFirebase from '../../modules/userManager'
 
-const setUserInLocalStorage = (user) => {
-  localStorage.setItem('user', JSON.stringify(user));
+const setUserInSessionStorage = (user) => {
+  sessionStorage.setItem('user', JSON.stringify(user));
 }
 
 //username email and password
 export const register = (user) => {
   return registerWithFirebase(user.email, user.password)
     .then(firebaseId => {
+      if (firebaseId === null || firebaseId === undefined)
+        return null;
+
       user.password = null;
       user.id = firebaseId;
       return saveUserToFirebase.saveUser(user)
     })
     .then(newUserFromFirebase => {
-      setUserInLocalStorage(newUserFromFirebase);
+      if (newUserFromFirebase === null || newUserFromFirebase === undefined)
+        return null;
+
+      setUserInSessionStorage(newUserFromFirebase);
       return newUserFromFirebase;
     })
     .catch(function (error) {
@@ -30,7 +36,7 @@ export const login = (email, password) => {
       return getUser(firebaseId)
     })
     .then(userFromFirebase => {
-      setUserInLocalStorage(userFromFirebase);
+      setUserInSessionStorage(userFromFirebase);
       return userFromFirebase
     })
 }
@@ -41,8 +47,8 @@ export const getUser = (userId) => {
   });
 }
 
-export const getUserFromLocalStorage = () => {
-  const user = localStorage.getItem('user');
+export const getUserFromSessionStorage = () => {
+  const user = sessionStorage.getItem('user');
 
   if (!user) return null;
 
@@ -50,13 +56,19 @@ export const getUserFromLocalStorage = () => {
 }
 
 export const logout = () => {
-  localStorage.removeItem('user');
+  sessionStorage.removeItem('user');
 }
 
 export const registerWithFirebase = (email, password) => {
   return firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(data => {
       return data.user.uid
+    }).catch((error) => {
+      if (typeof (error) === "object" && error.hasOwnProperty("message")) {
+        alert(error.message);
+      } else {
+        alert(`Burn your computer and try again`)
+      }
     })
 }
 

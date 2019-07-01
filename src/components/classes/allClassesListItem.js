@@ -7,10 +7,10 @@ export default class AllClassesList extends Component {
     let images;
     if (typeof (this.props.image) === "object") {
       images = this.props.image.map((image, index) => {
-        return (<div className="user-image-inline" key={ index }><Image className="circular tiny" key={ index } src={ image } /></div>)
+        return (<div className="user-image-inline" key={ index }><Image className="avatar" key={ index } src={ image } /></div>)
       });
     } else {
-      images = <Image className="circular tiny" src={ this.props.image } />
+      images = <Image className="avatar" src={ this.props.image } />
     }
 
     return images;

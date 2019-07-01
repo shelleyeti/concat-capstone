@@ -11,6 +11,7 @@ import JoinedTicketManager from '../modules/joinedTickets';
 import StepRegisterContainer from './registration/stepRegisterContainer';
 import Login from './dashboard/Login';
 import Home from './dashboard/Home';
+import SearchResults from './search/search';
 import firebase from 'firebase/app';
 import 'firebase/database';
 
@@ -186,7 +187,7 @@ class ApplicationViews extends Component {
 
     let currentTicketUsersRef = database.ref('currentTicketUsers/');
     currentTicketUsersRef.on('value', (currentTicketUsers) => {
-      localStorage.setItem("notifyModalOpenAlready", false);
+      sessionStorage.setItem("notifyModalOpenAlready", false);
 
       let currentTicketUsersArr = [];
       let allCurrentTicketUsers = currentTicketUsers.val();
@@ -305,6 +306,22 @@ class ApplicationViews extends Component {
                   class={ this.state.classes }
                   allUsers={ this.state.users }
                   reverseTickets={ this.state.reverseTickets }
+                  allTeacherTickets={ this.state.currentTicketUsers }
+                />
+              } else {
+                return <Redirect to="/login" />
+              }
+            } }
+            />
+            <Route exact path="/search" render={ props => {
+              if (this.props.activeUser) {
+                return <SearchResults
+                  { ...props }
+                  { ...this.props }
+                  allUsers={ this.state.users }
+                  allTickets={ this.state.tickets }
+                  joinedTickets={ this.state.joinedTickets }
+                  searchResults={ this.props.searchResults }
                   allTeacherTickets={ this.state.currentTicketUsers }
                 />
               } else {

@@ -32,11 +32,11 @@ export default class TicketList extends Component {
   }
 
   handleNotifyModal = (open, ticketNotify) => {
-    if (open && localStorage.notifyModalOpenAlready === "true")
+    if (open && sessionStorage.notifyModalOpenAlready === "true")
       return;
 
     if (open) {
-      localStorage.setItem("notifyModalOpenAlready", true);
+      sessionStorage.setItem("notifyModalOpenAlready", true);
     }
 
     this.setState({
@@ -46,7 +46,7 @@ export default class TicketList extends Component {
   }
 
   componentWillMount() {
-    localStorage.setItem("notifyModalOpenAlready", false);
+    sessionStorage.setItem("notifyModalOpenAlready", false);
   }
 
   render() {
