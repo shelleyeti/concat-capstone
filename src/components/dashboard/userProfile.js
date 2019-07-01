@@ -24,27 +24,27 @@ export default class UserProfile extends Component {
           <Container className="input-fields">
             <span>
               <label>Name: </label>
-              <Input type="text" id="name" defaultValue={ this.props.activeUser.name } />
+              <Input mini type="text" id="name" defaultValue={ this.props.activeUser.name } />
             </span>
             <span>
               <label>Userame: </label>
-              <Input type="text" id="username" defaultValue={ this.props.activeUser.username } />
+              <Input mini type="text" id="username" defaultValue={ this.props.activeUser.username } />
             </span>
             <span>
               <label>Blurb: </label>
-              <Input type="text" id="blurb" defaultValue={ this.props.activeUser.blurb } />
+              <Input mini type="text" id="blurb" defaultValue={ this.props.activeUser.blurb } />
             </span>
             <span>
               <label>Email: </label>
-              <Input type="text" id="email" defaultValue={ this.props.activeUser.email } />
+              <Input mini type="text" id="email" defaultValue={ this.props.activeUser.email } />
             </span>
             <span>
               <label>Current Password: </label>
-              <Input type="password" id="password" />
+              <Input mini type="password" id="password" />
             </span>
             <span>
               <label>New Password: </label>
-              <Input type="password" id="newPassword" />
+              <Input mini type="password" id="newPassword" />
             </span>
           </Container>
         </Card>
