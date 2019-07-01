@@ -25,37 +25,37 @@ export default class UserProfile extends Component {
             <div>
               <span>
                 <label>Name: </label>
-                <Input mini type="text" id="name" defaultValue={ this.props.activeUser.name } />
+                <Input type="text" id="name" defaultValue={ this.props.activeUser.name } />
               </span>
             </div>
             <div>
               <span>
                 <label>Userame: </label>
-                <Input mini type="text" id="username" defaultValue={ this.props.activeUser.username } />
+                <Input type="text" id="username" defaultValue={ this.props.activeUser.username } />
               </span>
             </div>
             <div>
               <span>
                 <label>Blurb: </label>
-                <Input mini type="text" id="blurb" defaultValue={ this.props.activeUser.blurb } />
+                <Input type="text" id="blurb" defaultValue={ this.props.activeUser.blurb } />
               </span>
             </div>
             <div>
               <span>
                 <label>Email: </label>
-                <Input mini type="text" id="email" defaultValue={ this.props.activeUser.email } />
+                <Input type="text" id="email" defaultValue={ this.props.activeUser.email } />
               </span>
             </div>
             <div>
               <span>
                 <label>Current Password: </label>
-                <Input mini type="password" id="password" />
+                <Input type="password" id="password" />
               </span>
             </div>
             <div>
               <span>
                 <label>New Password: </label>
-                <Input mini type="password" id="newPassword" />
+                <Input type="password" id="newPassword" />
               </span>
             </div>
           </div>
